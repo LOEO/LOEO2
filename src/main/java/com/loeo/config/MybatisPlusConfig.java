@@ -1,11 +1,12 @@
 package com.loeo.config;
 
+import com.baomidou.mybatisplus.enums.DBType;
+import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.baomidou.mybatisplus.enums.DBType;
-import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
+import javax.sql.DataSource;
 
 /**
  * 功能：
@@ -16,14 +17,14 @@ import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
  * @company：创海科技 Created with IntelliJ IDEA
  */
 @Configuration
-@MapperScan("com.loeo.dao")
+@MapperScan("com.loeo.mapper")
 public class MybatisPlusConfig {
 	/**
 	 * mybatis-plus分页插件<br>
 	 * 文档：http://mp.baomidou.com<br>
 	 */
 	@Bean
-	public PaginationInterceptor paginationInterceptor() {
+	public PaginationInterceptor paginationInterceptor(DataSource dataSource) {
 		PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
 		paginationInterceptor.setDialectType(DBType.MYSQL.getDb());
 		//paginationInterceptor.setOptimizeType(Optimize.JSQLPARSER.getOptimize());

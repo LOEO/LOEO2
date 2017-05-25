@@ -1,4 +1,4 @@
-package com.loeo.dao;
+package com.loeo.mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.loeo.entity.Test;

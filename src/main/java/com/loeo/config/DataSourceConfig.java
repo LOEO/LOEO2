@@ -1,12 +1,12 @@
 package com.loeo.config;
 
-import javax.activation.DataSource;
 
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import com.alibaba.druid.pool.DruidDataSource;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.alibaba.druid.pool.DruidDataSource;
+import javax.sql.DataSource;
 
 /**
  * 功能：
@@ -18,14 +18,10 @@ import com.alibaba.druid.pool.DruidDataSource;
  */
 @Configuration
 public class DataSourceConfig {
-	private DataSourceProperties dataSourceProperties;
 
 	@Bean
+	@ConfigurationProperties("app.datasource")
 	public DataSource dataSource() {
-		DruidDataSource druidDataSource = new DruidDataSource();
-		druidDataSource.setUrl(dataSourceProperties.getUrl());
-		druidDataSource.setUsername(dataSourceProperties.getUsername());
-		druidDataSource.setPassword(dataSourceProperties.getPassword());
-		return druidDataSource;
+		return new DruidDataSource();
 	}
 }
