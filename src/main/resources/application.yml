@@ -3,11 +3,11 @@ server:
   port: 8888
 debug: false
 
-
+---
 #mybatis
 mybatis-plus:
   mapper-locations: classpath:/mapper/*Mapper.xml
-  typeAliasesPackage: com.baomidou.springboot.entity
+  typeAliasesPackage: com.loeo.entity
   global-config:
     id-type: 2
     field-strategy: 2
@@ -17,7 +17,7 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: false
-
+---
 #logging
 logging:
   level: warn
@@ -26,3 +26,4 @@ spring:
     url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
     username: root
     password: 7731481
+---
