@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.loeo.mapper.SysMenuMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.loeo.entity.SysMenu">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="iconCls" property="iconCls"/>
+		<result column="link" property="link"/>
+		<result column="pid" property="pid"/>
+		<result column="isLeaf" property="isLeaf"/>
+		<result column="orde" property="orde"/>
+		<result column="createDt" property="createDt"/>
+		<result column="createUser" property="createUser"/>
+		<result column="updateDt" property="updateDt"/>
+		<result column="updateUser" property="updateUser"/>
+		<result column="enable" property="enable"/>
+	</resultMap>
+
+</mapper>
