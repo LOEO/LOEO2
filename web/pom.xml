@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.loeo</groupId>
-	<artifactId>loeo</artifactId>
+	<artifactId>loeo-web</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>loeo</name>
-	<description>loeo</description>
+	<name>loeo-web</name>
+	<description>loeo-web</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
