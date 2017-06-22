@@ -1,0 +1,38 @@
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+	<!--用来定义变量值，它有两个属性name和value，通过<property>定义的值会被插入到logger上下文中，可以使“${}”来使用变量。-->
+	<property name="APP_NAME" value="LOEO2"/>
+	<!--获取时间戳字符串，他有两个属性key和datePattern
+		key: 标识此<timestamp> 的名字；
+　　　　datePattern: 设置将当前时间（解析配置文件的时间）转换为字符串的模式，遵循java.txt.SimpleDateFormat的格式。
+	-->
+	<timestamp key="datetime" datePattern="yyyy-MM-dd HH:mm:ss"/>
+	<!--用来设置上下文名称，每个logger都关联到logger上下文，默认上下文名称为default。
+	但可以使用<contextName>设置成其他名字，用于区分不同应用程序的记录。一旦设置，不能修改-->
+	<contextName>${APP_NAME}</contextName>
+
+	<!--负责写日志的组件，它有两个必要属性name和class。name指定appender名称，class指定appender的全限定名-->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>11111%-4relative [%thread] %-5level %logger{35} - %msg %n</pattern>
+		</encoder>
+	</appender>
+	<!--
+	FileAppender:把日志添加到文件，有以下子节点：
+　　<file>：被写入的文件名，可以是相对目录，也可以是绝对目录，如果上级目录不存在会自动创建，没有默认值。
+　　<append>：如果是 true，日志被追加到文件结尾，如果是 false，清空现存文件，默认是true。
+　　<encoder>：对记录事件进行格式化。（具体参数稍后讲解 ）
+　　<prudent>：如果是 true，日志会被安全的写入文件，即使其他的FileAppender也在向此文件做写入操作，效率低，默认是 false。
+	-->
+	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+		<file>testFile.log</file>
+		<append>true</append>
+		<encoder>
+			<pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+		</encoder>
+	</appender>
+	<root level="ERROR">
+		<appender-ref ref="STDOUT"/>
+	</root>
+	<logger name="com.loeo.*" level="ERROR">
+	</logger>
+</configuration>
