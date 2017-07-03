@@ -3,12 +3,12 @@ package com.loeo.shiro;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.authc.credential.CredentialsMatcher;
+import org.apache.shiro.authc.credential.SimpleCredentialsMatcher;
 
 /**
  * Created by LOEO on 2017/06/14 0:10
  */
-public class LoeoCredentialsMatcher implements CredentialsMatcher {
+public class LoeoCredentialsMatcher extends SimpleCredentialsMatcher {
     @Override
     public boolean doCredentialsMatch(AuthenticationToken token, AuthenticationInfo info) {
         UsernamePasswordToken utoken = (UsernamePasswordToken) token;
@@ -17,6 +17,6 @@ public class LoeoCredentialsMatcher implements CredentialsMatcher {
         //获得数据库中的密码
         String dbPassword = (String) info.getCredentials();
         //进行密码的比对
-        return inPassword.equals(dbPassword);
+        return equals(inPassword,dbPassword);
     }
 }

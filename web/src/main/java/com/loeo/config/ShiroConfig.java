@@ -3,6 +3,7 @@ package com.loeo.config;
 import com.loeo.shiro.LoeoCredentialsMatcher;
 import com.loeo.shiro.LoeoRealm;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
+import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -20,9 +21,9 @@ import java.util.LinkedHashMap;
 @Configuration
 public class ShiroConfig {
     @Bean
-    @ConfigurationProperties("app.shiro")
-    public Realm realm() {
-        Realm realm = new LoeoRealm();
+    public Realm realm(CredentialsMatcher credentialsMatcher) {
+        AuthorizingRealm realm = new LoeoRealm();
+        realm.setCredentialsMatcher(credentialsMatcher);
         return realm;
     }
 
@@ -37,13 +38,9 @@ public class ShiroConfig {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         shiroFilterFactoryBean.setLoginUrl("/login");
-        shiroFilterFactoryBean.setSuccessUrl("/index");
         //配置访问权限
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-        filterChainDefinitionMap.put("/login*", "anon"); //表示可以匿名访问
-        filterChainDefinitionMap.put("/index*", "anon");
         filterChainDefinitionMap.put("/logout*", "anon");
-        filterChainDefinitionMap.put("/jsp/index.jsp*", "authc");
         filterChainDefinitionMap.put("/*", "authc");//表示需要认证才可以访问
         filterChainDefinitionMap.put("/**", "authc");//表示需要认证才可以访问
         filterChainDefinitionMap.put("/*.*", "authc");
@@ -53,6 +50,7 @@ public class ShiroConfig {
 
     @Bean
     public org.apache.shiro.mgt.SecurityManager securityManager(Realm realm) {
+
         return new DefaultWebSecurityManager(realm);
     }
 

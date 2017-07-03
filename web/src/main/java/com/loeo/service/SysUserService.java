@@ -12,5 +12,5 @@ import com.loeo.entity.SysUser;
  * @since 2017-05-25
  */
 public interface SysUserService extends IService<SysUser> {
-
+    SysUser findByUserName(String username);
 }
