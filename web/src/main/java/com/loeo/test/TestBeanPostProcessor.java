@@ -14,19 +14,19 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
  * @company：创海科技 Created with IntelliJ IDEA
  */
 public class TestBeanPostProcessor implements BeanPostProcessor {
-	private static final Logger logger = LoggerFactory.getLogger(TestBeanPostProcessor.class);
+    private static final Logger logger = LoggerFactory.getLogger(TestBeanPostProcessor.class);
 
-	@Override
-	public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-		logger.info(beanName + ":开始初始化");
-		return bean;
-	}
+    @Override
+    public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+        logger.info(beanName + ":开始初始化");
+        return bean;
+    }
 
-	@Override
-	public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-		if (logger.isInfoEnabled()) {
-			logger.info(beanName + ":完成初始化");
-		}
-		return bean;
-	}
+    @Override
+    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+        if (logger.isInfoEnabled()) {
+            logger.info(beanName + ":完成初始化");
+        }
+        return bean;
+    }
 }

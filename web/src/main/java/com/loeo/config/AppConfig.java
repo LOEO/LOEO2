@@ -1,9 +1,8 @@
 package com.loeo.config;
 
+import com.loeo.test.TestBeanPostProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import com.loeo.test.TestBeanPostProcessor;
 
 /**
  * 功能：
@@ -16,8 +15,8 @@ import com.loeo.test.TestBeanPostProcessor;
 
 @Configuration
 public class AppConfig {
-	@Bean
-	public TestBeanPostProcessor testBeanPostProcessor() {
-		return new TestBeanPostProcessor();
-	}
+    @Bean
+    public TestBeanPostProcessor testBeanPostProcessor() {
+        return new TestBeanPostProcessor();
+    }
 }
