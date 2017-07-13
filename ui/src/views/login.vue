@@ -7,7 +7,8 @@
     </form>
 </template>
 <script>
-    import api from '../libs/api.js';
+    import sys from '../api/sys.js';
+    import conf from '../config/config.js';
     export default {
         data(){
             return {
@@ -18,8 +19,8 @@
         methods: {
             click: function () {
                 console.log(this.username + ":" + this.password);
-                api.login(this.username, this.password, function (response) {
-                    alert(JSON.stringify(response));
+                sys.login(this.username, this.password, function (data) {
+                    window.location = `${conf.baseUrl}/index`
                 }, function (error) {
                     alert(error)
                 });

@@ -1,10 +1,11 @@
 const routers = [{
-    path: '/',
+    path: '/index',
     meta: {
         title: '111'
     },
     component: (resolve) => require(['./views/index.vue'], resolve)
-},{
+},
+{
     path: '/app',
     meta: {
         title: '111'

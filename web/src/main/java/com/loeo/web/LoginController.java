@@ -4,6 +4,7 @@ import org.apache.shiro.authc.*;
 import org.apache.shiro.util.ThreadContext;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -19,7 +20,9 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String doLogin(@RequestBody Map<String, String> params, @RequestHeader("X-Custom-Header") String header) {
+    public String doLogin(@RequestBody Map<String, String> params,
+                          @RequestHeader("X-Custom-Header") String header,
+                          HttpServletRequest request) {
         try {
             System.out.println(header);
             String username = params.get("username");

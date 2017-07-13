@@ -1,7 +1,16 @@
 package com.loeo.web;
 
-import org.springframework.stereotype.Controller;
+import com.loeo.common.Result;
+import com.loeo.entity.SysUser;
+import com.loeo.service.SysUserService;
+import com.loeo.shiro.ShiroContextUtils;
+import com.loeo.utils.DateUtils;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * <p>
@@ -11,8 +20,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author LT
  * @since 2017-05-25
  */
-@Controller
-@RequestMapping("/test/tSysUser")
+@RestController
+@RequestMapping("/api/user")
 public class SysUserController {
+    @Resource
+    private SysUserService sysUserService;
 
+    @PostMapping
+    public Result add(@RequestBody SysUser sysUser) {
+        sysUser.setCreateDt(DateUtils.now());
+        sysUser.setCreateUser(ShiroContextUtils.getCurUserId());
+        sysUserService.insert(sysUser);
+        return Result.buildSuccess(sysUser);
+    }
 }

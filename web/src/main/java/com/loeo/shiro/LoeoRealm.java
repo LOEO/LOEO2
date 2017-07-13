@@ -37,7 +37,7 @@ public class LoeoRealm extends AuthorizingRealm {
         }
         //认证用户名密码
         SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(
-                "lt",//用户名
+                sysUser,//用户
                 sysUser.getPassword(),//密码
                 getName()//realName
         );
