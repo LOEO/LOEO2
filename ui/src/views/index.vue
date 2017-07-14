@@ -98,6 +98,12 @@
     </div>
 </template>
 <script>
+    import sys from '../api/sys';
+    sys.getCurUserInfo(function (data) {
+        alert(JSON.stringify(data));
+    }, function (msg) {
+        alert(msg);
+    });
     export default {
         data () {
             return {

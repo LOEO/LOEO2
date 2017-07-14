@@ -20,7 +20,12 @@
             click: function () {
                 console.log(this.username + ":" + this.password);
                 sys.login(this.username, this.password, function (data) {
-                    window.location = `${conf.baseUrl}/index`
+                    sys.getCurUserInfo(function (data) {
+                        alert(JSON.stringify(data));
+                    }, function (msg) {
+                        alert(msg);
+                    });
+                    //window.location = `${conf.baseUrl}/index`
                 }, function (error) {
                     alert(error)
                 });

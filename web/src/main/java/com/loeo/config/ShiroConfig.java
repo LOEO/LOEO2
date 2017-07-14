@@ -40,9 +40,9 @@ public class ShiroConfig {
         //配置访问权限
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         filterChainDefinitionMap.put("/logout*", "anon");
-        filterChainDefinitionMap.put("/*", "authc");//表示需要认证才可以访问
-        filterChainDefinitionMap.put("/**", "authc");//表示需要认证才可以访问
-        filterChainDefinitionMap.put("/*.*", "authc");
+        filterChainDefinitionMap.put("/*", "user");//表示需要认证才可以访问
+        filterChainDefinitionMap.put("/**", "user");//表示需要认证才可以访问
+        filterChainDefinitionMap.put("/*.*", "user");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }
