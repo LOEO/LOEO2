@@ -14,16 +14,16 @@ public class Result implements Serializable {
 
     }
 
-    public static Result buildSuccess() {
-        return new ResultBuilder().setSuccess(true).build();
+	public static Result success() {
+		return new ResultBuilder().setSuccess(true).build();
     }
 
-    public static Result buildSuccess(Object data) {
-        return new ResultBuilder().setSuccess(true).setData(data).build();
+	public static Result success(Object data) {
+		return new ResultBuilder().setSuccess(true).setData(data).build();
     }
 
-    public static Result buildFailed(String msg) {
-        return new ResultBuilder().setSuccess(false).setMsg(msg).build();
+	public static Result failed(String msg) {
+		return new ResultBuilder().setSuccess(false).setMsg(msg).build();
     }
 
     public Boolean getSuccess() {

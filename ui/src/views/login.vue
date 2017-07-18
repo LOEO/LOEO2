@@ -1,7 +1,7 @@
 <template>
     <form v-on:submit.prevent>
         <input type="text" name="username" v-model="username" placeholder="用户名">
-        </br>
+		<br>
         <input type="password" name="password" v-model="password" placeholder="密码">
         <input type="submit" value="登陆" @click="click">
     </form>

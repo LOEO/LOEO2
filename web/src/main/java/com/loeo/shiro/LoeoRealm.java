@@ -1,16 +1,22 @@
 package com.loeo.shiro;
 
-import com.loeo.entity.SysUser;
-import com.loeo.service.SysUserService;
-import org.apache.shiro.authc.*;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.annotation.Resource;
+
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.AuthenticationInfo;
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 
-import javax.annotation.Resource;
-import java.util.HashSet;
-import java.util.Set;
+import com.loeo.entity.SysUser;
+import com.loeo.service.SysUserService;
 
 /**
  * Created by LOEO on 2017/05/31 22:30

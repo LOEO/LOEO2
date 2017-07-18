@@ -1,16 +1,17 @@
 package com.loeo.web;
 
-import com.loeo.common.Result;
-import com.loeo.entity.SysUser;
-import com.loeo.service.SysUserService;
-import com.loeo.shiro.ShiroContextUtils;
-import com.loeo.utils.DateUtils;
+import javax.annotation.Resource;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
+import com.loeo.common.Result;
+import com.loeo.entity.SysUser;
+import com.loeo.service.SysUserService;
+import com.loeo.shiro.ShiroContextUtils;
+import com.loeo.utils.DateUtils;
 
 /**
  * <p>
@@ -31,6 +32,6 @@ public class SysUserController {
         sysUser.setCreateDt(DateUtils.now());
         sysUser.setCreateUser(ShiroContextUtils.getCurUserId());
         sysUserService.insert(sysUser);
-        return Result.buildSuccess(sysUser);
-    }
+		return Result.success(sysUser);
+	}
 }

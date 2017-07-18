@@ -3,6 +3,8 @@ package com.loeo.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
@@ -23,6 +25,7 @@ public class SysUser extends Model<SysUser> {
 
 	@TableId(value = "id", type = IdType.AUTO)
 	private Integer id;
+	@NotNull
 	private String username;
 	private String password;
 	private String nickname;
