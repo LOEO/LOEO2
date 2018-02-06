@@ -3,7 +3,7 @@ package com.loeo.common;
 import java.io.Serializable;
 
 /**
- * Created by LOEO on 2017/07/12 20:07
+ * @author LT(286269159 @ qq.com)
  */
 public class Result implements Serializable {
     private Boolean success;

@@ -4,6 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
+/**
+ * @author LT(286269159 @ qq.com)
+ */
 @ComponentScan("com.loeo")
 @SpringBootApplication
 public class App {

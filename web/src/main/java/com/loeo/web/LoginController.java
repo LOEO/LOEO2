@@ -32,58 +32,58 @@ import com.loeo.shiro.ShiroContextUtils;
 @CrossOrigin("*")
 @RequestMapping("/api")
 public class LoginController {
-    @GetMapping
-    public String page() {
-        return "login";
-    }
+	@GetMapping
+	public String page() {
+		return "login";
+	}
 
-    @PostMapping("/doLogin")
-    public Result doLogin(@RequestBody Map<String, String> params,
-                          @RequestHeader("X-Custom-Header") String header,
-                          HttpSession session,
-                          HttpServletRequest request,
-                          HttpServletResponse response) {
-        try {
-            System.out.println(header);
-            String username = params.get("username");
-            String password = params.get("password");
-            System.out.println(username + ":" + password);
-            SecurityUtils.getSubject().login(new UsernamePasswordToken(username, password));
-            Cookie cookie = new Cookie("JSESSIONID", session.getId());
-            cookie.setDomain("localhost");
-            response.addCookie(cookie);
-            return Result.success();
-        } catch (UnknownAccountException uae) {
-            return Result.failed("用户名或密码错误");
-        } catch (IncorrectCredentialsException ice) {
-            //password 不匹配，再输入?
-            return Result.failed("用户名或密码错误");
-        } catch (LockedAccountException lae) {
-            //账号锁住了，不能登入。给个提示?
-            return Result.failed("用户名被锁定");
-        } catch (AuthenticationException ae) {
-            //未考虑到的问题 - 错误?
-            return Result.failed("用户名或密码错误");
-        }
+	@PostMapping("/doLogin")
+	public Result doLogin(@RequestBody Map<String, String> params,
+						  @RequestHeader("X-Custom-Header") String header,
+						  HttpSession session,
+						  HttpServletRequest request,
+						  HttpServletResponse response) {
+		try {
+			System.out.println(header);
+			String username = params.get("username");
+			String password = params.get("password");
+			System.out.println(username + ":" + password);
+			SecurityUtils.getSubject().login(new UsernamePasswordToken(username, password));
+			Cookie cookie = new Cookie("JSESSIONID", session.getId());
+			cookie.setDomain("localhost");
+			response.addCookie(cookie);
+			return Result.success();
+		} catch (UnknownAccountException uae) {
+			return Result.failed("用户名或密码错误");
+		} catch (IncorrectCredentialsException ice) {
+			//password 不匹配，再输入?
+			return Result.failed("用户名或密码错误");
+		} catch (LockedAccountException lae) {
+			//账号锁住了，不能登入。给个提示?
+			return Result.failed("用户名被锁定");
+		} catch (AuthenticationException ae) {
+			//未考虑到的问题 - 错误?
+			return Result.failed("用户名或密码错误");
+		}
 
-    }
+	}
 
-    @PostMapping("/login")
-    public String login(String username, String password, ModelMap modelMap) {
-        try {
-            SecurityUtils.getSubject().login(new UsernamePasswordToken(username, password));
-            return "redirect:index";
-        } catch (Exception e) {
-            modelMap.put("msg", "用户名或密码错误");
-            return "redirect:login";
-        }
-    }
+	@PostMapping("/login")
+	public String login(String username, String password, ModelMap modelMap) {
+		try {
+			SecurityUtils.getSubject().login(new UsernamePasswordToken(username, password));
+			return "redirect:index";
+		} catch (Exception e) {
+			modelMap.put("msg", "用户名或密码错误");
+			return "redirect:login";
+		}
+	}
 
 
-    @GetMapping("/users")
-    public Result getUserInfo() {
-        return Result.success(ShiroContextUtils.getCurUser());
-    }
+	@GetMapping("/users")
+	public Result getUserInfo() {
+		return Result.success(ShiroContextUtils.getCurUser());
+	}
 
 
 }
