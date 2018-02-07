@@ -11,7 +11,7 @@
 		<result column="pid" property="pid"/>
 		<result column="descp" property="descp"/>
 		<result column="iconCls" property="iconCls"/>
-		<result column="code" property="code"/>
+		<result column="script" property="script"/>
 		<result column="createDt" property="createDt"/>
 		<result column="createUser" property="createUser"/>
 		<result column="updateDt" property="updateDt"/>

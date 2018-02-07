@@ -29,7 +29,7 @@ public class SysResource extends Model<SysResource> {
 	private Integer pid;
 	private String descp;
 	private String iconCls;
-	private String code;
+	private String script;
 	private Date createDt;
 	private Integer createUser;
 	private Date updateDt;
@@ -95,12 +95,12 @@ public class SysResource extends Model<SysResource> {
 		this.iconCls = iconCls;
 	}
 
-	public String getCode() {
-		return code;
+	public String getScript() {
+		return script;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public void setScript(String script) {
+		this.script = script;
 	}
 
 	public Date getCreateDt() {

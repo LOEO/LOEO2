@@ -2,6 +2,8 @@ package com.loeo.web;
 
 import javax.annotation.Resource;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +24,7 @@ import com.loeo.utils.DateUtils;
  * @since 2017-05-25
  */
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/users")
 public class SysUserController {
     @Resource
     private SysUserService sysUserService;
@@ -33,5 +35,10 @@ public class SysUserController {
         sysUser.setCreateUser(ShiroContextUtils.getCurUserId());
         sysUserService.insert(sysUser);
 		return Result.success(sysUser);
+	}
+
+	@GetMapping("/{userId}/resources")
+	public Result getUserResources(@PathVariable String userId) {
+		return Result.success(sysUserService.findUserResources(userId));
 	}
 }

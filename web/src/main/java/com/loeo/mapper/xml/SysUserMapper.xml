@@ -21,5 +21,22 @@
 		<result column="updateUser" property="updateUser"/>
 		<result column="enable" property="enable"/>
 	</resultMap>
+	<select id="findUserResources" resultType="com.loeo.entity.SysResource">
+		SELECT
+			DISTINCT re.*
+		FROM
+			t_sys_role r,
+			t_sys_user_role ur,
+			t_sys_resource re,
+			t_sys_privilege p
+		WHERE
+			ur.userid = #{userId}
+			AND r.id = ur.roleId
+			AND (
+				((p.`master` = 'role'
+				  AND p.masterValue = r.id) OR (p.`master` = 'user' AND p.masterValue = #{userId}))
+				AND p.accessValue = re.id
+			)
+	</select>
 
 </mapper>

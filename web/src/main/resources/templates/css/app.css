@@ -1,0 +1,51 @@
+html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
+    margin: 0;
+    padding: 0
+}
+
+.title {
+    background: url(/rs/imgs/logo.png) 0 0 no-repeat;
+    color: #fff;
+    font-family: "Helvetica Neue", "Helvetica", "Arial", "Lucida Grande", sans-serif;
+    line-height: 40px;
+    padding-left: 21px;
+    font-size: 2em;
+    white-space: nowrap
+}
+
+.color-white {
+    color: #fff;
+}
+
+.color-green {
+    color: #00cc00;
+}
+
+.bg-transparent {
+    background: transparent no-repeat 0 0;
+}
+
+.menu-list {
+    padding: 0 3px 0 3px;
+}
+
+.menu-list-item {
+    margin-top: 3px;
+    padding-left: 20px;
+    font-size: 11px;
+    line-height: 20px;
+    cursor: pointer;
+    background: url(images/rss.gif) no-repeat 0 2px;
+    border: 1px solid #fff;
+}
+
+.menu-list .x-item-selected {
+    font-weight: bold;
+    color: #15428B;
+    background-color: #DFE8F6;
+    border: 1px dotted #A3BAE9;
+}
+
+.menu-list-item-hover {
+    background-color: #eee;
+}

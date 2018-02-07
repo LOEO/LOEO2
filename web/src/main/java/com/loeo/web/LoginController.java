@@ -13,7 +13,6 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -66,17 +65,6 @@ public class LoginController {
 			return Result.failed("用户名或密码错误");
 		}
 
-	}
-
-	@PostMapping("/login")
-	public String login(String username, String password, ModelMap modelMap) {
-		try {
-			SecurityUtils.getSubject().login(new UsernamePasswordToken(username, password));
-			return "redirect:index";
-		} catch (Exception e) {
-			modelMap.put("msg", "用户名或密码错误");
-			return "redirect:login";
-		}
 	}
 
 

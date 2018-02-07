@@ -1,0 +1,19 @@
+body {
+    background-color: #ecf0f5;
+}
+
+.tool-bar {
+    padding: 4px;
+}
+
+.search-box {
+    float: right;
+}
+
+.content {
+    padding: 0;
+}
+
+.sys-button {
+    visibility: hidden;
+}

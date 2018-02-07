@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>Layout</title>
+	<link rel="stylesheet" th:href="@{/resources/bootstrap.min.css}"
+		  href="/resources/bootstrap.min.css"/>
+</head>
+<body>
+<div th:text="${msg}"></div>
+<form method="post" th:action="@{/api/login}">
+    <input name="username" type="text" placeholder="用户名">
+    <input name="password" type="password" placeholder="密码">
+    <input type="submit" th:value="登陆">
+</form>
+<div class="container">
+    <div class="navbar">
+        <div class="navbar-inner">
+            <a class="brand"
+               href="https://github.com/ultraq/thymeleaf-layout-dialect">
+                Thymeleaf - Layout </a>
+            <ul class="nav">
+                <li><a th:href="@{/}" href="messages.html"> Messages </a></li>
+            </ul>
+        </div>
+    </div>
+    <h1 layout:fragment="header">Layout</h1>
+    <div layout:fragment="content">Fake content</div>
+</div>
+</body>
+</html>

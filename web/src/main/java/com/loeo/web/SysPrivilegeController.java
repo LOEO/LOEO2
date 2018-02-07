@@ -1,7 +1,7 @@
 package com.loeo.web;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author LT
  * @since 2017-05-25
  */
-@Controller
-@RequestMapping("/test/tSysPrivilege")
+@RestController
+@RequestMapping("/api/privilege")
 public class SysPrivilegeController {
 
 }

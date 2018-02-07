@@ -12,5 +12,4 @@ import com.loeo.entity.SysPrivilege;
  * @since 2017-05-25
  */
 public interface SysPrivilegeService extends IService<SysPrivilege> {
-
 }

@@ -1,5 +1,7 @@
 package com.loeo.service;
 
+import java.util.List;
+
 import com.baomidou.mybatisplus.service.IService;
 import com.loeo.entity.SysUserRole;
 
@@ -12,5 +14,5 @@ import com.loeo.entity.SysUserRole;
  * @since 2017-05-25
  */
 public interface SysUserRoleService extends IService<SysUserRole> {
-
+	List<SysUserRole> findRolesByUserId(Integer userId);
 }

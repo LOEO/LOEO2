@@ -12,6 +12,7 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.loeo.service.ShiroService;
 import com.loeo.shiro.LoeoCredentialsMatcher;
 import com.loeo.shiro.LoeoRealm;
 
@@ -41,17 +42,18 @@ public class ShiroConfig {
 	 * @return
 	 */
 	@Bean
-	public ShiroFilterFactoryBean shiroFilterFactoryBean(org.apache.shiro.mgt.SecurityManager securityManager) {
+	public ShiroFilterFactoryBean shiroFilterFactoryBean(org.apache.shiro.mgt.SecurityManager securityManager, ShiroService shiroService) {
 		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 		shiroFilterFactoryBean.setSecurityManager(securityManager);
-		shiroFilterFactoryBean.setLoginUrl("/api/login");
+		shiroFilterFactoryBean.setLoginUrl("/login.html");
 		shiroFilterFactoryBean.setUnauthorizedUrl("/login.html");
 		//配置访问权限
 		LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
 		filterChainDefinitionMap.put("/login.html", "anon");
 		filterChainDefinitionMap.put("/logout*", "anon");
-		filterChainDefinitionMap.put("/api/login", "anon");
+		filterChainDefinitionMap.put("/login", "anon");
 		filterChainDefinitionMap.put("/resources/**", "anon");
+		filterChainDefinitionMap.putAll(shiroService.initUrlPerms());
 		filterChainDefinitionMap.put("/**", "user");
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		return shiroFilterFactoryBean;
