@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
@@ -23,6 +24,7 @@ import com.loeo.service.SysUserRoleService;
  * @since 2017-05-25
  */
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUserRole> implements SysUserRoleService {
 	@Resource
 	private SysUserRoleMapper sysUserRoleMapper;

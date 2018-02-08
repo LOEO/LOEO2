@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.loeo.entity.SysPrivilege;
@@ -32,6 +33,7 @@ import com.loeo.shiro.ShiroContextUtils;
  * @company：创海科技 Created with IntelliJ IDEA
  */
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class ShiroServiceImpl implements ShiroService {
 	@Resource
 	private SysUserService sysUserService;

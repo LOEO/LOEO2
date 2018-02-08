@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
@@ -24,6 +25,7 @@ import com.loeo.service.SysResourceService;
  * @since 2017-05-25
  */
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class SysResourceServiceImpl extends ServiceImpl<SysResourceMapper, SysResource> implements SysResourceService {
 	@Resource
 	private SysResourceMapper resourceMapper;

@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -33,6 +34,7 @@ import com.loeo.service.SysUserService;
  * @since 2017-05-25
  */
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
 	@Resource
 	private SysUserMapper sysUserMapper;

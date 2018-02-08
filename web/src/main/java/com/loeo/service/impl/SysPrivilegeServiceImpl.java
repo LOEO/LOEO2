@@ -8,6 +8,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.loeo.dto.MenuAndButton;
@@ -28,6 +29,7 @@ import com.loeo.shiro.ShiroContextUtils;
  * @since 2017-05-25
  */
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class SysPrivilegeServiceImpl extends ServiceImpl<SysPrivilegeMapper, SysPrivilege> implements SysPrivilegeService {
 	@Resource
 	private SysPrivilegeMapper privilegeMapper;
@@ -36,10 +38,12 @@ public class SysPrivilegeServiceImpl extends ServiceImpl<SysPrivilegeMapper, Sys
 
 
 	@Override
+	@Transactional
 	public void save(List<MenuAndButton> menuAndButtons, String master, String masterValue) {
-		privilegeMapper.deleteByMasterAndValue(master,masterValue);
+		//privilegeMapper.deleteByMasterAndValue(master,masterValue);
 		if (menuAndButtons.size() > 0) {
-			insertBatch(convert2Privileges(menuAndButtons, master, masterValue));
+			boolean result = insertBatch(convert2Privileges(menuAndButtons, master, masterValue));
+			System.out.println(result);
 		}
 		// TODO: 2018/2/8 重新设置shiro权限
 	}
