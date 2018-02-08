@@ -42,9 +42,7 @@ public class ShiroServiceImpl implements ShiroService {
 
 	@Override
 	public Map<String, String> initUrlPerms() {
-		SysResource sysResource = new SysResource();
-		sysResource.setType("1");
-		List<SysResource> sysResources = sysResourceService.selectList(new EntityWrapper<>(sysResource));
+		List<SysResource> sysResources = sysResourceService.selectList(new EntityWrapper<SysResource>().eq("type", "1"));
 		Map<String, String> permMap = new HashMap<>(sysResources.size());
 		sysResources.forEach(sr -> permMap.put(sr.getLink(), "perms[\"" + sr.getType() + ShiroService.PART_DIVIDER_TOKEN + sr.getId() + "\"]"));
 		return permMap;
@@ -52,12 +50,11 @@ public class ShiroServiceImpl implements ShiroService {
 
 	@Override
 	public Set<String> findPermByRoles(Set<String> roles) {
-		SysPrivilege sysPrivilege = new SysPrivilege();
-		sysPrivilege.setMaster("role");
 		Set<String> permSet = new HashSet<>();
 		roles.forEach(role -> {
-			sysPrivilege.setMasterValue(role);
-			List<SysPrivilege> sysPrivileges = sysPrivilegeService.selectList(new EntityWrapper<>(sysPrivilege));
+			List<SysPrivilege> sysPrivileges = sysPrivilegeService.selectList(new EntityWrapper<SysPrivilege>()
+					.eq("master", "role")
+					.eq("masterValue", role));
 			permSet.addAll(sysPrivileges.stream().map(sp -> sp.getAccess() + ShiroService.PART_DIVIDER_TOKEN + sp.getAccessValue()).collect(Collectors.toSet()));
 		});
 		return permSet;

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
->
+<html xmlns:th="http://www.thymeleaf.org">
 <!-- Ionicons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
 <!-- jvectormap -->
@@ -243,11 +242,12 @@
 	});
 	$(function () {
 		var expandIconTpl = '<i class="fa fa-angle-left pull-right"></i>';
-		var menuItemTpl = '<li><a href="javascript:void(0);" data-url="{{url}}"  id="[[id]]"><i class="{{iconCls}}"></i> <span> {{name}}</span>{{expandIcon}}</a></li>';
+		var menuItemTpl = '<li><a href="javascript:void(0);" data-url="{{url}}"  id="{{id}}"><i class="{{iconCls}}"></i> <span> {{name}}</span>{{expandIcon}}</a></li>';
 		var treeMenuTpl = '<ul class="treeview-menu"></ul>';
 
 		function buildMenuTree($menu, menus, pid) {
 			var i = 0, len = menus.length, curMenu, $curMenu;
+			debugger;
 			for (; i < len; i++) {
 				curMenu = menus[i];
 				if (curMenu.pid === pid) {
@@ -277,8 +277,13 @@
 				.replace("{{expandIcon}}", expandIcon || '');
 		}
 
-		$.get("/api/users/[[${#session.getAttribute('user').id}]]/resources", function (data) {
+		$.post("/api/users/[[${#session.getAttribute('user').id}]]/menus", function (result) {
+			if (result && !result.success) {
+				LOEO.messager("加载数据失败！");
+				return;
+			}
 			debugger;
+			var data = result.data;
 			buildMenuTree($("#mainMenu"), data, 0);
 
 			$(".leo_menu").on("click", function () {
@@ -293,8 +298,8 @@
 				$(".window-mask").remove();
 
 				$("#main-content").load($(this).data("url"), function () {
-					$.get("${ctx}/resource/getAuthorisedButtons.do?menuId=" + menuId, function (data) {
-						if (data.length != 0) {
+					$.get("/api/resources/" + menuId + "/buttons", function (result) {
+						if (result && result.success && result.data && result.data.length !== 0) {
 							$(".sys-button").hide().css("visibility", "visible");
 						}
 						$.each(data, function (i, o) {

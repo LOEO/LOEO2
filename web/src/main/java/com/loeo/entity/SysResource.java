@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
@@ -37,6 +38,8 @@ public class SysResource extends Model<SysResource> {
 	private Integer enable;
 	private Integer isLeaf;
 	private Integer orde;
+	@TableField(exist = false)
+	private Boolean checked;
 
 
 	public Integer getId() {
@@ -157,6 +160,14 @@ public class SysResource extends Model<SysResource> {
 
 	public void setOrde(Integer orde) {
 		this.orde = orde;
+	}
+
+	public Boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(Boolean checked) {
+		this.checked = checked;
 	}
 
 	@Override

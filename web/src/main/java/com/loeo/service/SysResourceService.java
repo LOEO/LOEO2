@@ -1,6 +1,11 @@
 package com.loeo.service;
 
+import java.io.Serializable;
+import java.util.List;
+
+import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
+import com.loeo.dto.SysResourceTreeNode;
 import com.loeo.entity.SysResource;
 
 /**
@@ -12,4 +17,12 @@ import com.loeo.entity.SysResource;
  * @since 2017-05-25
  */
 public interface SysResourceService extends IService<SysResource> {
+
+	public List<SysResourceTreeNode> getResourceTree();
+
+	Page<SysResource> findResourcesByPage(int pageNo, int pageSize);
+
+	List<SysResource> getAuthorisedButtonsByMenuId(Serializable menuId, Serializable userId);
+
+	List<SysResourceTreeNode> convertResourceTree(List<SysResource> resources, Serializable id);
 }

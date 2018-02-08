@@ -1,14 +1,6 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: LT
-  Date: 14-4-2
-  Time: 下午6:22
-  To change this template use File | Settings | File Templates.
---%>
-
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<script src="${ctx}/rs/jquery-easyui-1.5/src/jquery.parser.js"></script>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<script th:src="@{/resources/jquery-easyui-1.5/src/jquery.parser.js}"></script>
 <style type="text/css">
 	.datagrid-body > table {
 		width: 100%
@@ -19,10 +11,10 @@
 	</table>
 	<div id="toolbar" class="tool-bar">
         <span class="tool-btn">
-            <a href="javascript:void(0)" class="easyui-linkbutton sys-button" iconCls="icon-add" plain="true" id="addBtn" code="user_add">新增</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton sys-button" iconCls="icon-edit" plain="true" id="editBtn" code="user_update">修改</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton sys-button" iconCls="icon-remove" plain="true" id="delBtn" code="user_delete">删除</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton sys-button" iconCls="icon-man" plain="true" id="setRoleBtn" code="user_set_role">设置角色</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" id="addBtn" code="user_add">新增</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="editBtn" code="user_update">修改</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" id="delBtn" code="user_delete">删除</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-man" plain="true" id="setRoleBtn" code="user_set_role">设置角色</a>
         </span>
 		<span class="search-box">
             <input type="text" class="easyui-textbox" id="s_username"
@@ -51,7 +43,7 @@
 				<input name="nickname" class="easyui-textbox" required="true" label="姓名:" style="width:94%">
 			</div>
 			<div style="margin-bottom:10px">
-				<input name="birthday" class="easyui-datebox" required="true" label="生日:" editable="false"
+				<input id="birthday" name="birthday" class="easyui-datetimebox" required="true" label="生日:" editable="false"
 					   style="width:94%">
 			</div>
 			<div style="margin-bottom:10px">
@@ -110,30 +102,31 @@
 		</div>
 	</div>
 </section>
-<script type="text/javascript">
+<script type="text/javascript" th:inline="javascript">
 	$(function () {
+		var columns = [
+			{field: 'id', title: 'id', hidden: true, width: 80, align: 'center'},
+			{field: 'username', title: '用户名', width: 80, align: 'center'},
+			{field: 'nickname', title: '姓名', width: 100, align: 'center'},
+			{field: 'age', title: '年龄', align: 'center', width: 60},
+			{field: 'birthday', title: '生日', align: 'center', width: 60},
+			{field: 'sex', title: '性别', align: 'center', width: 60},
+			{field: 'avatar', title: '头像', align: 'center', width: 60},
+			{field: 'email', title: '邮箱', align: 'center', width: 60},
+			{field: 'phone', title: '电话', align: 'center', width: 60},
+			{
+				field: 'enable', title: '状态', width: 80, align: 'center', formatter: function (value) {
+					return LOEO.ENABLE[value];
+				}
+			},
+			{field: 'createDt', title: '创建时间', align: 'center', width: 60},
+			{field: 'createUser', title: '创建人', align: 'center', width: 60},
+			{field: 'updateDt', title: '修改时间', align: 'center', width: 60},
+			{field: 'updateUser', title: '修改人', align: 'center', width: 60}
+		];
 		var userGrid = LOEO.initGrid("userGrid", {
-			url: '${ctx}/user/list.do',
-			columns: [[
-				{field: 'id', title: 'id', hidden: true, width: 80, align: 'center'},
-				{field: 'username', title: '用户名', width: 80, align: 'center'},
-				{field: 'nickname', title: '姓名', width: 100, align: 'center'},
-				{field: 'age', title: '年龄', align: 'center', width: 60},
-				{field: 'birthday', title: '生日', align: 'center', width: 60},
-				{field: 'sex', title: '性别', align: 'center', width: 60},
-				{field: 'avatar', title: '头像', align: 'center', width: 60},
-				{field: 'email', title: '邮箱', align: 'center', width: 60},
-				{field: 'phone', title: '电话', align: 'center', width: 60},
-				{
-					field: 'enable', title: '状态', width: 80, align: 'center', formatter: function (value) {
-						return LOEO.ENABLE[value];
-					}
-				},
-				{field: 'createDt', title: '创建时间', align: 'center', width: 60},
-				{field: 'createUser', title: '创建人', align: 'center', width: 60},
-				{field: 'updateDt', title: '修改时间', align: 'center', width: 60},
-				{field: 'updateUser', title: '修改人', align: 'center', width: 60}
-			]]
+			url: '/api/users/list',
+			columns: [columns]
 		});
 		$("#searchBtn").on("click", function () {
 			userGrid.datagrid("load", {
@@ -145,8 +138,13 @@
 			validType: ['minLength[6]', 'equals["#password","两次输入密码不一致！"]']
 		});
 
-		var userForm = LOEO.initForm("userForm", function (result) {
-				if (result.state === LOEO.SUCCESS) {
+		var loadFilter=function(result) {
+			if(result && result.success){
+				return result.data
+			}
+			return {};
+		},userForm = LOEO.initForm("userForm", function (result) {
+				if (result.success) {
 					$('#userWin').window('close');
 					userGrid.datagrid("reload");
 				}
@@ -156,20 +154,22 @@
 				singleSelect: false,
 				textField: "name",
 				valueField: "id",
-				fitColumn: true
+				fitColumn: true,
+				loadFilter:loadFilter
 			}),
 			hasRoleList = $("#hasRoleList").datalist({
 				singleSelect: false,
 				textField: "name",
 				valueField: "id",
-				fitColumn: true
+				fitColumn: true,
+				loadFilter:loadFilter
 			});
 
 		$("#addBtn").on("click", function () {
 			LOEO.openFormWin("userWin", {
 				title: "新增用户"
 			}, function () {
-				userForm.form("clear").form({url: "${ctx}/user/add.do"});
+				userForm.form("clear").form({url: "/api/users"});
 				$("#username").textbox({editable: true});
 				$("#enable").combobox("setValue", "1");
 			});
@@ -177,7 +177,7 @@
 		$("#editBtn").on("click", function () {
 			var row = userGrid.datagrid("getSelected");
 			if (row) {
-				userForm.form("load", row).form({url: "${ctx}/user/edit.do"});
+				userForm.form("load", row).form({url: "/api/users/" + row.id});
 				$("#username").textbox({editable: false});
 				$("#password").textbox("setValue", "");
 				$("#password1").textbox("setValue", "");
@@ -190,6 +190,8 @@
 		});
 
 		$("#saveUserBtn").on("click", function () {
+			debugger;
+			//$("#birthday").datebox("setValue",$("#birthday").datebox("getValue")+ " 00:00:00");
 			userForm.form("submit");
 		});
 
@@ -198,14 +200,22 @@
 			if (row) {
 				$.messager.confirm('提示', '确定要删除吗?', function (r) {
 					if (r) {
-						$.post("${ctx}/user/delete.do", {
-							id: row.id
-						}, function (result) {
-							if (result.state === LOEO.SUCCESS) {
+						$.ajax({
+							url: "/api/users/" + row.id,
+							method: "delete",
+							success: function (result) {
+								if (result.success) {
+									userGrid.datagrid("reload");
+								}
+								LOEO.messager(result.msg);
+							}
+						});
+						/*$.delete("/users/"+row.id, function (result) {
+							if (result.success) {
 								userGrid.datagrid("reload");
 							}
 							LOEO.messager(result.msg);
-						});
+						});*/
 
 					}
 				});
@@ -218,10 +228,10 @@
 			var row = userGrid.datagrid("getSelected");
 			if (row) {
 				notHasRoleList.datalist({
-					url: '${ctx}/role/getUserNotHasRoles.do?userId=' + row.id
+					url: '/api/users/' + row.id + '/noroles'
 				});
 				hasRoleList.datalist({
-					url: '${ctx}/role/getUserHasRoles.do?userId=' + row.id
+					url: '/api/users/' + row.id + '/hasroles'
 				});
 				LOEO.openFormWin("setUserWin", {
 					title: "设置角色"
@@ -277,8 +287,8 @@
 			var rows = hasRoleList.datagrid("getData").rows;
 			var user = userGrid.datagrid("getSelected");
 			if (rows) {
-				$.post("${ctx}/user/saveUserRole.do", {roles: COMMON.json2str(rows), userId: user.id}, function (result) {
-					if (result.state === LOEO.SUCCESS) {
+				$.post("/api/users/"+user.id+"/roles", {roles: COMMON.json2str(rows), userId: user.id}, function (result) {
+					if (result.success) {
 						$("#setUserWin").window("close");
 					}
 					LOEO.messager(result.msg);

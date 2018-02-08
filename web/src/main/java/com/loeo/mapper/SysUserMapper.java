@@ -16,5 +16,5 @@ import com.loeo.entity.SysUser;
  * @since 2017-05-25
  */
 public interface SysUserMapper extends BaseMapper<SysUser> {
-	List<SysResource> findUserResources(Serializable userId);
+	List<SysResource> findUserMenus(Serializable userId);
 }

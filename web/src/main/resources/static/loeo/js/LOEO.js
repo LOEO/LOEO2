@@ -222,7 +222,18 @@ LOEO.initGrid = function (id, options) {
 		selectOnCheck: true,
 		pagePosition: 'bottom',
 		pageList: [10, 20, 30],
-		scrollbarSize: 0
+		scrollbarSize: 0,
+		loadFilter:function(result) {
+			if(result && result.success){
+				return {
+					pageNO:result.data.current,
+					pageSize:result.data.size,
+					total:result.data.total,
+					rows:result.data.records
+				}
+			}
+			return {};
+		}
 	}, options || {}));
 };
 
@@ -312,7 +323,13 @@ LOEO.treeGrid = function (id, options) {
 		checkOnSelect: true,
 		selectOnCheck: true,
 		checkbox: true,
-		scrollbarSize: 0
+		scrollbarSize: 0,
+		loadFilter:function(result) {
+			if(result && result.success){
+				return result.data;
+			}
+			return {};
+		}
 	}, options, {
 		onLoadSuccess: function (row, data) {
 			if (options.useCustomIcon) {

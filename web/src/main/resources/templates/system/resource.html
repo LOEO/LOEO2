@@ -1,14 +1,8 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: LT
-  Date: 2016/11/05
-  Time: 13:11
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<link rel="stylesheet" href="${ctx}/rs/plugins/ztree/css/metroStyle/metroStyle.css"/>
-<script src="${ctx}/rs/jquery-easyui-1.5/src/jquery.parser.js"></script>
-<script type="text/javascript" src="${ctx}/rs/plugins/ztree/jquery.ztree.all.min.js"></script>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" th:href="@{/resources/plugins/ztree/css/metroStyle/metroStyle.css}"/>
+<script th:src="@{/resources/jquery-easyui-1.5/src/jquery.parser.js}"></script>
+<script type="text/javascript" th:src="@{/resources/plugins/ztree/jquery.ztree.all.min.js}"></script>
 <section class="content box box-primary easyui-layout" style="height:100%">
 	<table id="resourceGrid" class="easyui-treegrid" toolbar="#toolbar">
 	</table>
@@ -79,48 +73,49 @@
 </section>
 <script type="text/javascript">
 	$(function () {
+		var columns = [
+			{field: 'id', title: 'id', hidden: true, align: 'center'},
+			{field: 'name', title: '资源名', align: 'center'},
+			{field: 'link', title: '链接', width: 100, align: 'center'},
+			{
+				field: 'type', title: '类型', align: 'center', width: 60, formatter: function (value) {
+					switch (value) {
+						case "0":
+							return "目录";
+						case "1":
+							return "菜单";
+						case "2":
+							return "按钮";
+					}
+				}
+			},
+			{field: 'pid', title: '父id', align: 'center', width: 60},
+			{
+				field: 'iconCls', title: '图标', align: 'center', width: 60, formatter: function (value) {
+					return '<i class="' + value + '"></i>';
+				}
+			},
+			{field: 'code', title: '代码', align: 'center', width: 60},
+			{field: 'orde', title: '排序', align: 'center', width: 60},
+			{field: 'isLeaf', title: '叶子节点', align: 'center', width: 60},
+			{
+				field: 'enable', title: '状态', width: 80, align: 'center', formatter: function (value) {
+					return LOEO.ENABLE[value];
+				}
+			},
+			{field: 'descp', title: '描述', align: 'center', width: 60},
+			{field: 'createUser', title: '创建人', align: 'center'},
+			{field: 'createDt', title: '创建时间', align: 'center'},
+			{field: 'updateUser', title: '修改人', align: 'center'},
+			{field: 'updateDt', title: '修改时间', align: 'center'}
+		];
 		var resourceGrid = LOEO.treeGrid("resourceGrid", {
-			url: '${ctx}/resource/list.do',
+			url: '/api/resources/list',
 			idField: 'id',
 			treeField: 'name',
 			useCustomIcon: true,
 			checkbox: false,
-			columns: [[
-				{field: 'id', title: 'id', hidden: true, align: 'center'},
-				{field: 'name', title: '资源名', align: 'center'},
-				{field: 'link', title: '链接', width: 100, align: 'center'},
-				{
-					field: 'type', title: '类型', align: 'center', width: 60, formatter: function (value) {
-						switch (value) {
-							case "0":
-								return "目录";
-							case "1":
-								return "菜单";
-							case "2":
-								return "按钮";
-						}
-					}
-				},
-				{field: 'pid', title: '父id', align: 'center', width: 60},
-				{
-					field: 'iconCls', title: '图标', align: 'center', width: 60, formatter: function (value) {
-						return '<i class="' + value + '"></i>';
-					}
-				},
-				{field: 'code', title: '代码', align: 'center', width: 60},
-				{field: 'orde', title: '排序', align: 'center', width: 60},
-				{field: 'isLeaf', title: '叶子节点', align: 'center', width: 60},
-				{
-					field: 'enable', title: '状态', width: 80, align: 'center', formatter: function (value) {
-						return LOEO.ENABLE[value];
-					}
-				},
-				{field: 'descp', title: '描述', align: 'center', width: 60},
-				{field: 'createUser', title: '创建人', align: 'center'},
-				{field: 'createDt', title: '创建时间', align: 'center'},
-				{field: 'updateUser', title: '修改人', align: 'center'},
-				{field: 'updateDt', title: '修改时间', align: 'center'}
-			]]
+			columns: [columns]
 		});
 		$("#searchBtn").on("click", function () {
 			resourceGrid.datagrid("load", {
@@ -129,7 +124,7 @@
 		});
 
 		var resourceForm = LOEO.initForm("resourceForm", function (result) {
-			if (result.state === LOEO.SUCCESS) {
+			if (result.success) {
 				$('#resourceWin').window('close');
 				resourceGrid.treegrid("reload");
 			}
@@ -164,7 +159,7 @@
 			}, function () {
 				debugger;
 				$("#resourceType").combobox("clear");
-				resourceForm.form("clear").form({url: "${ctx}/resource/add.do"});
+				resourceForm.form("clear").form({url: "/api/resources"});
 				$("#resourceLink").parent().hide();
 				var row = resourceGrid.treegrid("getSelected");
 				if (row) {
@@ -178,7 +173,7 @@
 		$("#editBtn").on("click", function () {
 			var row = resourceGrid.datagrid("getSelected");
 			if (row) {
-				resourceForm.form("load", row).form({url: "${ctx}/resource/edit.do"});
+				resourceForm.form("load", row).form({url: "/api/resources/"+row.id});
 				$("#username").textbox({editable: false});
 				$("#password").textbox("setValue", "");
 				$("#password1").textbox("setValue", "");
@@ -204,7 +199,17 @@
 			if (row) {
 				$.messager.confirm('提示', '确定要删除吗?', function (r) {
 					if (r) {
-						$.post("${ctx}/resource/delete.do", {
+						$.ajax({
+							url: "/api/resources/" + row.id,
+							method:"delete",
+							success:function (result) {
+								if (result.success) {
+									resourceGrid.datagrid("reload");
+								}
+								LOEO.messager(result.msg);
+							}
+						});
+						/*$.post("/resource/delete.do", {
 							id: row.id,
 							pid: row.pid
 						}, function (result) {
@@ -213,7 +218,7 @@
 								resourceGrid.treegrid("reload");
 							}
 							LOEO.messager(result.msg);
-						});
+						});*/
 
 					}
 				});

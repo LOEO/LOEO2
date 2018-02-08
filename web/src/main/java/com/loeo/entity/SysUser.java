@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * <p>
@@ -30,14 +31,17 @@ public class SysUser extends Model<SysUser> {
 	private String password;
 	private String nickname;
 	private Integer age;
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date birthday;
 	private String sex;
 	private String avatar;
 	private String email;
 	private String phone;
 	private Integer orgId;
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date createDt;
 	private Integer createUser;
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date updateDt;
 	private Integer updateUser;
 	private Integer enable;

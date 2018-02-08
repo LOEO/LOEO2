@@ -14,6 +14,10 @@ public class Result implements Serializable {
 
     }
 
+    public static Result success(String msg) {
+        return new ResultBuilder().setMsg(msg).setSuccess(true).build();
+    }
+
 	public static Result success() {
 		return new ResultBuilder().setSuccess(true).build();
     }

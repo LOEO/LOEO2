@@ -14,5 +14,11 @@
 		<result column="updateDt" property="updateDt"/>
 		<result column="enable" property="enable"/>
 	</resultMap>
+	<select id="getUserHasRoles" resultType="com.loeo.entity.SysRole">
+		select r.* from t_sys_role r join t_sys_user_role ur on r.id=ur.roleId and ur.userId=#{userId};
+	</select>
+	<select id="getUserNotHasRoles" resultType="com.loeo.entity.SysRole">
+		select r.* from t_sys_role r where r.id not in (select roleId from t_sys_user_role where userId=#{userId});
+	</select>
 
 </mapper>

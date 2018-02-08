@@ -15,5 +15,19 @@
 		<result column="updateUser" property="updateUser"/>
 		<result column="updateDt" property="updateDt"/>
 	</resultMap>
+	<delete id="deleteByMasterAndValue">
+		delete from t_sys_privilege where master=#{master} and masterValue=#{masterValue}
+	</delete>
+	<select id="getResources" resultType="com.loeo.entity.SysResource">
+		SELECT
+			CASE
+			when p.id is not NULL then "true"  end as checked,
+			r.*
+		FROM
+			t_sys_resource r
+			LEFT JOIN t_sys_privilege p ON p.accessValue = r.id
+										   AND p.`master` = #{master}
+										   AND p.masterValue = #{masterValue} order by r.orde
+	</select>
 
 </mapper>

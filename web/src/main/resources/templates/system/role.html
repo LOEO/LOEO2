@@ -1,13 +1,6 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: LT
-  Date: 14-4-2
-  Time: 下午6:22
-  To change this template use File | Settings | File Templates.
---%>
-
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<script src="${ctx}/rs/jquery-easyui-1.5/src/jquery.parser.js"></script>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<script th:src="@{/resources/jquery-easyui-1.5/src/jquery.parser.js}"></script>
 <section class="content box box-primary" style="height:100%">
 	<table id="roleGrid" class="easyui-datagrid" toolbar="#toolbar">
 
@@ -58,23 +51,24 @@
 </section>
 <script type="text/javascript">
 	$(function () {
+		var columns = [
+			{field: 'id', title: 'id', hidden: true, width: 80, align: 'center'},
+			{field: 'name', title: '角色名', width: 80, align: 'center'},
+			{field: 'code', title: '角色代码', width: 100, align: 'center'},
+			{field: 'descp', title: '描述', align: 'center', width: 60},
+			{
+				field: 'enable', title: '状态', width: 80, align: 'center', formatter: function (value) {
+					return LOEO.ENABLE[value];
+				}
+			},
+			{field: 'createDt', title: '创建时间', align: 'center', width: 60},
+			{field: 'createUser', title: '创建人', align: 'center', width: 60},
+			{field: 'updateDt', title: '修改时间', align: 'center', width: 60},
+			{field: 'updateUser', title: '修改人', align: 'center', width: 60}
+		];
 		var roleGrid = LOEO.initGrid("roleGrid", {
-			url: '${ctx}/role/list.do',
-			columns: [[
-				{field: 'id', title: 'id', hidden: true, width: 80, align: 'center'},
-				{field: 'name', title: '角色名', width: 80, align: 'center'},
-				{field: 'code', title: '角色代码', width: 100, align: 'center'},
-				{field: 'descp', title: '描述', align: 'center', width: 60},
-				{
-					field: 'enable', title: '状态', width: 80, align: 'center', formatter: function (value) {
-						return LOEO.ENABLE[value];
-					}
-				},
-				{field: 'createDt', title: '创建时间', align: 'center', width: 60},
-				{field: 'createUser', title: '创建人', align: 'center', width: 60},
-				{field: 'updateDt', title: '修改时间', align: 'center', width: 60},
-				{field: 'updateUser', title: '修改人', align: 'center', width: 60}
-			]]
+			url: '/api/roles/list',
+			columns: [columns]
 		});
 		$("#searchBtn").on("click", function () {
 			roleGrid.datagrid("load", {
@@ -83,7 +77,7 @@
 		});
 
 		var roleForm = LOEO.initForm("roleForm", function (result) {
-			if (result.state === LOEO.SUCCESS) {
+			if (result.success) {
 				$('#roleWin').window('close');
 				roleGrid.datagrid("reload");
 			}
@@ -94,14 +88,14 @@
 			LOEO.openFormWin("roleWin", {
 				title: "新增用户"
 			}, function () {
-				roleForm.form("clear").form({url: "${ctx}/role/add.do"});
+				roleForm.form("clear").form({url: "/api/roles"});
 				$("#enable").combobox("setValue", "1");
 			});
 		});
 		$("#editBtn").on("click", function () {
 			var row = roleGrid.datagrid("getSelected");
 			if (row) {
-				roleForm.form("load", row).form({url: "${ctx}/role/edit.do"});
+				roleForm.form("load", row).form({url: "/api/roles/"+row.id});
 				$("#username").textbox({editable: false});
 				$("#password").textbox("setValue", "");
 				$("#password1").textbox("setValue", "");
@@ -122,14 +116,24 @@
 			if (row) {
 				$.messager.confirm('提示', '确定要删除吗?', function (r) {
 					if (r) {
-						$.post("${ctx}/role/delete.do", {
+						$.ajax({
+							url: "/api/roles/" + row.id,
+							method:"delete",
+							success:function (result) {
+								if (result.success) {
+									roleGrid.datagrid("reload");
+								}
+								LOEO.messager(result.msg);
+							}
+						});
+						/*$.post("${ctx}/role/delete.do", {
 							id: row.id
 						}, function (result) {
 							if (result.state === LOEO.SUCCESS) {
 								roleGrid.datagrid("reload");
 							}
 							LOEO.messager(result.msg);
-						});
+						});*/
 
 					}
 				});

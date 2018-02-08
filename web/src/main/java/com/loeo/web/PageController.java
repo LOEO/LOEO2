@@ -40,4 +40,29 @@ public class PageController {
 		}
 	}
 
+	@GetMapping("/users")
+	public String userManager() {
+		return "system/user";
+	}
+
+	@GetMapping("/roles")
+	public String roleManager() {
+		return "system/role";
+	}
+
+	@GetMapping("/orgs")
+	public String orgManager() {
+		return "system/org";
+	}
+
+	@GetMapping("/privileges")
+	public String privilegeManager() {
+		return "system/privilege";
+	}
+
+	@GetMapping("/resources")
+	public String resourceManager() {
+		return "system/resource";
+	}
+
 }

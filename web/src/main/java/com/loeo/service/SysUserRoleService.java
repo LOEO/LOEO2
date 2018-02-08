@@ -1,8 +1,10 @@
 package com.loeo.service;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.baomidou.mybatisplus.service.IService;
+import com.loeo.entity.SysRole;
 import com.loeo.entity.SysUserRole;
 
 /**
@@ -14,5 +16,7 @@ import com.loeo.entity.SysUserRole;
  * @since 2017-05-25
  */
 public interface SysUserRoleService extends IService<SysUserRole> {
-	List<SysUserRole> findRolesByUserId(Integer userId);
+	List<SysUserRole> findRolesByUserId(Serializable userId);
+
+	void saveUserRoles(List<SysRole> roleList, Serializable userId);
 }

@@ -9,13 +9,17 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.loeo.dto.SysResourceTreeNode;
 import com.loeo.entity.SysResource;
 import com.loeo.entity.SysRole;
 import com.loeo.entity.SysUser;
 import com.loeo.entity.SysUserRole;
 import com.loeo.exception.DuplicateUsernameException;
 import com.loeo.mapper.SysUserMapper;
+import com.loeo.service.SysPrivilegeService;
 import com.loeo.service.SysRoleService;
 import com.loeo.service.SysUserRoleService;
 import com.loeo.service.SysUserService;
@@ -36,6 +40,12 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 	private SysUserRoleService sysUserRoleService;
 	@Resource
 	private SysRoleService sysRoleService;
+	@Resource
+	private SysPrivilegeService privilegeService;
+	@Resource
+	private SysRoleService roleService;
+	@Resource
+	private SysUserRoleService userRoleService;
 
 	@Override
 	public SysUser findByUserName(String username) {
@@ -55,13 +65,39 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 	}
 
 	@Override
-	public List<SysRole> findRolesById(Integer id) {
+	public List<SysRole> findRolesById(Serializable id) {
 		List<SysUserRole> sysUserRoles = sysUserRoleService.findRolesByUserId(id);
 		return sysRoleService.selectBatchIds(sysUserRoles.stream().map(SysUserRole::getRoleId).collect(Collectors.toList()));
 	}
 
 	@Override
-	public List<SysResource> findUserResources(Serializable userId) {
-		return sysUserMapper.findUserResources(userId);
+	public List<SysResource> findUserMenus(Serializable userId) {
+		return sysUserMapper.findUserMenus(userId);
+	}
+
+	@Override
+	public Page<SysUser> findUsersByPage(int pageNo, int pageSize) {
+		return selectPage(new Page<>(pageNo, pageSize));
+	}
+
+	@Override
+	public List<SysResourceTreeNode> findResource(Serializable userId) {
+		return privilegeService.getResources("user", userId);
+	}
+
+	@Override
+	public List<SysRole> getRoles(Serializable userId) {
+		return roleService.getUserHasRoles(userId);
+	}
+
+	@Override
+	public List<SysRole> getNotHasRoles(Serializable userId) {
+		return roleService.getUserNotHasRoles(userId);
+	}
+
+	@Override
+	public void saveUserRole(List<SysRole> roleList, String userId) {
+		userRoleService.delete(new EntityWrapper<SysUserRole>().eq("userId", userId));
+		userRoleService.saveUserRoles(roleList,userId);
 	}
 }

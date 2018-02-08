@@ -21,7 +21,7 @@
 		<result column="updateUser" property="updateUser"/>
 		<result column="enable" property="enable"/>
 	</resultMap>
-	<select id="findUserResources" resultType="com.loeo.entity.SysResource">
+	<select id="findUserMenus" resultType="com.loeo.entity.SysResource">
 		SELECT
 			DISTINCT re.*
 		FROM

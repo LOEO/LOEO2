@@ -20,5 +20,43 @@
 		<result column="isLeaf" property="isLeaf"/>
 		<result column="orde" property="orde"/>
 	</resultMap>
+	<select id="getAuthorisedButtonsByMenuId" resultType="com.loeo.entity.SysResource">
+		SELECT
+			DISTINCT allb.*
+		FROM
+			(
+				SELECT
+					*
+				FROM
+					t_sys_resource
+				WHERE
+					pid = #{menuId}
+					AND type = 2
+			) allb
+			JOIN (
+					 SELECT
+						 p.*
+					 FROM
+						 t_sys_privilege p,
+						 (
+							 SELECT
+								 r.*
+							 FROM
+								 t_sys_role r,
+								 t_sys_user_role ur,
+								 t_sys_user u
+							 WHERE
+								 r.id = ur.roleId
+								 AND ur.userId = u.id
+								 AND u.id = 1
+						 ) ro
+					 WHERE
+						 p.`master` = 'role'
+						 AND p.masterValue = ro.id
+						 AND p.access = 2
+					 union
+					 select * from t_sys_privilege p1 where p1.`master`='user' and p1.masterValue=#{userId} and p1.access=2
+				 ) b ON allb.id = b.accessValue;
+	</select>
 
 </mapper>

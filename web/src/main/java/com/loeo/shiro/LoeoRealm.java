@@ -1,5 +1,6 @@
 package com.loeo.shiro;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -30,7 +31,13 @@ public class LoeoRealm extends AuthorizingRealm {
 		//获取权限信息
 		Set<String> roleSet = shiroService.findRolesByUserId(ShiroContextUtils.getCurUser().getId());
 		SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo(roleSet);
-		simpleAuthorizationInfo.setStringPermissions(shiroService.findPermByRoles(roleSet));
+		if (ShiroContextUtils.getCurUser().getId() == 1) {
+			Set<String> permissions = new HashSet<>();
+			permissions.add("*");
+			simpleAuthorizationInfo.setStringPermissions(permissions);
+		} else {
+			simpleAuthorizationInfo.setStringPermissions(shiroService.findPermByRoles(roleSet));
+		}
 		return simpleAuthorizationInfo;
 	}
 

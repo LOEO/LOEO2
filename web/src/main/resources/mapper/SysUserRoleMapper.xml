@@ -7,5 +7,11 @@
 		<id column="userId" property="userId"/>
 		<result column="roleId" property="roleId"/>
 	</resultMap>
+	<insert id="saveUserRoles">
+		insert into t_sys_user_role (userId, roleId) VALUES
+		<foreach collection="roles" item="role" separator=",">
+			(#{userId},#{role.id})
+		</foreach>
+	</insert>
 
 </mapper>

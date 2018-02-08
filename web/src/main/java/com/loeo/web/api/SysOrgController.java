@@ -1,4 +1,4 @@
-package com.loeo.web;
+package com.loeo.web.api;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @since 2017-05-25
  */
 @Controller
-@RequestMapping("/test/tSysMenu")
-public class SysMenuController {
+@RequestMapping("/test/tSysOrg")
+public class SysOrgController {
 
 }
