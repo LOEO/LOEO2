@@ -41,7 +41,6 @@ public class ShiroServiceImpl implements ShiroService {
 	private SysResourceService sysResourceService;
 	@Resource
 	private SysPrivilegeService sysPrivilegeService;
-
 	@Override
 	public Map<String, String> initUrlPerms() {
 		List<SysResource> sysResources = sysResourceService.selectList(new EntityWrapper<SysResource>().eq("type", "1"));

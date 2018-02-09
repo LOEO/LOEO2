@@ -6,13 +6,12 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.loeo.entity.SysRole;
 import com.loeo.entity.SysUserRole;
 import com.loeo.mapper.SysUserRoleMapper;
+import com.loeo.service.BaseServiceImpl;
 import com.loeo.service.SysUserRoleService;
 
 /**
@@ -24,8 +23,7 @@ import com.loeo.service.SysUserRoleService;
  * @since 2017-05-25
  */
 @Service
-@Transactional(rollbackFor = Exception.class)
-public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUserRole> implements SysUserRoleService {
+public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRoleMapper, SysUserRole> implements SysUserRoleService {
 	@Resource
 	private SysUserRoleMapper sysUserRoleMapper;
 

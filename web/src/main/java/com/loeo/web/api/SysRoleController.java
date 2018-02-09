@@ -13,7 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.loeo.common.Result;
 import com.loeo.entity.SysRole;
+import com.loeo.service.ProductService;
+import com.loeo.service.SysButtonService;
+import com.loeo.service.SysMenuService;
+import com.loeo.service.SysOrgService;
+import com.loeo.service.SysPrivilegeService;
+import com.loeo.service.SysResourceService;
 import com.loeo.service.SysRoleService;
+import com.loeo.service.SysUserOrgService;
+import com.loeo.service.SysUserRoleService;
+import com.loeo.service.SysUserService;
 import com.loeo.shiro.ShiroContextUtils;
 import com.loeo.utils.DateUtils;
 import com.loeo.utils.EntityUtil;
@@ -31,6 +40,26 @@ import com.loeo.utils.EntityUtil;
 public class SysRoleController {
 	@Resource
 	private SysRoleService roleService;
+	@Resource
+	private ProductService productService;
+	@Resource
+	private SysButtonService sysButtonService;
+	@Resource
+	private SysMenuService sysMenuService;
+	@Resource
+	private SysOrgService sysOrgService;
+	@Resource
+	private SysPrivilegeService sysPrivilegeService;
+	@Resource
+	private SysResourceService sysResourceService;
+	@Resource
+	private SysUserRoleService sysUserRoleService;
+	@Resource
+	private SysUserOrgService sysUserOrgService;
+	@Resource
+	private SysUserService sysUserService;
+
+
 
 	@PostMapping("/list")
 	public Result roles(@RequestParam int page, @RequestParam int rows) {

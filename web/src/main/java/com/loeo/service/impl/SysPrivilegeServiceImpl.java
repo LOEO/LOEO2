@@ -10,12 +10,12 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.loeo.dto.MenuAndButton;
 import com.loeo.dto.SysResourceTreeNode;
 import com.loeo.entity.SysPrivilege;
 import com.loeo.entity.SysResource;
 import com.loeo.mapper.SysPrivilegeMapper;
+import com.loeo.service.BaseServiceImpl;
 import com.loeo.service.SysPrivilegeService;
 import com.loeo.service.SysResourceService;
 import com.loeo.shiro.ShiroContextUtils;
@@ -29,8 +29,7 @@ import com.loeo.shiro.ShiroContextUtils;
  * @since 2017-05-25
  */
 @Service
-@Transactional(rollbackFor = Exception.class)
-public class SysPrivilegeServiceImpl extends ServiceImpl<SysPrivilegeMapper, SysPrivilege> implements SysPrivilegeService {
+public class SysPrivilegeServiceImpl extends BaseServiceImpl<SysPrivilegeMapper, SysPrivilege> implements SysPrivilegeService {
 	@Resource
 	private SysPrivilegeMapper privilegeMapper;
 	@Resource

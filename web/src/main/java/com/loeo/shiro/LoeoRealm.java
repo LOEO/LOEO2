@@ -3,8 +3,6 @@ package com.loeo.shiro;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.annotation.Resource;
-
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -17,26 +15,29 @@ import org.apache.shiro.subject.PrincipalCollection;
 
 import com.loeo.entity.SysUser;
 import com.loeo.service.ShiroService;
+import com.loeo.utils.ApplicationContextUtils;
 
 
 /**
  * @author LT(286269159 @ qq.com)
  */
 public class LoeoRealm extends AuthorizingRealm {
-	@Resource
+	/**
+	 * 此处没有用注入的方式，因为Realm初始化比事务初始化靠前，这里使用注入，会使提前使用的类的事务失效
+	 */
 	private ShiroService shiroService;
 
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
 		//获取权限信息
-		Set<String> roleSet = shiroService.findRolesByUserId(ShiroContextUtils.getCurUser().getId());
+		Set<String> roleSet = getShiroService().findRolesByUserId(ShiroContextUtils.getCurUser().getId());
 		SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo(roleSet);
 		if (ShiroContextUtils.getCurUser().getId() == 1) {
 			Set<String> permissions = new HashSet<>();
 			permissions.add("*");
 			simpleAuthorizationInfo.setStringPermissions(permissions);
 		} else {
-			simpleAuthorizationInfo.setStringPermissions(shiroService.findPermByRoles(roleSet));
+			simpleAuthorizationInfo.setStringPermissions(getShiroService().findPermByRoles(roleSet));
 		}
 		return simpleAuthorizationInfo;
 	}
@@ -44,7 +45,7 @@ public class LoeoRealm extends AuthorizingRealm {
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
 		String username = (String) authenticationToken.getPrincipal();
-		SysUser sysUser = shiroService.findUserByUserName(username);
+		SysUser sysUser = getShiroService().findUserByUserName(username);
 		if (sysUser == null) {
 			throw new UnknownAccountException();
 		}
@@ -54,6 +55,17 @@ public class LoeoRealm extends AuthorizingRealm {
 				sysUser.getPassword(),
 				this.getClass().getName()
 		);
+	}
+
+	private ShiroService getShiroService() {
+		if (this.shiroService == null) {
+			synchronized (this) {
+				if (this.shiroService == null) {
+					this.shiroService = ApplicationContextUtils.getBean(ShiroService.class);
+				}
+			}
+		}
+		return this.shiroService;
 	}
 
 }

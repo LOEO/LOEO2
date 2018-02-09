@@ -1,27 +1,20 @@
 package com.loeo;
 
-import java.util.List;
+import java.util.Date;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
-import com.baomidou.mybatisplus.plugins.Page;
-import com.loeo.entity.SysButton;
-import com.loeo.mapper.SysButtonMapper;
-import com.loeo.mapper.TestDao;
+import com.loeo.entity.SysRole;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class AppTests {
-
-	@Autowired
-	private TestDao testDao;
-
-	@Autowired
-	private SysButtonMapper sysButtonMapper;
 
 	@Test
 	public void contextLoads() {
@@ -41,18 +34,44 @@ public class AppTests {
 	}
 
 	@Test
+	@Rollback
 	public void selectByPage() {
-		List<com.loeo.entity.Test> testList = testDao.selectPage(new Page<com.loeo.entity.Test>(3, 3), null);
+		SysRole sysRole = new SysRole();
+		sysRole.setName("nnnnn");
+		sysRole.setCreateDt(new Date());
+		sysRole.setUpdateDt(new Date());
+		sysRole.setCreateUser(1);
+		sysRole.setUpdateUser(1);
+		sysRole.setDescp("ssss");
+		sysRole.setEnable(0);
+		sysRole.setCode("ss");
+		Assert.isTrue(sysRole.insert(),"true");
+		/*List<com.loeo.entity.Test> testList = testDao.selectPage(new Page<com.loeo.entity.Test>(3, 3), null);
 		for (com.loeo.entity.Test t :
 				testList) {
 			System.out.println(t);
-		}
+		}*/
 	}
 
 	@Test
-	public void select() {
-		SysButton sysButton = sysButtonMapper.selectById(1);
-		System.out.println(sysButton.getName());
+	@Transactional
+	public void selectByPage1() {
+		SysRole sysRole = new SysRole();
+		sysRole.setName("nnnnn");
+		sysRole.setCreateDt(new Date());
+		sysRole.setUpdateDt(new Date());
+		sysRole.setCreateUser(1);
+		sysRole.setUpdateUser(1);
+		sysRole.setDescp("ssss");
+		sysRole.setEnable(0);
+		sysRole.setCode("ss");
+		Assert.isTrue(sysRole.insert(),"true");
+		/*List<com.loeo.entity.Test> testList = testDao.selectPage(new Page<com.loeo.entity.Test>(3, 3), null);
+		for (com.loeo.entity.Test t :
+				testList) {
+			System.out.println(t);
+		}*/
 	}
+
 
 }

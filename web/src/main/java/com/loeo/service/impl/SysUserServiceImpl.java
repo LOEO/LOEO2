@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.loeo.dto.SysResourceTreeNode;
 import com.loeo.entity.SysResource;
 import com.loeo.entity.SysRole;
@@ -20,6 +19,7 @@ import com.loeo.entity.SysUser;
 import com.loeo.entity.SysUserRole;
 import com.loeo.exception.DuplicateUsernameException;
 import com.loeo.mapper.SysUserMapper;
+import com.loeo.service.BaseServiceImpl;
 import com.loeo.service.SysPrivilegeService;
 import com.loeo.service.SysRoleService;
 import com.loeo.service.SysUserRoleService;
@@ -34,8 +34,11 @@ import com.loeo.service.SysUserService;
  * @since 2017-05-25
  */
 @Service
-@Transactional(rollbackFor = Exception.class)
-public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
+@Transactional
+public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> implements SysUserService {
+	public SysUserServiceImpl() {
+		System.out.println("=======================");
+	}
 	@Resource
 	private SysUserMapper sysUserMapper;
 	@Resource
