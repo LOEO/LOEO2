@@ -37,8 +37,18 @@
 				>
 			</div>
 			<div style="margin-bottom:10px;display:none;">
-				<input id='resourceLink' name="link" class="easyui-textbox" label="链接:"
+				<input id='resourceLink' name="api" class="easyui-textbox" label="api:"
 					   style="width:94%">
+			</div>
+			<div style="margin-bottom:10px">
+				<input id='apiMethod' name="method" class="easyui-combobox" label="method:" panelHeight="auto"
+					   style="width:94%"
+					   data-options="editable:false,valueField: 'id',textField: 'text',data:[{id:'GET',text:'GET'}
+																									   ,{id:'POST',text:'POST'}
+																									   ,{id:'PUT',text:'PUT'}
+																									   ,{id:'DELETE',text:'DELETE'}
+																									   ]"
+				>
 			</div>
 			<div style="margin-bottom:10px">
 				<input name="iconCls" class="easyui-textbox" label="图标:"
@@ -76,7 +86,8 @@
 		var columns = [
 			{field: 'id', title: 'id', hidden: true, align: 'center'},
 			{field: 'name', title: '资源名', align: 'center'},
-			{field: 'link', title: '链接', width: 100, align: 'center'},
+			{field: 'api', title: 'api', width: 100, align: 'center'},
+			{field: 'method', title: 'method', width: 100, align: 'center'},
 			{
 				field: 'type', title: '类型', align: 'center', width: 60, formatter: function (value) {
 					switch (value) {
@@ -174,9 +185,6 @@
 			var row = resourceGrid.datagrid("getSelected");
 			if (row) {
 				resourceForm.form("load", row).form({url: "/api/resources/"+row.id});
-				$("#username").textbox({editable: false});
-				$("#password").textbox("setValue", "");
-				$("#password1").textbox("setValue", "");
 				LOEO.openFormWin("resourceWin", {
 					title: "修改资源"
 				});
@@ -202,7 +210,9 @@
 						$.ajax({
 							url: "/api/resources/" + row.id,
 							method:"delete",
+							dataType:"json",
 							success:function (result) {
+								debugger;
 								if (result.success) {
 									resourceGrid.datagrid("reload");
 								}

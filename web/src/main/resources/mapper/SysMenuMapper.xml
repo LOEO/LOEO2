@@ -7,7 +7,7 @@
 		<id column="id" property="id"/>
 		<result column="name" property="name"/>
 		<result column="iconCls" property="iconCls"/>
-		<result column="link" property="link"/>
+		<result column="api" property="api"/>
 		<result column="pid" property="pid"/>
 		<result column="isLeaf" property="isLeaf"/>
 		<result column="orde" property="orde"/>

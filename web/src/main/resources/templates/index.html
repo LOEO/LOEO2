@@ -251,8 +251,8 @@
 			for (; i < len; i++) {
 				curMenu = menus[i];
 				if (curMenu.pid === pid) {
-					//如果菜单是叶子节点或者配置了link则不再继续递归
-					if (curMenu.isLeaf === 1 || curMenu.link) {
+					//如果菜单是叶子节点或者配置了api则不再继续递归
+					if (curMenu.isLeaf === 1 || curMenu.api) {
 						$curMenu = $(buildMenuHtml(curMenu, menuItemTpl));
 						$curMenu.find("a").addClass("leo_menu");
 					} else {
@@ -270,7 +270,7 @@
 
 		function buildMenuHtml(menu, tpl, expandIcon) {
 			return tpl
-				.replace("{{url}}", menu.link)
+				.replace("{{url}}", menu.api)
 				.replace("{{iconCls}}", menu.iconCls)
 				.replace("{{name}}", menu.name)
 				.replace("{{id}}", "menu_" + menu.id)

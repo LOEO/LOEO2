@@ -13,7 +13,8 @@ public class SysResourceTreeNode extends SysResource {
     public SysResourceTreeNode(SysResource resource) {
         this.setId(resource.getId());
         this.setName(resource.getName());
-        this.setLink(resource.getLink());
+        this.setApi(resource.getApi());
+        this.setMethod(resource.getMethod());
         this.setType(resource.getType());
         this.setPid(resource.getPid());
         this.setDescp(resource.getDescp());

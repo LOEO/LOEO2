@@ -32,6 +32,7 @@
 		WHERE
 			ur.userid = #{userId}
 			AND r.id = ur.roleId
+				AND (re.type = 0 or re.type = 1)
 			AND (
 				((p.`master` = 'role'
 				  AND p.masterValue = r.id) OR (p.`master` = 'user' AND p.masterValue = #{userId}))

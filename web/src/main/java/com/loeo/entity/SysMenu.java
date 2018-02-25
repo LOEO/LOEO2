@@ -34,7 +34,7 @@ public class SysMenu extends Model<SysMenu> {
 	/**
 	 * 菜单url
 	 */
-	private String link;
+	private String api;
 	/**
 	 * 父ID
 	 */
@@ -78,12 +78,12 @@ public class SysMenu extends Model<SysMenu> {
 		this.iconCls = iconCls;
 	}
 
-	public String getLink() {
-		return link;
+	public String getApi() {
+		return api;
 	}
 
-	public void setLink(String link) {
-		this.link = link;
+	public void setApi(String api) {
+		this.api = api;
 	}
 
 	public Integer getPid() {

@@ -203,7 +203,9 @@
 						$.ajax({
 							url: "/api/users/" + row.id,
 							method: "delete",
+							dataType:"json",
 							success: function (result) {
+								debugger;
 								if (result.success) {
 									userGrid.datagrid("reload");
 								}

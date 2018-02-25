@@ -39,7 +39,7 @@ public class SysPrivilegeServiceImpl extends BaseServiceImpl<SysPrivilegeMapper,
 	@Override
 	@Transactional
 	public void save(List<MenuAndButton> menuAndButtons, String master, String masterValue) {
-		//privilegeMapper.deleteByMasterAndValue(master,masterValue);
+		privilegeMapper.deleteByMasterAndValue(master,masterValue);
 		if (menuAndButtons.size() > 0) {
 			boolean result = insertBatch(convert2Privileges(menuAndButtons, master, masterValue));
 			System.out.println(result);

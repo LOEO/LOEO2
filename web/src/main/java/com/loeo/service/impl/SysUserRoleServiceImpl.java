@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.loeo.entity.SysRole;
@@ -34,6 +35,10 @@ public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRoleMapper, S
 
 	@Override
 	public void saveUserRoles(List<SysRole> roleList, Serializable userId) {
-		sysUserRoleMapper.saveUserRoles(roleList, userId);
+		if (CollectionUtils.isEmpty(roleList)) {
+			sysUserRoleMapper.delete(new EntityWrapper<SysUserRole>().eq("userId", userId));
+		}else{
+			sysUserRoleMapper.saveUserRoles(roleList, userId);
+		}
 	}
 }

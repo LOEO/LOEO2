@@ -1,8 +1,8 @@
 package com.loeo.service.impl;
 
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -41,11 +41,15 @@ public class ShiroServiceImpl implements ShiroService {
 	private SysResourceService sysResourceService;
 	@Resource
 	private SysPrivilegeService sysPrivilegeService;
+
 	@Override
 	public Map<String, String> initUrlPerms() {
-		List<SysResource> sysResources = sysResourceService.selectList(new EntityWrapper<SysResource>().eq("type", "1"));
-		Map<String, String> permMap = new HashMap<>(sysResources.size());
-		sysResources.forEach(sr -> permMap.put(sr.getLink(), "perms[\"" + sr.getType() + ShiroService.PART_DIVIDER_TOKEN + sr.getId() + "\"]"));
+		List<SysResource> sysResources = sysResourceService.selectList(new EntityWrapper<SysResource>().isNotNull("api"));
+		Map<String, String> permMap = new LinkedHashMap<>(sysResources.size());
+		sysResources.forEach(sr -> permMap.put(sr.getApi(), sr.getType()
+				+ ShiroService.PART_DIVIDER_TOKEN
+				+ sr.getId()
+		));
 		return permMap;
 	}
 

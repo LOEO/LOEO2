@@ -31,7 +31,7 @@ public class SysPrivilegeController {
 	public Result savePrivilege(String nodes,String master,String masterValue) {
 		List<MenuAndButton> menuAndButtons = JSON.parseArray(nodes,MenuAndButton.class);
 		privilegeService.save(menuAndButtons,master,masterValue);
-		return Result.success();
+		return Result.success("保存成功");
 	}
 
 }

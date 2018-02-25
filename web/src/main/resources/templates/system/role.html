@@ -119,6 +119,7 @@
 						$.ajax({
 							url: "/api/roles/" + row.id,
 							method:"delete",
+							dataType:"json",
 							success:function (result) {
 								if (result.success) {
 									roleGrid.datagrid("reload");

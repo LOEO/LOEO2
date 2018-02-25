@@ -6,7 +6,8 @@
 	<resultMap id="BaseResultMap" type="com.loeo.entity.SysResource">
 		<id column="id" property="id"/>
 		<result column="name" property="name"/>
-		<result column="link" property="link"/>
+		<result column="api" property="api"/>
+		<result column="method" property="method"/>
 		<result column="type" property="type"/>
 		<result column="pid" property="pid"/>
 		<result column="descp" property="descp"/>

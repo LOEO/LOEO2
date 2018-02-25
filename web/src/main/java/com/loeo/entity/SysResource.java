@@ -25,7 +25,8 @@ public class SysResource extends Model<SysResource> {
 	@TableId(value = "id", type = IdType.AUTO)
 	private Integer id;
 	private String name;
-	private String link;
+	private String api;
+	private String method;
 	private String type;
 	private Integer pid;
 	private String descp;
@@ -58,12 +59,20 @@ public class SysResource extends Model<SysResource> {
 		this.name = name;
 	}
 
-	public String getLink() {
-		return link;
+	public String getApi() {
+		return api;
 	}
 
-	public void setLink(String link) {
-		this.link = link;
+	public void setApi(String api) {
+		this.api = api;
+	}
+
+	public String getMethod() {
+		return method;
+	}
+
+	public void setMethod(String method) {
+		this.method = method;
 	}
 
 	public String getType() {
