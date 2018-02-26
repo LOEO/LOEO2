@@ -29,9 +29,11 @@ public class PageController {
 	}
 
 	@PostMapping("/login")
-	public String login(String username, String password, ModelMap modelMap, HttpSession session) {
+	public String login(String username, String password, boolean rememberMe, ModelMap modelMap, HttpSession session) {
 		try {
-			SecurityUtils.getSubject().login(new UsernamePasswordToken(username, password));
+			UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, password);
+			usernamePasswordToken.setRememberMe(rememberMe);
+			SecurityUtils.getSubject().login(usernamePasswordToken);
 			modelMap.put("user", ShiroContextUtils.getCurUser());
 			return "redirect:index";
 		} catch (Exception e) {

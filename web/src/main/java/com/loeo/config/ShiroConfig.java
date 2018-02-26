@@ -65,7 +65,7 @@ public class ShiroConfig implements ApplicationRunner, ApplicationListener<Resou
 		//配置访问权限
 		LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
 		filterChainDefinitionMap.put("/login.html", "anon");
-		filterChainDefinitionMap.put("/logout*", "anon");
+		filterChainDefinitionMap.put("/logout", "logout");
 		filterChainDefinitionMap.put("/login", "anon");
 		filterChainDefinitionMap.put("/resources/**", "anon");
 		filterChainDefinitionMap.put("/**", "user,sysPerm");
