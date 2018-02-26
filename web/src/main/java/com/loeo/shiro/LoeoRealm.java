@@ -32,12 +32,15 @@ public class LoeoRealm extends AuthorizingRealm {
 		//获取权限信息
 		Set<String> roleSet = getShiroService().findRolesByUserId(ShiroContextUtils.getCurUser().getId());
 		SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo(roleSet);
-		if (ShiroContextUtils.getCurUser().getId() == 1) {
+		if (ShiroContextUtils.getCurUserId() == 1) {
 			Set<String> permissions = new HashSet<>();
 			permissions.add("*");
 			simpleAuthorizationInfo.setStringPermissions(permissions);
 		} else {
-			simpleAuthorizationInfo.setStringPermissions(getShiroService().findPermByRoles(roleSet));
+			Set<String> permSet = new HashSet<>();
+			permSet.addAll(getShiroService().findPermByRoles(roleSet));
+			permSet.addAll(getShiroService().findPermByUserId(ShiroContextUtils.getCurUserId()));
+			simpleAuthorizationInfo.setStringPermissions(permSet);
 		}
 		return simpleAuthorizationInfo;
 	}

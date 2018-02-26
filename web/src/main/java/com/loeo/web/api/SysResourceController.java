@@ -47,6 +47,9 @@ public class SysResourceController {
 	public Result add(SysResource sysResource) {
 		sysResource.setCreateDt(DateUtils.now());
 		sysResource.setCreateUser(ShiroContextUtils.getCurUserId());
+		sysResource.setUpdateDt(sysResource.getCreateDt());
+		sysResource.setUpdateUser(sysResource.getUpdateUser());
+		sysResource.setIsLeaf(1);
 		resourceService.insert(sysResource);
 		return Result.success("保存成功");
 	}

@@ -1,9 +1,10 @@
 package com.loeo.service;
 
 import java.io.Serializable;
-import java.util.Map;
+import java.util.List;
 import java.util.Set;
 
+import com.loeo.entity.SysResource;
 import com.loeo.entity.SysUser;
 
 /**
@@ -17,9 +18,11 @@ import com.loeo.entity.SysUser;
 public interface ShiroService {
 	String PART_DIVIDER_TOKEN = ":";
 
-	Map<String, String> initUrlPerms();
+	List<SysResource> findAllPermResources();
 
 	Set<String> findPermByRoles(Set<String> roles);
+
+	Set<String> findPermByUserId(Serializable userId);
 
 	Set<String> findRolesByUserId(Serializable id);
 

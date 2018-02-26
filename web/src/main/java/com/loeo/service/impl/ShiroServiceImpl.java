@@ -2,9 +2,7 @@ package com.loeo.service.impl;
 
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -43,14 +41,8 @@ public class ShiroServiceImpl implements ShiroService {
 	private SysPrivilegeService sysPrivilegeService;
 
 	@Override
-	public Map<String, String> initUrlPerms() {
-		List<SysResource> sysResources = sysResourceService.selectList(new EntityWrapper<SysResource>().isNotNull("api"));
-		Map<String, String> permMap = new LinkedHashMap<>(sysResources.size());
-		sysResources.forEach(sr -> permMap.put(sr.getApi(), sr.getType()
-				+ ShiroService.PART_DIVIDER_TOKEN
-				+ sr.getId()
-		));
-		return permMap;
+	public List<SysResource> findAllPermResources() {
+		return sysResourceService.selectList(new EntityWrapper<SysResource>().isNotNull("api"));
 	}
 
 	@Override
@@ -63,6 +55,12 @@ public class ShiroServiceImpl implements ShiroService {
 			permSet.addAll(sysPrivileges.stream().map(sp -> sp.getAccess() + ShiroService.PART_DIVIDER_TOKEN + sp.getAccessValue()).collect(Collectors.toSet()));
 		});
 		return permSet;
+	}
+
+	@Override
+	public Set<String> findPermByUserId(Serializable userId) {
+		List<SysPrivilege> sysPrivileges = sysPrivilegeService.selectList(new EntityWrapper<SysPrivilege>().eq("master", "user").eq("masterValue", userId));
+		return sysPrivileges.stream().map(sp -> sp.getAccess() + ShiroService.PART_DIVIDER_TOKEN + sp.getAccessValue()).collect(Collectors.toSet());
 	}
 
 	@Override

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50716
 File Encoding         : 65001
 
-Date: 2018-02-25 17:48:14
+Date: 2018-02-26 15:24:31
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -173,7 +173,7 @@ CREATE TABLE `t_sys_privilege` (
   `updateUser` int(11) DEFAULT NULL,
   `updateDt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=312 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=323 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_sys_privilege
@@ -210,9 +210,10 @@ INSERT INTO `t_sys_privilege` VALUES ('237', 'role', '5', '2', '24', 'enable', '
 INSERT INTO `t_sys_privilege` VALUES ('238', 'role', '5', '2', '25', 'enable', '2', '2018-02-07 10:40:01', '2', '2018-02-07 10:40:01');
 INSERT INTO `t_sys_privilege` VALUES ('239', 'role', '4', '1', '5', 'enable', '1', '2018-02-07 17:16:15', '1', '2018-02-07 17:16:19');
 INSERT INTO `t_sys_privilege` VALUES ('294', 'role', '19', '1', '5', 'enable', '1', '2018-02-09 14:58:15', '1', '2018-02-09 14:58:15');
-INSERT INTO `t_sys_privilege` VALUES ('309', 'role', '6', '1', '8', 'enable', '1', '2018-02-25 16:37:37', '1', '2018-02-25 16:37:37');
-INSERT INTO `t_sys_privilege` VALUES ('310', 'role', '6', '0', '7', 'enable', '1', '2018-02-25 16:37:37', '1', '2018-02-25 16:37:37');
-INSERT INTO `t_sys_privilege` VALUES ('311', 'role', '6', '2', '24', 'enable', '1', '2018-02-25 16:37:37', '1', '2018-02-25 16:37:37');
+INSERT INTO `t_sys_privilege` VALUES ('319', 'role', '6', '1', '8', 'enable', '1', '2018-02-26 15:20:20', '1', '2018-02-26 15:20:20');
+INSERT INTO `t_sys_privilege` VALUES ('320', 'role', '6', '0', '7', 'enable', '1', '2018-02-26 15:20:20', '1', '2018-02-26 15:20:20');
+INSERT INTO `t_sys_privilege` VALUES ('321', 'role', '6', '2', '24', 'enable', '1', '2018-02-26 15:20:20', '1', '2018-02-26 15:20:20');
+INSERT INTO `t_sys_privilege` VALUES ('322', 'role', '6', '3', '26', 'enable', '1', '2018-02-26 15:20:20', '1', '2018-02-26 15:20:20');
 
 -- ----------------------------
 -- Table structure for t_sys_resource
@@ -236,22 +237,24 @@ CREATE TABLE `t_sys_resource` (
   `isLeaf` tinyint(255) DEFAULT NULL,
   `orde` int(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_sys_resource
 -- ----------------------------
-INSERT INTO `t_sys_resource` VALUES ('5', '获取用户', '/api/user/*/resources', null, '1', '0', null, null, null, '2018-02-07 17:15:19', '1', '2018-02-07 17:15:22', '1', '1', '1', '1');
+INSERT INTO `t_sys_resource` VALUES ('5', '获取用户', '/api/user/\\d+/resources', 'GET', '3', '0', null, 'fa fa-user', null, '2018-02-07 17:15:19', '1', '2018-02-07 17:15:22', '1', '1', '1', '1');
 INSERT INTO `t_sys_resource` VALUES ('7', '系统管理', '', null, '0', '0', '系统管理', 'fa fa-files-o', '', '2016-11-06 00:48:37', '1', '2016-11-06 00:48:37', '1', '1', '0', '1');
-INSERT INTO `t_sys_resource` VALUES ('8', '用户管理', '/users', null, '1', '7', '用户管理', 'fa fa-user', '', '2016-11-06 01:02:10', '1', '2016-11-06 01:02:10', '1', '1', '0', '2');
-INSERT INTO `t_sys_resource` VALUES ('9', '资源管理', '/resources', null, '1', '7', '资源管理', 'fa fa-list-ol', '', '2016-11-06 01:33:15', '1', '2016-11-06 01:33:15', '1', '1', '1', '2');
-INSERT INTO `t_sys_resource` VALUES ('10', '组织架构', '/orgs', null, '1', '7', '组织架构', 'fa fa-sitemap', '', '2016-11-06 01:39:12', '1', '2016-11-06 01:39:12', '1', '1', '1', '3');
-INSERT INTO `t_sys_resource` VALUES ('11', '角色管理', '/roles', null, '1', '7', '角色管理', 'fa fa-users', '', '2016-11-06 01:41:58', '1', '2016-11-06 01:41:58', '1', '1', '1', '4');
-INSERT INTO `t_sys_resource` VALUES ('13', '权限管理', '/privileges', null, '1', '7', '权限管理', 'fa fa-eye', '', '2016-11-06 01:50:09', '1', '2016-11-06 01:53:40', '1', '1', '1', '5');
+INSERT INTO `t_sys_resource` VALUES ('8', '用户管理', '/users', 'GET', '1', '7', '用户管理', 'fa fa-user', '', '2016-11-06 01:02:10', '1', '2016-11-06 01:02:10', '1', '1', '0', '2');
+INSERT INTO `t_sys_resource` VALUES ('9', '资源管理', '/resources', 'GET', '1', '7', '资源管理', 'fa fa-list-ol', '', '2016-11-06 01:33:15', '1', '2016-11-06 01:33:15', '1', '1', '1', '2');
+INSERT INTO `t_sys_resource` VALUES ('10', '组织架构', '/orgs', 'GET', '1', '7', '组织架构', 'fa fa-sitemap', '', '2016-11-06 01:39:12', '1', '2016-11-06 01:39:12', '1', '1', '1', '3');
+INSERT INTO `t_sys_resource` VALUES ('11', '角色管理', '/roles', 'GET', '1', '7', '角色管理', 'fa fa-users', '', '2016-11-06 01:41:58', '1', '2016-11-06 01:41:58', '1', '1', '1', '4');
+INSERT INTO `t_sys_resource` VALUES ('13', '权限管理', '/privileges', 'GET', '1', '7', '权限管理', 'fa fa-eye', '', '2016-11-06 01:50:09', '1', '2016-11-06 01:53:40', '1', '1', '1', '5');
 INSERT INTO `t_sys_resource` VALUES ('22', '权威', '', null, '0', '21', '', '123', '123', '2016-11-20 22:13:51', '1', '2016-11-20 22:13:51', '1', '1', '1', '123');
 INSERT INTO `t_sys_resource` VALUES ('23', '新增', '/api/users', 'POST', '2', '8', '', 'fa fa-user', '', '2017-01-02 21:30:14', '1', '2017-01-02 21:30:14', '1', '1', '1', '0');
 INSERT INTO `t_sys_resource` VALUES ('24', '修改', '/api/users/\\d+', 'POST', '2', '8', '', 'fa fa-user', '', '2017-01-02 21:31:57', '1', '2017-01-02 21:38:25', '1', '1', '1', '1');
 INSERT INTO `t_sys_resource` VALUES ('25', '删除', '/api/users/\\d+', 'DELETE', '2', '8', '', 'fa fa-user', '', '2017-01-02 21:32:07', '1', '2017-01-02 21:38:39', '1', '1', '1', '2');
+INSERT INTO `t_sys_resource` VALUES ('26', '获取主菜单', '/api/users/\\d+/menus', 'POST', '3', '0', null, 'fa fa-list-ol', null, '2018-02-26 14:43:23', '1', null, null, '1', '1', '1');
+INSERT INTO `t_sys_resource` VALUES ('27', '123123', '1111', 'GET', '3', '13', null, null, null, '2018-02-26 15:23:54', '1', null, null, '1', null, null);
 
 -- ----------------------------
 -- Table structure for t_sys_role
@@ -318,7 +321,7 @@ CREATE TABLE `t_sys_user` (
 INSERT INTO `t_sys_user` VALUES ('1', '1', '123', '1233', '4', '2016-06-29', '男', null, '123@1.com', '123123', null, '2016-09-16 01:28:52', '11', '2016-09-20 01:28:56', '33', '1');
 INSERT INTO `t_sys_user` VALUES ('2', '2', '123123', '啊啦雷', '8', '2014-12-01', '女', null, 'wer@qqq.com', '(123) 123-1231', null, null, null, null, null, '1');
 INSERT INTO `t_sys_user` VALUES ('11', 'liutao', '123123', '刘涛', '0', '1988-04-22', '男', null, '11@qq.com', '1111111', null, null, null, '2016-09-18 02:28:51', '1', '1');
-INSERT INTO `t_sys_user` VALUES ('31', 'qinzeyu', '123123', '秦泽玉', '0', '1989-11-21', '保密', null, '22@wq.com', '110', null, null, null, null, null, '1');
+INSERT INTO `t_sys_user` VALUES ('31', 'qinzeyu', '123123', '秦133', '0', '1989-11-19', '保密', null, '22@wq.com', '110111', null, null, null, null, null, '1');
 INSERT INTO `t_sys_user` VALUES ('33', 'admin1', '123123', '管理员1', null, '2018-02-08', '男', null, '1@1q.c', '1233231', null, '2018-02-08 17:03:42', '1', null, null, '1');
 
 -- ----------------------------

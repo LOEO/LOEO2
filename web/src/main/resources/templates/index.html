@@ -278,6 +278,7 @@
 		}
 
 		$.post("/api/users/[[${#session.getAttribute('user').id}]]/menus", function (result) {
+			debugger;
 			if (result && !result.success) {
 				LOEO.messager("加载数据失败！");
 				return;

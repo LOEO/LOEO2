@@ -18,7 +18,7 @@ import com.loeo.entity.SysResource;
  */
 public interface SysResourceService extends IService<SysResource> {
 
-	public List<SysResourceTreeNode> getResourceTree();
+	List<SysResourceTreeNode> getResourceTree();
 
 	Page<SysResource> findResourcesByPage(int pageNo, int pageSize);
 

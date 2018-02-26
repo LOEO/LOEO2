@@ -97,6 +97,8 @@
 							return "菜单";
 						case "2":
 							return "按钮";
+						case "3":
+							return "API";
 					}
 				}
 			},
@@ -145,15 +147,21 @@
 			editable: false,
 			valueField: 'id',
 			textField: 'text',
-			data: [{id: '0', text: '目录'}, {id: '1', text: '菜单'}, {id: '2', text: '按钮'}],
+			data: [{id: '0', text: '目录'}, {id: '1', text: '菜单'}, {id: '2', text: '按钮'},{id:'3',text:'API'}],
 			onSelect: function (selected) {
 				debugger;
 				if (selected.id !== "0") {
 					$("#resourceLink").textbox({
 						required: true
 					}).parent().show().find("#resourceLink + span").width(187).find("input").width(187);
+					$("#apiMethod").textbox({
+						required: true
+					}).parent().show().find("#apiMethod + span").width(187).find("input").width(187);
 				} else {
 					$("#resourceLink").hide().textbox({
+						required: false
+					}).parent().hide();
+					$("#apiMethod").hide().textbox({
 						required: false
 					}).parent().hide();
 				}
@@ -170,8 +178,10 @@
 			}, function () {
 				debugger;
 				$("#resourceType").combobox("clear");
+				$("#apiMethod").combobox("clear");
 				resourceForm.form("clear").form({url: "/api/resources"});
 				$("#resourceLink").parent().hide();
+				$("#apiMethod").parent().hide();
 				var row = resourceGrid.treegrid("getSelected");
 				if (row) {
 					$("#resourcePid").val(row.id);
