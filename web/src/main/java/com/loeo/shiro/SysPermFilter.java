@@ -39,6 +39,9 @@ public class SysPermFilter extends PermissionsAuthorizationFilter {
 
 	@Override
 	protected boolean pathsMatch(String path, ServletRequest request) {
+		if (super.pathsMatch(path, request)) {
+			return true;
+		}
 		Pattern pattern;
 		String requestURI = getPathWithinApplication(request);
 		String[] pathAndMethod = path.split(ShiroService.PART_DIVIDER_TOKEN);
@@ -82,8 +85,6 @@ public class SysPermFilter extends PermissionsAuthorizationFilter {
 		logger.info("开始初始化系统权限...");
 		ShiroService shiroService = ApplicationContextUtils.getBean(ShiroService.class);
 		List<SysResource> resources = shiroService.findAllPermResources();
-		appliedPaths.clear();
-
 		resources.forEach(resource -> addToAppliedPaths(resource.getApi() + (StringUtils.hasText(resource.getMethod()) ? ShiroService.PART_DIVIDER_TOKEN + resource.getMethod() : ""), resource.getType()
 				+ ShiroService.PART_DIVIDER_TOKEN
 				+ resource.getId()
