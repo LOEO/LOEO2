@@ -3,16 +3,16 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.loeo</groupId>
-	<artifactId>loeo-web</artifactId>
+	<artifactId>web</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>loeo-web</name>
-	<description>loeo-web</description>
+	<name>web</name>
+	<description>web</description>
 	<developers>
 		<developer>
-			<id>LOEO</id>
-			<name>LOEO</name>
+			<id>Tony</id>
+			<name>Tony</name>
 			<email>286269159@qq.com</email>
 			<roles>
 				<role>developer</role>

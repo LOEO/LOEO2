@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.loeo</groupId>
-    <artifactId>loeo-common</artifactId>
+    <artifactId>common</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>loeo-common</name>
-    <description>loeo-common</description>
+    <name>common</name>
+    <description>common</description>
 </project>
