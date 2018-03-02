@@ -4,8 +4,8 @@
   "private": true,
   "dependencies": {
     "antd": "^2.12.2",
-    "husky": "^0.14.3",
-    "lint-staged": "^4.0.2",
+    //"husky": "^0.14.3",
+    //"lint-staged": "^4.0.2",
     "prettier": "^1.5.3",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
@@ -13,14 +13,14 @@
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.10"
   },
-  "lint-staged": {
-    "src/**/*.{js,jsx,json,css}": [
-      "prettier --single-quote --write",
-      "git add"
-    ]
-  },
+  //"lint-staged": {
+  //  "src/**/*.{js,jsx,json,css}": [
+  //    "prettier --single-quote --write",
+   //   "git add"
+  //  ]
+  //},
   "scripts": {
-    "precommit": "lint-staged",
+    //"precommit": "lint-staged",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
