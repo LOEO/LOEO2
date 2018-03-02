@@ -19,6 +19,9 @@ import com.loeo.entity.SysUser;
  * @since 2017-05-25
  */
 public interface SysUserService extends IService<SysUser> {
+
+	SysUser add(SysUser sysUser);
+
     SysUser findByUserName(String username);
 
 	List<SysRole> findRolesById(Serializable id);

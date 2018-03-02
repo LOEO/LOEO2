@@ -39,7 +39,7 @@ public class SysUserController {
 	public Result add(SysUser sysUser) {
 		sysUser.setCreateDt(DateUtils.now());
 		sysUser.setCreateUser(ShiroContextUtils.getCurUserId());
-		sysUserService.insert(sysUser);
+		sysUserService.add(sysUser);
 		return Result.success("保存成功");
 	}
 

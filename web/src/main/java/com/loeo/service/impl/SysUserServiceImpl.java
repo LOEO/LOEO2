@@ -1,23 +1,24 @@
 package com.loeo.service.impl;
 
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.loeo.config.ShiroConfig;
 import com.loeo.dto.SysResourceTreeNode;
 import com.loeo.entity.SysResource;
 import com.loeo.entity.SysRole;
 import com.loeo.entity.SysUser;
 import com.loeo.entity.SysUserRole;
-import com.loeo.exception.DuplicateUsernameException;
+import com.loeo.exception.UsernameAlreadyExistException;
 import com.loeo.mapper.SysUserMapper;
 import com.loeo.service.BaseServiceImpl;
 import com.loeo.service.SysPrivilegeService;
@@ -39,6 +40,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
 	public SysUserServiceImpl() {
 		System.out.println("=======================");
 	}
+
 	@Resource
 	private SysUserMapper sysUserMapper;
 	@Resource
@@ -53,20 +55,19 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
 	private SysUserRoleService userRoleService;
 
 	@Override
-	public SysUser findByUserName(String username) {
-		List<SysUser> sysUserList = selectByMap(new HashMap<String, Object>() {
-			{
-				put("username", username);
-			}
-		});
-		if (sysUserList != null && sysUserList.size() > 0) {
-			if (sysUserList.size() == 1) {
-				return sysUserList.get(0);
-			} else if (sysUserList.size() > 1) {
-				throw new DuplicateUsernameException();
-			}
+	public SysUser add(SysUser sysUser) {
+		SysUser user = findByUserName(sysUser.getUsername());
+		if (user != null) {
+			throw new UsernameAlreadyExistException();
 		}
-		return null;
+		sysUser.setPassword(new SimpleHash(ShiroConfig.HASH_ALGORITHM_NAME, sysUser.getPassword(), sysUser.getUsername(), 1).toString());
+		insert(sysUser);
+		return sysUser;
+	}
+
+	@Override
+	public SysUser findByUserName(String username) {
+		return selectOne(new EntityWrapper<SysUser>().eq("username", username));
 	}
 
 	@Override
@@ -103,6 +104,6 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
 	@Override
 	public void saveUserRole(List<SysRole> roleList, String userId) {
 		userRoleService.delete(new EntityWrapper<SysUserRole>().eq("userId", userId));
-		userRoleService.saveUserRoles(roleList,userId);
+		userRoleService.saveUserRoles(roleList, userId);
 	}
 }

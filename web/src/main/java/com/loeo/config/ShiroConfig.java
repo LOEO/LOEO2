@@ -6,6 +6,8 @@ import java.util.Map;
 import javax.servlet.Filter;
 
 import org.apache.shiro.authc.credential.CredentialsMatcher;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -22,7 +24,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 
 import com.loeo.event.ResourceUpdateEvent;
-import com.loeo.shiro.LoeoCredentialsMatcher;
 import com.loeo.shiro.LoeoRealm;
 import com.loeo.shiro.SysPermFilter;
 
@@ -33,6 +34,7 @@ import com.loeo.shiro.SysPermFilter;
 public class ShiroConfig implements ApplicationRunner, ApplicationListener<ResourceUpdateEvent> {
 	private static final Logger logger = LoggerFactory.getLogger(ShiroConfig.class);
 	private static final SysPermFilter sysPermFilter = new SysPermFilter();
+	public static final String HASH_ALGORITHM_NAME = Md5Hash.ALGORITHM_NAME;
 
 	@Bean
 	public Realm realm(CredentialsMatcher credentialsMatcher) {
@@ -42,11 +44,11 @@ public class ShiroConfig implements ApplicationRunner, ApplicationListener<Resou
 	}
 
 	/**
-	 * 配置自定义的密码比较器
+	 * 配置密码比较器
 	 */
 	@Bean(name = "credentialsMatcher")
 	public CredentialsMatcher credentialsMatcher() {
-		return new LoeoCredentialsMatcher();
+		return new HashedCredentialsMatcher(ShiroConfig.HASH_ALGORITHM_NAME);
 	}
 
 	/**

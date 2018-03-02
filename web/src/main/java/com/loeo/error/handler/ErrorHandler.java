@@ -8,10 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.loeo.common.Result;
 
 /**
  * 功能：
@@ -27,13 +28,13 @@ public class ErrorHandler {
 
 	@ExceptionHandler(Exception.class)
 	@ResponseBody
-	ResponseEntity<?> handleControllerException(HttpServletRequest request, Throwable ex) {
+	Result handleControllerException(HttpServletRequest request, Throwable ex) {
 		HttpStatus status = getStatus(request);
 		Map<String, Object> errInfo = new HashMap<>();
 		errInfo.put("code", status.value());
 		errInfo.put("msg", ex.getMessage());
 		logger.error("发生异常", ex);
-		return new ResponseEntity<>(errInfo, status);
+		return Result.failed("status:" + getStatus(request) +"\n"+ ex.getMessage());
 	}
 
 	private HttpStatus getStatus(HttpServletRequest request) {

@@ -12,6 +12,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.SimpleByteSource;
 
 import com.loeo.entity.SysUser;
 import com.loeo.service.ShiroService;
@@ -56,6 +57,7 @@ public class LoeoRealm extends AuthorizingRealm {
 		return new SimpleAuthenticationInfo(
 				sysUser,
 				sysUser.getPassword(),
+				new SimpleByteSource(sysUser.getUsername()),
 				this.getClass().getName()
 		);
 	}
