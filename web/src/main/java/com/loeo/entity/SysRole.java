@@ -3,10 +3,14 @@ package com.loeo.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import com.loeo.utils.validate.group.Add;
+import com.loeo.utils.validate.group.Update;
 
 /**
  * <p>
@@ -23,7 +27,9 @@ public class SysRole extends Model<SysRole> {
 
 	@TableId(value = "id", type = IdType.AUTO)
 	private Integer id;
+	@NotNull(groups = {Add.class, Update.class})
 	private String name;
+	@NotNull(groups = {Add.class, Update.class})
 	private String code;
 	private String descp;
 	private Integer createUser;

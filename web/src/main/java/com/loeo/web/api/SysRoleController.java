@@ -80,9 +80,8 @@ public class SysRoleController {
 	}
 
 	@PostMapping("/{roleId}")
-	public Result update(@PathVariable String roleId, @RequestParam Map<String, Object> formData) {
-		SysRole sysRole = EntityUtil.buildEntity(SysRole.class, formData);
-		roleService.insertOrUpdate(sysRole);
+	public Result update(@PathVariable String roleId, SysRole sysRole) {
+		roleService.updateById(sysRole);
 		return Result.success("修改成功");
 	}
 

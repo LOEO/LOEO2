@@ -1,7 +1,6 @@
 package com.loeo.web.api;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -19,7 +18,7 @@ import com.loeo.entity.SysUser;
 import com.loeo.service.SysUserService;
 import com.loeo.shiro.ShiroContextUtils;
 import com.loeo.utils.DateUtils;
-import com.loeo.utils.EntityUtil;
+import com.loeo.utils.validate.ValidateUtils;
 
 /**
  * <p>
@@ -37,6 +36,7 @@ public class SysUserController {
 
 	@PostMapping
 	public Result add(SysUser sysUser) {
+		ValidateUtils.validate(sysUser);
 		sysUser.setCreateDt(DateUtils.now());
 		sysUser.setCreateUser(ShiroContextUtils.getCurUserId());
 		sysUserService.add(sysUser);
@@ -44,9 +44,9 @@ public class SysUserController {
 	}
 
 	@PostMapping("/{userId}")
-	public Result update(@PathVariable String userId, @RequestParam Map<String, Object> formData) {
-		SysUser sysUser = EntityUtil.buildEntity(SysUser.class, formData);
-		sysUserService.insertOrUpdate(sysUser);
+	public Result update(@PathVariable String userId, SysUser sysUser) {
+		//SysUser sysUser = EntityUtil.buildEntity(SysUser.class, formData);
+		sysUserService.updateById(sysUser);
 		return Result.success("修改成功");
 	}
 
@@ -82,9 +82,9 @@ public class SysUserController {
 	}
 
 	@PostMapping("/{userId}/roles")
-	public Result saveRoles(@PathVariable String userId,String roles) {
+	public Result saveRoles(@PathVariable String userId, String roles) {
 		List<SysRole> roleList = JSON.parseArray(roles, SysRole.class);
-		sysUserService.saveUserRole(roleList,userId);
+		sysUserService.saveUserRole(roleList, userId);
 		return Result.success("保存成功");
 	}
 

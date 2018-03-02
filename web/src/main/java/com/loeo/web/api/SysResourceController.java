@@ -1,7 +1,5 @@
 package com.loeo.web.api;
 
-import java.util.Map;
-
 import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -9,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.loeo.common.Result;
@@ -17,7 +14,7 @@ import com.loeo.entity.SysResource;
 import com.loeo.service.SysResourceService;
 import com.loeo.shiro.ShiroContextUtils;
 import com.loeo.utils.DateUtils;
-import com.loeo.utils.EntityUtil;
+import com.loeo.utils.validate.ValidateUtils;
 
 /**
  * <p>
@@ -45,6 +42,7 @@ public class SysResourceController {
 
 	@PostMapping
 	public Result add(SysResource sysResource) {
+		ValidateUtils.validate(sysResource);
 		sysResource.setCreateDt(DateUtils.now());
 		sysResource.setCreateUser(ShiroContextUtils.getCurUserId());
 		sysResource.setUpdateDt(sysResource.getCreateDt());
@@ -55,9 +53,8 @@ public class SysResourceController {
 	}
 
 	@PostMapping("/{resourceId}")
-	public Result update(@PathVariable String resourceId, @RequestParam Map<String, Object> formData) {
-		SysResource sysResource = EntityUtil.buildEntity(SysResource.class, formData);
-		resourceService.insertOrUpdate(sysResource);
+	public Result update(@PathVariable String resourceId, SysResource sysResource) {
+		resourceService.updateById(sysResource);
 		return Result.success("修改成功");
 	}
 
