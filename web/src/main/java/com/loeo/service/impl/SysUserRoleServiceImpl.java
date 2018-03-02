@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -33,6 +34,7 @@ public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRoleMapper, S
 		return selectList(new EntityWrapper<SysUserRole>().eq("userId",userId));
 	}
 
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void saveUserRoles(List<SysRole> roleList, Serializable userId) {
 		if (CollectionUtils.isEmpty(roleList)) {

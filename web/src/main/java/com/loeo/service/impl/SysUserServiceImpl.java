@@ -35,7 +35,6 @@ import com.loeo.service.SysUserService;
  * @since 2017-05-25
  */
 @Service
-@Transactional
 public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> implements SysUserService {
 	public SysUserServiceImpl() {
 		System.out.println("=======================");
@@ -55,6 +54,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
 	private SysUserRoleService userRoleService;
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public SysUser add(SysUser sysUser) {
 		SysUser user = findByUserName(sysUser.getUsername());
 		if (user != null) {
@@ -102,6 +102,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void saveUserRole(List<SysRole> roleList, String userId) {
 		userRoleService.delete(new EntityWrapper<SysUserRole>().eq("userId", userId));
 		userRoleService.saveUserRoles(roleList, userId);

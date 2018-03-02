@@ -37,14 +37,13 @@ public class SysPrivilegeServiceImpl extends BaseServiceImpl<SysPrivilegeMapper,
 
 
 	@Override
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void save(List<MenuAndButton> menuAndButtons, String master, String masterValue) {
 		privilegeMapper.deleteByMasterAndValue(master,masterValue);
 		if (menuAndButtons.size() > 0) {
 			boolean result = insertBatch(convert2Privileges(menuAndButtons, master, masterValue));
 			System.out.println(result);
 		}
-		// TODO: 2018/2/8 重新设置shiro权限
 	}
 
 	@Override
@@ -53,15 +52,15 @@ public class SysPrivilegeServiceImpl extends BaseServiceImpl<SysPrivilegeMapper,
 		return resourceService.convertResourceTree(resources, 0);
 	}
 
-	public List<SysPrivilege> convert2Privileges(List<MenuAndButton> menuAndButtons,String master,String masterValue) {
+	private List<SysPrivilege> convert2Privileges(List<MenuAndButton> menuAndButtons, String master, String masterValue) {
 		List<SysPrivilege> sysPrivileges = new ArrayList<SysPrivilege>();
-		for(int i=0;i<menuAndButtons.size();i++) {
-			sysPrivileges.add(convert2Privilege(menuAndButtons.get(i),master,masterValue));
+		for (MenuAndButton menuAndButton : menuAndButtons) {
+			sysPrivileges.add(convert2Privilege(menuAndButton, master, masterValue));
 		}
 		return sysPrivileges;
 	}
 
-	public SysPrivilege convert2Privilege(MenuAndButton menuAndButton,String master,String masterValue) {
+	private SysPrivilege convert2Privilege(MenuAndButton menuAndButton, String master, String masterValue) {
 		SysPrivilege sysPrivilege = new SysPrivilege();
 		sysPrivilege.setMaster(master);
 		sysPrivilege.setMasterValue(masterValue);
