@@ -1,12 +1,5 @@
 package com.loeo.entity;
 
-import java.io.Serializable;
-import java.util.Date;
-
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotEmpty;
-
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
@@ -14,6 +7,11 @@ import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.FieldFill;
 import com.loeo.utils.validate.group.Add;
 import com.loeo.utils.validate.group.Update;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -37,9 +35,13 @@ public class SysRole extends Model<SysRole> {
 	@NotEmpty(groups = {Add.class, Update.class})
 	private String code;
 	private String descp;
+	@TableField(fill = FieldFill.INSERT)
 	private String createUser;
+	@TableField(fill = FieldFill.INSERT)
 	private Date createDt;
+	@TableField(fill = FieldFill.UPDATE)
 	private String updateUser;
+	@TableField(fill = FieldFill.UPDATE)
 	private Date updateDt;
 	private Integer enable;
 
