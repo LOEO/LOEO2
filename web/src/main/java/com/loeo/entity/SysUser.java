@@ -3,7 +3,6 @@ package com.loeo.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -40,7 +39,7 @@ public class SysUser extends Model<SysUser> {
 	@Size(min = 6)
 	private String password;
 	@NotEmpty(groups = Add.class)
-	@Max(value = 20, groups = {Add.class, Update.class})
+	@Size(max = 20, groups = {Add.class, Update.class})
 	private String nickname;
 	private Integer age;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
