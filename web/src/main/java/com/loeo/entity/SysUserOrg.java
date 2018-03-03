@@ -21,32 +21,32 @@ public class SysUserOrg extends Model<SysUserOrg> {
 	private static final long serialVersionUID = 1L;
 
 	@TableId(value = "id", type = IdType.AUTO)
-	private Integer id;
-	private Integer orgId;
-	private Integer userId;
+	private String id;
+	private String orgId;
+	private String userId;
 
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
-	public Integer getOrgId() {
+	public String getOrgId() {
 		return orgId;
 	}
 
-	public void setOrgId(Integer orgId) {
+	public void setOrgId(String orgId) {
 		this.orgId = orgId;
 	}
 
-	public Integer getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Integer userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 

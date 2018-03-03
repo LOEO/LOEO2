@@ -33,9 +33,15 @@
 		<java.version>1.8</java.version>
 		<thymeleaf.version>3.0.2.RELEASE</thymeleaf.version>
 		<thymeleaf-layout-dialect.version>2.1.1</thymeleaf-layout-dialect.version>
+		<mybatis-plus.version>2.1.6</mybatis-plus.version>
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.loeo</groupId>
+			<artifactId>common</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
@@ -56,6 +62,11 @@
 			<groupId>com.baomidou</groupId>
 			<artifactId>mybatisplus-spring-boot-starter</artifactId>
 			<version>1.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus</artifactId>
+			<version>${mybatis-plus.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

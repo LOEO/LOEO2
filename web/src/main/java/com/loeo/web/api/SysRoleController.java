@@ -11,9 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.loeo.common.Result;
 import com.loeo.entity.SysRole;
-import com.loeo.service.ProductService;
-import com.loeo.service.SysButtonService;
-import com.loeo.service.SysMenuService;
 import com.loeo.service.SysOrgService;
 import com.loeo.service.SysPrivilegeService;
 import com.loeo.service.SysResourceService;
@@ -40,12 +37,6 @@ import com.loeo.utils.validate.group.Update;
 public class SysRoleController {
 	@Resource
 	private SysRoleService roleService;
-	@Resource
-	private ProductService productService;
-	@Resource
-	private SysButtonService sysButtonService;
-	@Resource
-	private SysMenuService sysMenuService;
 	@Resource
 	private SysOrgService sysOrgService;
 	@Resource
@@ -74,8 +65,6 @@ public class SysRoleController {
 	@PostMapping
 	public Result add(SysRole sysRole) {
 		ValidateUtils.validate(sysRole, Add.class);
-		sysRole.setCreateDt(DateUtils.now());
-		sysRole.setCreateUser(ShiroContextUtils.getCurUserId());
 		roleService.insert(sysRole);
 		return Result.success("保存成功");
 	}
@@ -89,7 +78,7 @@ public class SysRoleController {
 
 	@DeleteMapping("/{roleId}")
 	public Result delete(@PathVariable String roleId) {
-		roleService.deleteById(Integer.parseInt(roleId));
+		roleService.deleteById(roleId);
 		return Result.success("删除成功");
 	}
 }

@@ -22,22 +22,22 @@ public class SysOrg extends Model<SysOrg> {
 	private static final long serialVersionUID = 1L;
 
 	@TableId(value = "id", type = IdType.AUTO)
-	private Integer id;
+	private String id;
 	private String name;
 	private Integer pid;
 	private String descp;
 	private String leaf;
 	private Date createDt;
-	private Integer createUser;
+	private String createUser;
 	private Date updateDt;
-	private Integer updateUser;
+	private String updateUser;
 
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -81,11 +81,11 @@ public class SysOrg extends Model<SysOrg> {
 		this.createDt = createDt;
 	}
 
-	public Integer getCreateUser() {
+	public String getCreateUser() {
 		return createUser;
 	}
 
-	public void setCreateUser(Integer createUser) {
+	public void setCreateUser(String createUser) {
 		this.createUser = createUser;
 	}
 
@@ -97,11 +97,11 @@ public class SysOrg extends Model<SysOrg> {
 		this.updateDt = updateDt;
 	}
 
-	public Integer getUpdateUser() {
+	public String getUpdateUser() {
 		return updateUser;
 	}
 
-	public void setUpdateUser(Integer updateUser) {
+	public void setUpdateUser(String updateUser) {
 		this.updateUser = updateUser;
 	}
 

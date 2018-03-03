@@ -277,7 +277,7 @@
 				.replace("{{expandIcon}}", expandIcon || '');
 		}
 
-		$.post("/api/users/[[${#session.getAttribute('user').id}]]/menus", function (result) {
+		$.post("/api/users/"+[[${#session.getAttribute('user').id}]]+"/menus", function (result) {
 			debugger;
 			if (result && !result.success) {
 				LOEO.messager("加载数据失败！");
@@ -285,7 +285,7 @@
 			}
 			debugger;
 			var data = result.data;
-			buildMenuTree($("#mainMenu"), data, 0);
+			buildMenuTree($("#mainMenu"), data, "0");
 
 			$(".leo_menu").on("click", function () {
 				debugger;

@@ -1,13 +1,14 @@
 package com.loeo.shiro;
 
-import com.loeo.entity.SysUser;
 import org.apache.shiro.SecurityUtils;
+
+import com.loeo.entity.SysUser;
 
 /**
  * Created by LOEO on 2017/07/12 20:46
  */
 public abstract class ShiroContextUtils {
-    public static Integer getCurUserId() {
+    public static String getCurUserId() {
         return getCurUser().getId();
     }
 

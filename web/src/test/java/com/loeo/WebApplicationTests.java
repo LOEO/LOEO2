@@ -18,7 +18,7 @@ public class WebApplicationTests {
 	@Test
 	public void contextLoads() {
 		SysUser sysUser = new SysUser();
-		sysUser.setId(36);
+		sysUser.setId("36");
 		sysUser.setNickname("bbb");
 		sysUserService.updateById(sysUser);
 	}

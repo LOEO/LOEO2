@@ -63,7 +63,7 @@ public class SysResourceController {
 
 	@DeleteMapping("/{resourceId}")
 	public Result delete(@PathVariable String resourceId) {
-		resourceService.deleteById(Integer.parseInt(resourceId));
+		resourceService.deleteById(resourceId);
 		return Result.success("删除成功");
 	}
 

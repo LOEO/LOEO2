@@ -8,9 +8,10 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
-import com.baomidou.mybatisplus.enums.IdType;
+import com.baomidou.mybatisplus.enums.FieldFill;
 import com.loeo.utils.validate.group.Add;
 import com.loeo.utils.validate.group.Update;
 
@@ -27,26 +28,27 @@ public class SysRole extends Model<SysRole> {
 
 	private static final long serialVersionUID = 1L;
 
-	@TableId(value = "id", type = IdType.AUTO)
+	@TableId(value = "id")
+	@TableField(fill = FieldFill.INSERT)
 	@NotNull(groups = Update.class)
-	private Integer id;
+	private String id;
 	@NotEmpty(groups = {Add.class, Update.class})
 	private String name;
 	@NotEmpty(groups = {Add.class, Update.class})
 	private String code;
 	private String descp;
-	private Integer createUser;
+	private String createUser;
 	private Date createDt;
-	private Integer updateUser;
+	private String updateUser;
 	private Date updateDt;
 	private Integer enable;
 
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -74,11 +76,11 @@ public class SysRole extends Model<SysRole> {
 		this.descp = descp;
 	}
 
-	public Integer getCreateUser() {
+	public String getCreateUser() {
 		return createUser;
 	}
 
-	public void setCreateUser(Integer createUser) {
+	public void setCreateUser(String createUser) {
 		this.createUser = createUser;
 	}
 
@@ -90,11 +92,11 @@ public class SysRole extends Model<SysRole> {
 		this.createDt = createDt;
 	}
 
-	public Integer getUpdateUser() {
+	public String getUpdateUser() {
 		return updateUser;
 	}
 
-	public void setUpdateUser(Integer updateUser) {
+	public void setUpdateUser(String updateUser) {
 		this.updateUser = updateUser;
 	}
 

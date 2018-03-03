@@ -54,7 +54,7 @@ public class SysUserController {
 
 	@DeleteMapping("/{userId}")
 	public Result delete(@PathVariable String userId) {
-		sysUserService.deleteById(Integer.parseInt(userId));
+		sysUserService.deleteById(userId);
 		return Result.success("删除成功");
 	}
 

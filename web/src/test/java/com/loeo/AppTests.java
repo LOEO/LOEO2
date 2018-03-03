@@ -40,8 +40,8 @@ public class AppTests {
 		sysRole.setName("nnnnn");
 		sysRole.setCreateDt(new Date());
 		sysRole.setUpdateDt(new Date());
-		sysRole.setCreateUser(1);
-		sysRole.setUpdateUser(1);
+		sysRole.setCreateUser("1");
+		sysRole.setUpdateUser("1");
 		sysRole.setDescp("ssss");
 		sysRole.setEnable(0);
 		sysRole.setCode("ss");
@@ -60,8 +60,8 @@ public class AppTests {
 		sysRole.setName("nnnnn");
 		sysRole.setCreateDt(new Date());
 		sysRole.setUpdateDt(new Date());
-		sysRole.setCreateUser(1);
-		sysRole.setUpdateUser(1);
+		sysRole.setCreateUser("1");
+		sysRole.setUpdateUser("1");
 		sysRole.setDescp("ssss");
 		sysRole.setEnable(0);
 		sysRole.setCode("ss");

@@ -29,7 +29,7 @@ public class SysPrivilege extends Model<SysPrivilege> {
 
 	@TableId(value = "id", type = IdType.AUTO)
 	@NotNull(groups = Update.class)
-	private Integer id;
+	private String id;
 	@NotEmpty(groups = Add.class)
 	private String master;
 	@NotEmpty(groups = Add.class)
@@ -40,17 +40,17 @@ public class SysPrivilege extends Model<SysPrivilege> {
 	private String accessValue;
 	@NotEmpty(groups = Add.class)
 	private String operation;
-	private Integer createUser;
+	private String createUser;
 	private Date createDt;
-	private Integer updateUser;
+	private String updateUser;
 	private Date updateDt;
 
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -94,11 +94,11 @@ public class SysPrivilege extends Model<SysPrivilege> {
 		this.operation = operation;
 	}
 
-	public Integer getCreateUser() {
+	public String getCreateUser() {
 		return createUser;
 	}
 
-	public void setCreateUser(Integer createUser) {
+	public void setCreateUser(String createUser) {
 		this.createUser = createUser;
 	}
 
@@ -110,11 +110,11 @@ public class SysPrivilege extends Model<SysPrivilege> {
 		this.createDt = createDt;
 	}
 
-	public Integer getUpdateUser() {
+	public String getUpdateUser() {
 		return updateUser;
 	}
 
-	public void setUpdateUser(Integer updateUser) {
+	public void setUpdateUser(String updateUser) {
 		this.updateUser = updateUser;
 	}
 

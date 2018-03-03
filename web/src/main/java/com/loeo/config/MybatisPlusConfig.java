@@ -2,12 +2,15 @@ package com.loeo.config;
 
 import javax.sql.DataSource;
 
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.baomidou.mybatisplus.entity.GlobalConfiguration;
 import com.baomidou.mybatisplus.enums.DBType;
 import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
+import com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean;
 
 /**
  * 功能：

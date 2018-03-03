@@ -94,6 +94,7 @@
 		});
 		$("#editBtn").on("click", function () {
 			var row = roleGrid.datagrid("getSelected");
+			debugger;
 			if (row) {
 				roleForm.form("load", row).form({url: "/api/roles/"+row.id});
 				$("#username").textbox({editable: false});

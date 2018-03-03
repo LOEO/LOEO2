@@ -30,21 +30,21 @@ public class SysResource extends Model<SysResource> {
 
 	@TableId(value = "id", type = IdType.AUTO)
 	@NotNull(groups = Update.class)
-	private Integer id;
+	private String id;
 	@NotEmpty(groups = {Add.class, Update.class})
 	private String name;
 	private String api;
 	private String method;
 	@NotEmpty(groups = {Add.class, Update.class})
 	private String type;
-	private Integer pid;
+	private String pid;
 	private String descp;
 	private String iconCls;
 	private String script;
 	private Date createDt;
-	private Integer createUser;
+	private String createUser;
 	private Date updateDt;
-	private Integer updateUser;
+	private String updateUser;
 	private Integer enable;
 	private Integer isLeaf;
 	private Integer orde;
@@ -52,11 +52,11 @@ public class SysResource extends Model<SysResource> {
 	private Boolean checked;
 
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -92,11 +92,11 @@ public class SysResource extends Model<SysResource> {
 		this.type = type;
 	}
 
-	public Integer getPid() {
+	public String getPid() {
 		return pid;
 	}
 
-	public void setPid(Integer pid) {
+	public void setPid(String pid) {
 		this.pid = pid;
 	}
 
@@ -132,11 +132,11 @@ public class SysResource extends Model<SysResource> {
 		this.createDt = createDt;
 	}
 
-	public Integer getCreateUser() {
+	public String getCreateUser() {
 		return createUser;
 	}
 
-	public void setCreateUser(Integer createUser) {
+	public void setCreateUser(String createUser) {
 		this.createUser = createUser;
 	}
 
@@ -148,11 +148,11 @@ public class SysResource extends Model<SysResource> {
 		this.updateDt = updateDt;
 	}
 
-	public Integer getUpdateUser() {
+	public String getUpdateUser() {
 		return updateUser;
 	}
 
-	public void setUpdateUser(Integer updateUser) {
+	public void setUpdateUser(String updateUser) {
 		this.updateUser = updateUser;
 	}
 
