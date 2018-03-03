@@ -1,14 +1,15 @@
 package com.loeo.web;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by LOEO on 2017/06/14 21:48
@@ -19,7 +20,7 @@ public class ErrorController {
     @ResponseBody
     ResponseEntity<?> handleControllerException(HttpServletRequest request, Throwable ex) {
         HttpStatus status = getStatus(request);
-        Map<String, Object> errInfo = new HashMap<>();
+        Map<String, Object> errInfo = new HashMap<>(2);
         errInfo.put("status", status);
         errInfo.put("msg", ex.getMessage());
         ex.printStackTrace();

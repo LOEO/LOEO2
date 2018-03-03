@@ -3,10 +3,16 @@ package com.loeo.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import com.loeo.utils.validate.group.Add;
+import com.loeo.utils.validate.group.Update;
 
 /**
  * <p>
@@ -22,11 +28,17 @@ public class SysPrivilege extends Model<SysPrivilege> {
 	private static final long serialVersionUID = 1L;
 
 	@TableId(value = "id", type = IdType.AUTO)
+	@NotNull(groups = Update.class)
 	private Integer id;
+	@NotEmpty(groups = Add.class)
 	private String master;
+	@NotEmpty(groups = Add.class)
 	private String masterValue;
+	@NotEmpty(groups = Add.class)
 	private String access;
+	@NotEmpty(groups = Add.class)
 	private String accessValue;
+	@NotEmpty(groups = Add.class)
 	private String operation;
 	private Integer createUser;
 	private Date createDt;

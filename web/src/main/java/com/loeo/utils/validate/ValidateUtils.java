@@ -21,11 +21,14 @@ public class ValidateUtils {
 	private static final Validator VALIDATOR = Validation.buildDefaultValidatorFactory().getValidator();
 
 	public static void validate(Object object, Class<?>... groups) {
-		Set<ConstraintViolation<Object>> result = VALIDATOR.validate(object);
+		Set<ConstraintViolation<Object>> result = VALIDATOR.validate(object,groups);
 		if (!CollectionUtils.isEmpty(result)) {
 			StringBuilder errorMsg = new StringBuilder();
 			for (ConstraintViolation<Object> objectConstraintViolation : result) {
-				errorMsg.append(objectConstraintViolation.getMessage()).append(";");
+				errorMsg.append("[")
+						.append(objectConstraintViolation.getPropertyPath())
+						.append("]")
+						.append(objectConstraintViolation.getMessage()).append(";");
 			}
 			throw new ValidationException(errorMsg.toString());
 		}

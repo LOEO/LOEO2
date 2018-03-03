@@ -7,6 +7,8 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
@@ -29,25 +31,27 @@ public class SysUser extends Model<SysUser> {
 	private static final long serialVersionUID = 1L;
 
 	@TableId(value = "id", type = IdType.AUTO)
+	@NotNull(groups = Update.class)
 	private Integer id;
-	@NotNull(groups = Add.class)
+	@NotEmpty(groups = Add.class)
 	@Size(max = 20)
 	private String username;
-	@NotNull(groups = {Add.class, Update.class})
+	@NotEmpty(groups = {Add.class, Update.class})
+	@Size(min = 6)
 	private String password;
-	@NotNull(groups = Add.class)
-	@Max(value = 3, groups = {Add.class, Update.class})
+	@NotEmpty(groups = Add.class)
+	@Max(value = 20, groups = {Add.class, Update.class})
 	private String nickname;
 	private Integer age;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@NotNull(groups = Add.class)
+	@NotEmpty(groups = Add.class)
 	private Date birthday;
-	@NotNull(groups = Add.class)
+	@NotEmpty(groups = Add.class)
 	private String sex;
 	private String avatar;
-	@NotNull(groups = Add.class)
+	@NotEmpty(groups = Add.class)
 	private String email;
-	@NotNull(groups = Add.class)
+	@NotEmpty(groups = Add.class)
 	private String phone;
 	private Integer orgId;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

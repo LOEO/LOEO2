@@ -1,7 +1,5 @@
 package com.loeo.web.api;
 
-import java.util.Map;
-
 import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,7 +23,9 @@ import com.loeo.service.SysUserRoleService;
 import com.loeo.service.SysUserService;
 import com.loeo.shiro.ShiroContextUtils;
 import com.loeo.utils.DateUtils;
-import com.loeo.utils.EntityUtil;
+import com.loeo.utils.validate.ValidateUtils;
+import com.loeo.utils.validate.group.Add;
+import com.loeo.utils.validate.group.Update;
 
 /**
  * <p>
@@ -73,6 +73,7 @@ public class SysRoleController {
 
 	@PostMapping
 	public Result add(SysRole sysRole) {
+		ValidateUtils.validate(sysRole, Add.class);
 		sysRole.setCreateDt(DateUtils.now());
 		sysRole.setCreateUser(ShiroContextUtils.getCurUserId());
 		roleService.insert(sysRole);
@@ -81,6 +82,7 @@ public class SysRoleController {
 
 	@PostMapping("/{roleId}")
 	public Result update(@PathVariable String roleId, SysRole sysRole) {
+		ValidateUtils.validate(sysRole, Update.class);
 		roleService.updateById(sysRole);
 		return Result.success("修改成功");
 	}

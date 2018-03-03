@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ValidationException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,8 +34,10 @@ public class ErrorHandler {
 		Map<String, Object> errInfo = new HashMap<>();
 		errInfo.put("code", status.value());
 		errInfo.put("msg", ex.getMessage());
-		logger.error("发生异常", ex);
-		return Result.failed("status:" + getStatus(request) +"\n"+ ex.getMessage());
+		if (!(ex instanceof ValidationException)) {
+			logger.error("发生异常", ex);
+		}
+		return Result.failed("status:" + getStatus(request) +" message:"+ ex.getMessage());
 	}
 
 	private HttpStatus getStatus(HttpServletRequest request) {

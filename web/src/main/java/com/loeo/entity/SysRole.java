@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
@@ -26,10 +28,11 @@ public class SysRole extends Model<SysRole> {
 	private static final long serialVersionUID = 1L;
 
 	@TableId(value = "id", type = IdType.AUTO)
+	@NotNull(groups = Update.class)
 	private Integer id;
-	@NotNull(groups = {Add.class, Update.class})
+	@NotEmpty(groups = {Add.class, Update.class})
 	private String name;
-	@NotNull(groups = {Add.class, Update.class})
+	@NotEmpty(groups = {Add.class, Update.class})
 	private String code;
 	private String descp;
 	private Integer createUser;

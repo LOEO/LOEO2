@@ -14,6 +14,12 @@ import com.loeo.shiro.ShiroContextUtils;
 @Controller
 @RequestMapping("/")
 public class IndexController {
+
+    @GetMapping(produces = "text/html")
+    public String main() {
+        return "redirect:index";
+    }
+
     @GetMapping("index")
     public String index(HttpSession session) {
         if (session.getAttribute("user") == null) {

@@ -3,11 +3,17 @@ package com.loeo.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import com.loeo.utils.validate.group.Add;
+import com.loeo.utils.validate.group.Update;
 
 /**
  * <p>
@@ -23,10 +29,13 @@ public class SysResource extends Model<SysResource> {
 	private static final long serialVersionUID = 1L;
 
 	@TableId(value = "id", type = IdType.AUTO)
+	@NotNull(groups = Update.class)
 	private Integer id;
+	@NotEmpty(groups = {Add.class, Update.class})
 	private String name;
 	private String api;
 	private String method;
+	@NotEmpty(groups = {Add.class, Update.class})
 	private String type;
 	private Integer pid;
 	private String descp;

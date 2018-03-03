@@ -19,6 +19,8 @@ import com.loeo.service.SysUserService;
 import com.loeo.shiro.ShiroContextUtils;
 import com.loeo.utils.DateUtils;
 import com.loeo.utils.validate.ValidateUtils;
+import com.loeo.utils.validate.group.Add;
+import com.loeo.utils.validate.group.Update;
 
 /**
  * <p>
@@ -36,7 +38,7 @@ public class SysUserController {
 
 	@PostMapping
 	public Result add(SysUser sysUser) {
-		ValidateUtils.validate(sysUser);
+		ValidateUtils.validate(sysUser, Add.class);
 		sysUser.setCreateDt(DateUtils.now());
 		sysUser.setCreateUser(ShiroContextUtils.getCurUserId());
 		sysUserService.add(sysUser);
@@ -45,7 +47,7 @@ public class SysUserController {
 
 	@PostMapping("/{userId}")
 	public Result update(@PathVariable String userId, SysUser sysUser) {
-		//SysUser sysUser = EntityUtil.buildEntity(SysUser.class, formData);
+		ValidateUtils.validate(sysUser, Update.class);
 		sysUserService.updateById(sysUser);
 		return Result.success("修改成功");
 	}
