@@ -2,7 +2,6 @@ package com.loeo.service.impl;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -18,7 +17,6 @@ import com.loeo.mapper.SysPrivilegeMapper;
 import com.loeo.service.BaseServiceImpl;
 import com.loeo.service.SysPrivilegeService;
 import com.loeo.service.SysResourceService;
-import com.loeo.shiro.ShiroContextUtils;
 
 /**
  * <p>
@@ -67,10 +65,6 @@ public class SysPrivilegeServiceImpl extends BaseServiceImpl<SysPrivilegeMapper,
 		sysPrivilege.setAccess(menuAndButton.getType());
 		sysPrivilege.setAccessValue(menuAndButton.getId().toString());
 		sysPrivilege.setOperation("enable");
-		sysPrivilege.setCreateUser(ShiroContextUtils.getCurUserId());
-		sysPrivilege.setUpdateUser(ShiroContextUtils.getCurUserId());
-		sysPrivilege.setCreateDt(new Date());
-		sysPrivilege.setUpdateDt(new Date());
 		return sysPrivilege;
 	}
 }

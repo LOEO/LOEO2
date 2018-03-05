@@ -13,7 +13,6 @@ import com.loeo.common.Result;
 import com.loeo.entity.SysResource;
 import com.loeo.service.SysResourceService;
 import com.loeo.shiro.ShiroContextUtils;
-import com.loeo.utils.DateUtils;
 import com.loeo.utils.validate.ValidateUtils;
 import com.loeo.utils.validate.group.Add;
 import com.loeo.utils.validate.group.Update;
@@ -45,10 +44,6 @@ public class SysResourceController {
 	@PostMapping
 	public Result add(SysResource sysResource) {
 		ValidateUtils.validate(sysResource, Add.class);
-		sysResource.setCreateDt(DateUtils.now());
-		sysResource.setCreateUser(ShiroContextUtils.getCurUserId());
-		sysResource.setUpdateDt(sysResource.getCreateDt());
-		sysResource.setUpdateUser(sysResource.getUpdateUser());
 		sysResource.setIsLeaf(1);
 		resourceService.insert(sysResource);
 		return Result.success("保存成功");

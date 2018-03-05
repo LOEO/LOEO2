@@ -9,9 +9,10 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
-import com.baomidou.mybatisplus.enums.IdType;
+import com.baomidou.mybatisplus.enums.FieldFill;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.loeo.utils.validate.group.Add;
 import com.loeo.utils.validate.group.Update;
@@ -29,7 +30,8 @@ public class SysUser extends Model<SysUser> {
 
 	private static final long serialVersionUID = 1L;
 
-	@TableId(value = "id", type = IdType.AUTO)
+	@TableId(value = "id")
+	@TableField(fill = FieldFill.INSERT)
 	@NotNull(groups = Update.class)
 	private String id;
 	@NotEmpty(groups = Add.class)
@@ -54,10 +56,14 @@ public class SysUser extends Model<SysUser> {
 	private String phone;
 	private Integer orgId;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@TableField(fill = FieldFill.INSERT)
 	private Date createDt;
+	@TableField(fill = FieldFill.INSERT)
 	private String createUser;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private Date updateDt;
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private String updateUser;
 	private Integer enable;
 

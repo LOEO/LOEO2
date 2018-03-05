@@ -3,9 +3,10 @@ package com.loeo.entity;
 import java.io.Serializable;
 
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
-import com.baomidou.mybatisplus.enums.IdType;
+import com.baomidou.mybatisplus.enums.FieldFill;
 
 /**
  * <p>
@@ -20,7 +21,8 @@ public class SysUserOrg extends Model<SysUserOrg> {
 
 	private static final long serialVersionUID = 1L;
 
-	@TableId(value = "id", type = IdType.AUTO)
+	@TableId(value = "id")
+	@TableField(fill = FieldFill.INSERT)
 	private String id;
 	private String orgId;
 	private String userId;

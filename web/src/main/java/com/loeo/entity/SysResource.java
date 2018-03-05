@@ -11,9 +11,10 @@ import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
-import com.baomidou.mybatisplus.enums.IdType;
+import com.baomidou.mybatisplus.enums.FieldFill;
 import com.loeo.utils.validate.group.Add;
 import com.loeo.utils.validate.group.Update;
+
 
 /**
  * <p>
@@ -28,7 +29,8 @@ public class SysResource extends Model<SysResource> {
 
 	private static final long serialVersionUID = 1L;
 
-	@TableId(value = "id", type = IdType.AUTO)
+	@TableId(value = "id")
+	@TableField(fill = FieldFill.INSERT)
 	@NotNull(groups = Update.class)
 	private String id;
 	@NotEmpty(groups = {Add.class, Update.class})
@@ -41,9 +43,13 @@ public class SysResource extends Model<SysResource> {
 	private String descp;
 	private String iconCls;
 	private String script;
+	@TableField(fill = FieldFill.INSERT)
 	private Date createDt;
+	@TableField(fill = FieldFill.INSERT)
 	private String createUser;
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private Date updateDt;
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private String updateUser;
 	private Integer enable;
 	private Integer isLeaf;

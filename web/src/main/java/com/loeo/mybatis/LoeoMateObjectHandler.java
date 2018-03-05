@@ -1,5 +1,7 @@
 package com.loeo.mybatis;
 
+import java.util.Date;
+
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.util.StringUtils;
 
@@ -25,8 +27,12 @@ public class LoeoMateObjectHandler extends MetaObjectHandler {
         if (StringUtils.isEmpty(getFieldValByName("id",metaObject))) {
             setFieldValByName("id", getIdGenerateFactory().nextStringId(), metaObject);
         }
-        setFieldValByName("createUser", ShiroContextUtils.getCurUserId(), metaObject);
-        setFieldValByName("createDt", DateUtils.now(), metaObject);
+        String curUserId = ShiroContextUtils.getCurUserId();
+        Date now = DateUtils.now();
+        setFieldValByName("createUser", curUserId, metaObject);
+        setFieldValByName("createDt", now, metaObject);
+        setFieldValByName("updateUser", curUserId, metaObject);
+        setFieldValByName("updateDt", now, metaObject);
     }
 
 

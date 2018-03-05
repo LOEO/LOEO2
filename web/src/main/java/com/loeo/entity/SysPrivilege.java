@@ -8,11 +8,13 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
-import com.baomidou.mybatisplus.enums.IdType;
+import com.baomidou.mybatisplus.enums.FieldFill;
 import com.loeo.utils.validate.group.Add;
 import com.loeo.utils.validate.group.Update;
+
 
 /**
  * <p>
@@ -27,7 +29,8 @@ public class SysPrivilege extends Model<SysPrivilege> {
 
 	private static final long serialVersionUID = 1L;
 
-	@TableId(value = "id", type = IdType.AUTO)
+	@TableId(value = "id")
+	@TableField(fill = FieldFill.INSERT)
 	@NotNull(groups = Update.class)
 	private String id;
 	@NotEmpty(groups = Add.class)
@@ -40,9 +43,13 @@ public class SysPrivilege extends Model<SysPrivilege> {
 	private String accessValue;
 	@NotEmpty(groups = Add.class)
 	private String operation;
+	@TableField(fill = FieldFill.INSERT)
 	private String createUser;
+	@TableField(fill = FieldFill.INSERT)
 	private Date createDt;
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private String updateUser;
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private Date updateDt;
 
 

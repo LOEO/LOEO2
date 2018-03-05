@@ -4,9 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
-import com.baomidou.mybatisplus.enums.IdType;
+import com.baomidou.mybatisplus.enums.FieldFill;
 
 /**
  * <p>
@@ -21,15 +22,20 @@ public class SysOrg extends Model<SysOrg> {
 
 	private static final long serialVersionUID = 1L;
 
-	@TableId(value = "id", type = IdType.AUTO)
+	@TableId(value = "id")
+	@TableField(fill = FieldFill.INSERT)
 	private String id;
 	private String name;
 	private Integer pid;
 	private String descp;
 	private String leaf;
+	@TableField(fill = FieldFill.INSERT)
 	private Date createDt;
+	@TableField(fill = FieldFill.INSERT)
 	private String createUser;
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private Date updateDt;
+	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private String updateUser;
 
 

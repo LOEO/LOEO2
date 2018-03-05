@@ -16,8 +16,6 @@ import com.loeo.common.Result;
 import com.loeo.entity.SysRole;
 import com.loeo.entity.SysUser;
 import com.loeo.service.SysUserService;
-import com.loeo.shiro.ShiroContextUtils;
-import com.loeo.utils.DateUtils;
 import com.loeo.utils.validate.ValidateUtils;
 import com.loeo.utils.validate.group.Add;
 import com.loeo.utils.validate.group.Update;
@@ -39,8 +37,6 @@ public class SysUserController {
 	@PostMapping
 	public Result add(SysUser sysUser) {
 		ValidateUtils.validate(sysUser, Add.class);
-		sysUser.setCreateDt(DateUtils.now());
-		sysUser.setCreateUser(ShiroContextUtils.getCurUserId());
 		sysUserService.add(sysUser);
 		return Result.success("保存成功");
 	}
