@@ -3,7 +3,7 @@ package com.loeo.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.loeo.common.uniquekey.IdGererateFactory;
+import com.loeo.common.uniquekey.IdGenerateFactory;
 import com.loeo.test.TestBeanPostProcessor;
 
 /**
@@ -23,7 +23,7 @@ public class AppConfig {
     }
 
     @Bean
-    public IdGererateFactory idGererateFactory() {
-        return new IdGererateFactory(1L);
+    public IdGenerateFactory idGererateFactory() {
+        return new IdGenerateFactory(1L);
     }
 }

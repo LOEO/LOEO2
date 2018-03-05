@@ -1,13 +1,13 @@
 package com.loeo.mybatis;
 
+import org.apache.ibatis.reflection.MetaObject;
+import org.springframework.util.StringUtils;
+
 import com.baomidou.mybatisplus.mapper.MetaObjectHandler;
-import com.loeo.common.uniquekey.IdGererateFactory;
+import com.loeo.common.uniquekey.IdGenerateFactory;
 import com.loeo.shiro.ShiroContextUtils;
 import com.loeo.utils.ApplicationContextUtils;
 import com.loeo.utils.DateUtils;
-import org.apache.ibatis.reflection.MetaObject;
-import org.apache.ibatis.reflection.SystemMetaObject;
-import org.springframework.util.StringUtils;
 
 /**
  * 功能：
@@ -18,12 +18,12 @@ import org.springframework.util.StringUtils;
  * @company：创海科技 Created with IntelliJ IDEA
  */
 public class LoeoMateObjectHandler extends MetaObjectHandler {
-    private IdGererateFactory idGererateFactory;
+    private IdGenerateFactory idGenerateFactory;
 
     @Override
     public void insertFill(MetaObject metaObject) {
         if (StringUtils.isEmpty(getFieldValByName("id",metaObject))) {
-            setFieldValByName("id", getIdGererateFactory().nextStringId(), metaObject);
+            setFieldValByName("id", getIdGenerateFactory().nextStringId(), metaObject);
         }
         setFieldValByName("createUser", ShiroContextUtils.getCurUserId(), metaObject);
         setFieldValByName("createDt", DateUtils.now(), metaObject);
@@ -36,35 +36,11 @@ public class LoeoMateObjectHandler extends MetaObjectHandler {
         setFieldValByName("updateDt", DateUtils.now(), metaObject);
     }
 
-    public MetaObjectHandler setFieldValByName(String fieldName, Object fieldVal, MetaObject metaObject) {
-        if (metaObject.hasSetter(fieldName) && metaObject.hasGetter(fieldName)) {
-            metaObject.setValue(fieldName, fieldVal);
-        } else if (metaObject.hasGetter(META_OBJ_PREFIX)) {
-            Object et = metaObject.getValue(META_OBJ_PREFIX);
-            if (et != null) {
-                MetaObject etMeta = SystemMetaObject.forObject(et);
-                if (etMeta.hasSetter(fieldName)) {
-                    etMeta.setValue(fieldName, fieldVal);
-                }
-            }
+    private IdGenerateFactory getIdGenerateFactory() {
+        if (idGenerateFactory == null) {
+            idGenerateFactory = ApplicationContextUtils.getBean(IdGenerateFactory.class);
         }
-        return this;
-    }
-
-    public Object getFieldValByName(String fieldName, MetaObject metaObject) {
-        if (metaObject.hasGetter(fieldName)) {
-            return metaObject.getValue(fieldName);
-        } else if (metaObject.hasGetter(META_OBJ_PREFIX + "." + fieldName)) {
-            return metaObject.getValue(META_OBJ_PREFIX + "." + fieldName);
-        }
-        return null;
-    }
-
-    private IdGererateFactory getIdGererateFactory() {
-        if (idGererateFactory == null) {
-            idGererateFactory = ApplicationContextUtils.getBean(IdGererateFactory.class);
-        }
-        return idGererateFactory;
+        return idGenerateFactory;
     }
 
 }

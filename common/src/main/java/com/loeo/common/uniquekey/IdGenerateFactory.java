@@ -8,15 +8,15 @@ package com.loeo.common.uniquekey;
  * @version：2017 Version：1.0
  * @company：创海科技 Created with IntelliJ IDEA
  */
-public final class IdGererateFactory implements IIdGenerator {
-	private IdGererateFactory(){
+public final class IdGenerateFactory implements IIdGenerator {
+	private IdGenerateFactory(){
 
 	}
 	private IIdGenerator idGenerator;
-	public IdGererateFactory(Long workerId){
+	public IdGenerateFactory(Long workerId){
 		this.idGenerator = new EpmWorkerIdGenerator(workerId);
 	}
-	public IdGererateFactory(Long workerId,Long dataCenterId){
+	public IdGenerateFactory(Long workerId, Long dataCenterId){
 		if(dataCenterId == null){
 			this.idGenerator = new EpmWorkerIdGenerator(workerId);
 		}else{
