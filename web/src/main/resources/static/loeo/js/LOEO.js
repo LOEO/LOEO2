@@ -4,6 +4,7 @@
 var LOEO = LOEO || {};
 LOEO.SUCCESS = "SUCCESS";
 LOEO.FAILED = "FAILED";
+LOEO.DATE_PATTERN = "yyyy-MM-dd hh:mm:ss";
 LOEO.ENABLE = {"0": "禁用", "1": "启用"};
 LOEO.DataTable = function (id, options) {
 	debugger;
@@ -71,7 +72,7 @@ LOEO.DataTable = function (id, options) {
 LOEO.ResultState = {
 	SUCCESS: "SUCCESS",
 	FAILED: "FAILED"
-}
+};
 LOEO.validator = {
 	excluded: [':disabled'],
 	message: 'This value is not valid',
@@ -167,7 +168,7 @@ LOEO.validatorParser = {
 		var a = $.extend(true, {}, this.defaultOptions, {fields: validators});
 		return $.extend(true, {}, this.defaultOptions, {fields: validators});
 	}
-}
+};
 /*LOEO.initForm=function(options) {
     debugger;
     var $form = $("#"+options.id);

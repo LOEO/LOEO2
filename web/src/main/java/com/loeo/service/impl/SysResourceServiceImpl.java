@@ -48,7 +48,7 @@ public class SysResourceServiceImpl extends BaseServiceImpl<SysResourceMapper, S
 	@Override
 	public List<SysResourceTreeNode> getResourceTree() {
 		List<SysResource> sysResource = selectList(null);
-		return convertResourceTree(sysResource, 0);
+		return convertResourceTree(sysResource, SysResourceService.ROOT_ID);
 	}
 
 	@Override

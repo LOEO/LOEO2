@@ -49,7 +49,7 @@ public class SysPrivilegeServiceImpl extends BaseServiceImpl<SysPrivilegeMapper,
 	@Override
 	public List<SysResourceTreeNode> getResources(String master, Serializable masterId) {
 		List<SysResource> resources =  privilegeMapper.getResources(master,masterId);
-		return resourceService.convertResourceTree(resources, 0);
+		return resourceService.convertResourceTree(resources, SysResourceService.ROOT_ID);
 	}
 
 	private List<SysPrivilege> convert2Privileges(List<MenuAndButton> menuAndButtons, String master, String masterValue) {

@@ -17,6 +17,7 @@ import com.loeo.entity.SysResource;
  * @since 2017-05-25
  */
 public interface SysResourceService extends IService<SysResource> {
+	String ROOT_ID = "0";
 
 	List<SysResourceTreeNode> getResourceTree();
 
