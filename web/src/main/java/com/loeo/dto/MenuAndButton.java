@@ -4,12 +4,12 @@ package com.loeo.dto;
  * Created by LT on 2016/10/03 0:08
  */
 public class MenuAndButton {
-    private Integer id;
+    private String id;
     private String name;
     private String iconCls;
     private String type;
-    private Integer pid;
-    private Integer privilegeId;
+    private String pid;
+    private String privilegeId;
     private String checked;
 
     public String getChecked() {
@@ -20,19 +20,19 @@ public class MenuAndButton {
         this.checked = check;
     }
 
-    public Integer getPid() {
+    public String getPid() {
         return pid;
     }
 
-    public void setPid(Integer pid) {
+    public void setPid(String pid) {
         this.pid = pid;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -60,11 +60,11 @@ public class MenuAndButton {
         this.type = type;
     }
 
-    public Integer getPrivilegeId() {
+    public String getPrivilegeId() {
         return privilegeId;
     }
 
-    public void setPrivilegeId(Integer privilegeId) {
+    public void setPrivilegeId(String privilegeId) {
         this.privilegeId = privilegeId;
     }
 }
