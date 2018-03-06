@@ -9,9 +9,9 @@
 		<result column="code" property="code"/>
 		<result column="descp" property="descp"/>
 		<result column="createUser" property="createUser"/>
-		<result column="createDt" property="createDt"/>
+		<result column="created" property="created"/>
 		<result column="updateUser" property="updateUser"/>
-		<result column="updateDt" property="updateDt"/>
+		<result column="updated" property="updated"/>
 		<result column="enable" property="enable"/>
 	</resultMap>
 	<select id="getUserHasRoles" resultType="com.loeo.entity.SysRole">

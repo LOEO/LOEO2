@@ -11,9 +11,9 @@
 		<result column="accessValue" property="accessValue"/>
 		<result column="operation" property="operation"/>
 		<result column="createUser" property="createUser"/>
-		<result column="createDt" property="createDt"/>
+		<result column="created" property="created"/>
 		<result column="updateUser" property="updateUser"/>
-		<result column="updateDt" property="updateDt"/>
+		<result column="updated" property="updated"/>
 	</resultMap>
 	<delete id="deleteByMasterAndValue">
 		delete from t_sys_privilege where master=#{master} and masterValue=#{masterValue}

@@ -9,9 +9,9 @@
 		<result column="pid" property="pid"/>
 		<result column="descp" property="descp"/>
 		<result column="leaf" property="leaf"/>
-		<result column="createDt" property="createDt"/>
+		<result column="created" property="created"/>
 		<result column="createUser" property="createUser"/>
-		<result column="updateDt" property="updateDt"/>
+		<result column="updated" property="updated"/>
 		<result column="updateUser" property="updateUser"/>
 	</resultMap>
 

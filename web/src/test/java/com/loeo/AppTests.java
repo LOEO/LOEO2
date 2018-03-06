@@ -38,8 +38,8 @@ public class AppTests {
 	public void selectByPage() {
 		SysRole sysRole = new SysRole();
 		sysRole.setName("nnnnn");
-		sysRole.setCreateDt(new Date());
-		sysRole.setUpdateDt(new Date());
+		sysRole.setCreated(new Date());
+		sysRole.setUpdated(new Date());
 		sysRole.setCreateUser("1");
 		sysRole.setUpdateUser("1");
 		sysRole.setDescp("ssss");
@@ -58,8 +58,8 @@ public class AppTests {
 	public void selectByPage1() {
 		SysRole sysRole = new SysRole();
 		sysRole.setName("nnnnn");
-		sysRole.setCreateDt(new Date());
-		sysRole.setUpdateDt(new Date());
+		sysRole.setCreated(new Date());
+		sysRole.setUpdated(new Date());
 		sysRole.setCreateUser("1");
 		sysRole.setUpdateUser("1");
 		sysRole.setDescp("ssss");

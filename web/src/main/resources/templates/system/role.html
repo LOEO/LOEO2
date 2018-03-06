@@ -61,11 +61,11 @@
 					return LOEO.ENABLE[value];
 				}
 			},
-			{field: 'createDt', title: '创建时间', align: 'center', width: 60,formatter:function (value,row,index) {
+			{field: 'created', title: '创建时间', align: 'center', width: 60,formatter:function (value,row,index) {
 					return value ? new Date(value).format(LOEO.DATE_PATTERN) : "";
 				}},
 			{field: 'createUser', title: '创建人', align: 'center', width: 60},
-			{field: 'updateDt', title: '修改时间', align: 'center', width: 60,formatter:function (value,row,index) {
+			{field: 'updated', title: '修改时间', align: 'center', width: 60,formatter:function (value,row,index) {
 					return value ? new Date(value).format(LOEO.DATE_PATTERN) : "";
 				}},
 			{field: 'updateUser', title: '修改人', align: 'center', width: 60}

@@ -18,14 +18,14 @@ public class TestBeanPostProcessor implements BeanPostProcessor {
 
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-        logger.info(beanName + ":开始初始化");
+        //logger.info(beanName + ":开始初始化");
         return bean;
     }
 
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
         if (logger.isInfoEnabled()) {
-            logger.info(beanName + ":完成初始化");
+            //logger.info(beanName + ":完成初始化");
         }
         return bean;
     }

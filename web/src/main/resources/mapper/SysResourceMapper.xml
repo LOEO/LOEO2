@@ -13,9 +13,9 @@
 		<result column="descp" property="descp"/>
 		<result column="iconCls" property="iconCls"/>
 		<result column="script" property="script"/>
-		<result column="createDt" property="createDt"/>
+		<result column="created" property="created"/>
 		<result column="createUser" property="createUser"/>
-		<result column="updateDt" property="updateDt"/>
+		<result column="updated" property="updated"/>
 		<result column="updateUser" property="updateUser"/>
 		<result column="enable" property="enable"/>
 		<result column="isLeaf" property="isLeaf"/>

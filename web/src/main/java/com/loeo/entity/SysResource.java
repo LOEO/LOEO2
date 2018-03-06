@@ -44,11 +44,11 @@ public class SysResource extends Model<SysResource> {
 	private String iconCls;
 	private String script;
 	@TableField(fill = FieldFill.INSERT)
-	private Date createDt;
+	private Date created;
 	@TableField(fill = FieldFill.INSERT)
 	private String createUser;
 	@TableField(fill = FieldFill.INSERT_UPDATE)
-	private Date updateDt;
+	private Date updated;
 	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private String updateUser;
 	private Integer enable;
@@ -130,12 +130,12 @@ public class SysResource extends Model<SysResource> {
 		this.script = script;
 	}
 
-	public Date getCreateDt() {
-		return createDt;
+	public Date getCreated() {
+		return created;
 	}
 
-	public void setCreateDt(Date createDt) {
-		this.createDt = createDt;
+	public void setCreated(Date created) {
+		this.created = created;
 	}
 
 	public String getCreateUser() {
@@ -146,12 +146,12 @@ public class SysResource extends Model<SysResource> {
 		this.createUser = createUser;
 	}
 
-	public Date getUpdateDt() {
-		return updateDt;
+	public Date getUpdated() {
+		return updated;
 	}
 
-	public void setUpdateDt(Date updateDt) {
-		this.updateDt = updateDt;
+	public void setUpdated(Date updated) {
+		this.updated = updated;
 	}
 
 	public String getUpdateUser() {

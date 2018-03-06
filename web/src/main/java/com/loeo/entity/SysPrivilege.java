@@ -46,11 +46,11 @@ public class SysPrivilege extends Model<SysPrivilege> {
 	@TableField(fill = FieldFill.INSERT)
 	private String createUser;
 	@TableField(fill = FieldFill.INSERT)
-	private Date createDt;
+	private Date created;
 	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private String updateUser;
 	@TableField(fill = FieldFill.INSERT_UPDATE)
-	private Date updateDt;
+	private Date updated;
 
 
 	public String getId() {
@@ -109,12 +109,12 @@ public class SysPrivilege extends Model<SysPrivilege> {
 		this.createUser = createUser;
 	}
 
-	public Date getCreateDt() {
-		return createDt;
+	public Date getCreated() {
+		return created;
 	}
 
-	public void setCreateDt(Date createDt) {
-		this.createDt = createDt;
+	public void setCreated(Date created) {
+		this.created = created;
 	}
 
 	public String getUpdateUser() {
@@ -125,12 +125,12 @@ public class SysPrivilege extends Model<SysPrivilege> {
 		this.updateUser = updateUser;
 	}
 
-	public Date getUpdateDt() {
-		return updateDt;
+	public Date getUpdated() {
+		return updated;
 	}
 
-	public void setUpdateDt(Date updateDt) {
-		this.updateDt = updateDt;
+	public void setUpdated(Date updated) {
+		this.updated = updated;
 	}
 
 	@Override
