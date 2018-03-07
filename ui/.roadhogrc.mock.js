@@ -12,7 +12,7 @@ const noProxy = process.env.NO_PROXY === 'true';
 
 // 代码中会兼容本地 service mock 以及部署站点的静态数据
 const proxy = {
-  'POST /login':'http://localhost:9999',
+  'POST /api/login':'http://localhost:9999',
   // 支持值为 Object 和 Array
   'GET /api/currentUser': {
     $desc: "获取当前用户接口",

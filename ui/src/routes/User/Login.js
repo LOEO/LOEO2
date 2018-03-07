@@ -14,7 +14,7 @@ const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
 export default class LoginPage extends Component {
   state = {
     type: 'account',
-    autoLogin: true,
+    rememberMe: true,
   }
 
   onTabChange = (type) => {
@@ -34,9 +34,9 @@ export default class LoginPage extends Component {
     }
   }
 
-  changeAutoLogin = (e) => {
+  changeRememberMe = (e) => {
     this.setState({
-      autoLogin: e.target.checked,
+      rememberMe: e.target.checked,
     });
   }
 
@@ -63,7 +63,7 @@ export default class LoginPage extends Component {
               !login.submitting &&
               this.renderMessage('账户或密码错误（admin/888888）')
             }
-            <UserName name="userName" placeholder="admin/user" />
+            <UserName name="username" placeholder="admin/user" />
             <Password name="password" placeholder="888888/123456" />
           </Tab>
           <Tab key="mobile" tab="手机号登录">
@@ -77,7 +77,7 @@ export default class LoginPage extends Component {
             <Captcha name="captcha" />
           </Tab>
           <div>
-            <Checkbox checked={this.state.autoLogin} onChange={this.changeAutoLogin}>自动登录</Checkbox>
+            <Checkbox checked={this.state.rememberMe} onChange={this.changeRememberMe}>记住密码</Checkbox>
             <a style={{ float: 'right' }} href="">忘记密码</a>
           </div>
           <Submit loading={submitting}>登录</Submit>
