@@ -60,16 +60,16 @@ public class MpGenerator {
 		});
 		dsc.setDriverName("com.mysql.jdbc.Driver");
 		dsc.setUsername("root");
-		dsc.setPassword("mysqlroot");
-		dsc.setUrl("jdbc:mysql://192.168.1.3:3306/easypm4_localtest?useAffectedRows=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true");
+		dsc.setPassword("7731481");
+		dsc.setUrl("jdbc:mysql://127.0.0.1:3306/loeo?useAffectedRows=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true");
 		mpg.setDataSource(dsc);
 
 		// 策略配置
 		StrategyConfig strategy = new StrategyConfig();
 		// strategy.setCapitalMode(true);// 全局大写命名 ORACLE 注意
-		strategy.setTablePrefix(new String[]{"tlog_", "tsys_"});// 此处可以修改为您的表前缀
+		strategy.setTablePrefix(new String[]{"t"});// 此处可以修改为您的表前缀
 		strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-		strategy.setInclude(new String[]{"schedule", "schedule_job", "schedule_job_depend", "schedule_job_inner", "schedule_log", "schedule_trigger", "schedule_trigger_job"}); // 需要生成的表
+		strategy.setInclude(new String[]{"t_sys_log"}); // 需要生成的表
 		// strategy.setExclude(new String[]{"test"}); // 排除生成的表
 		// 自定义实体父类
 		// strategy.setSuperEntityClass("com.baomidou.demo.TestEntity");
@@ -93,8 +93,8 @@ public class MpGenerator {
 
 		// 包配置
 		PackageConfig pc = new PackageConfig();
-		pc.setParent("com.chuanghai.easypm");
-		pc.setModuleName("scheduler");
+		pc.setParent("com.loeo");
+		pc.setModuleName("");
 		mpg.setPackageInfo(pc);
 
 		// 注入自定义配置，可以在 VM 中使用 cfg.abc 【可无】

@@ -35,7 +35,7 @@ import com.loeo.utils.ApplicationContextUtils;
  */
 public class SysPermFilter extends PermissionsAuthorizationFilter {
 	private static final Logger logger = LoggerFactory.getLogger(SysPermFilter.class);
-	private Map<String, Pattern> pathPatternMap = new HashMap<>();
+	protected Map<String, Pattern> pathPatternMap = new HashMap<>();
 
 	@Override
 	protected boolean pathsMatch(String path, ServletRequest request) {
@@ -53,14 +53,13 @@ public class SysPermFilter extends PermissionsAuthorizationFilter {
 		} else {
 			pattern = pathPatternMap.get(path);
 		}
-
 		return method == null ? pattern.matcher(requestURI).matches()
 				: method.toUpperCase().equals(((HttpServletRequest) request).getMethod().toUpperCase()) && pattern.matcher(requestURI).matches();
 	}
 
 	@Override
 	public boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) throws IOException {
-		return super.isAccessAllowed(request, response, mappedValue);
+		return super.isAccessAllowed(request, response, mappedValue) ;
 	}
 
 	@Override
@@ -86,53 +85,44 @@ public class SysPermFilter extends PermissionsAuthorizationFilter {
 		ShiroService shiroService = ApplicationContextUtils.getBean(ShiroService.class);
 		List<SysResource> resources = shiroService.findAllPermResources();
 		appliedPaths.clear();
-		resources.forEach(resource -> addToAppliedPaths(resource.getApi() + (StringUtils.hasText(resource.getMethod()) ? ShiroService.PART_DIVIDER_TOKEN + resource.getMethod() : ""), resource.getType()
-				+ ShiroService.PART_DIVIDER_TOKEN
-				+ resource.getId()
-		));
+		resources.forEach(resource -> {
+			String path = getPath(resource);
+			addToAppliedPaths(path, resource);
+		});
 		logger.info("系统权限初始化完成...");
 	}
-
 
 	public void updateResource(ResourceUpdateEvent event) {
 		SysResource sysResource = event.getSource();
 		if (!StringUtils.hasText(sysResource.getApi())) {
 			return;
 		}
+		String path = getPath(sysResource);
 		synchronized (this) {
 			switch (event.getAction()) {
 				case ADD:
-					addToAppliedPaths(sysResource.getApi() + (StringUtils.hasText(sysResource.getMethod()) ? ShiroService.PART_DIVIDER_TOKEN + sysResource.getMethod() : ""), sysResource.getType()
-							+ ShiroService.PART_DIVIDER_TOKEN
-							+ sysResource.getId()
-					);
+					addToAppliedPaths(path, sysResource);
 					break;
 				case UPDATE:
 					break;
 				case DELETE:
-					removeFromAppliedPaths(sysResource.getApi() + (StringUtils.hasText(sysResource.getMethod()) ? ShiroService.PART_DIVIDER_TOKEN + sysResource.getMethod() : ""), sysResource.getType()
-							+ ShiroService.PART_DIVIDER_TOKEN
-							+ sysResource.getId());
+					removeFromAppliedPaths(path, sysResource);
 					break;
 				default:
 			}
 		}
 	}
 
-	private void removeFromAppliedPaths(String path, String permStr) {
-		String[] values = (String[]) appliedPaths.get(path);
-		if (values != null) {
-			if (values.length <= 1) {
-				appliedPaths.remove(path);
-			} else {
-				List<String> valueList = new ArrayList<>(Arrays.asList(values));
-				valueList.remove(permStr);
-				appliedPaths.put(path, valueList.toArray(new String[]{}));
-			}
-		}
+	private String getPath(SysResource sysResource) {
+		return sysResource.getApi() + (StringUtils.hasText(sysResource.getMethod()) ? ShiroService.PART_DIVIDER_TOKEN + sysResource.getMethod() : "");
 	}
 
-	private void addToAppliedPaths(String path, String permStr) {
+	private String getPermStr(SysResource sysResource) {
+		return sysResource.getType() + ShiroService.PART_DIVIDER_TOKEN + sysResource.getId();
+	}
+
+	protected void addToAppliedPaths(String path, SysResource sysResource) {
+		String permStr = getPermStr(sysResource);
 		if (appliedPaths.containsKey(path)) {
 			String[] values = (String[]) appliedPaths.get(path);
 			List<String> valueList = new ArrayList<>(Arrays.asList(values));
@@ -144,4 +134,18 @@ public class SysPermFilter extends PermissionsAuthorizationFilter {
 			appliedPaths.put(path, new String[]{permStr});
 		}
 	}
+
+	protected void removeFromAppliedPaths(String path, SysResource sysResource) {
+		String[] values = (String[]) appliedPaths.get(path);
+		if (values != null) {
+			if (values.length <= 1) {
+				appliedPaths.remove(path);
+			} else {
+				List<String> valueList = new ArrayList<>(Arrays.asList(values));
+				valueList.remove(getPermStr(sysResource));
+				appliedPaths.put(path, valueList.toArray(new String[]{}));
+			}
+		}
+	}
+
 }

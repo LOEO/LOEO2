@@ -26,6 +26,7 @@ import org.springframework.context.annotation.Lazy;
 import com.loeo.event.ResourceUpdateEvent;
 import com.loeo.shiro.LoeoRealm;
 import com.loeo.shiro.SysPermFilter;
+import com.loeo.shiro.SysPermLogFilter;
 
 /**
  * Created by LOEO on 2017/05/31 22:44
@@ -33,7 +34,7 @@ import com.loeo.shiro.SysPermFilter;
 @Configuration
 public class ShiroConfig implements ApplicationRunner, ApplicationListener<ResourceUpdateEvent> {
 	private static final Logger logger = LoggerFactory.getLogger(ShiroConfig.class);
-	private static final SysPermFilter sysPermFilter = new SysPermFilter();
+	private static final SysPermFilter sysPermFilter = new SysPermLogFilter();
 	public static final String HASH_ALGORITHM_NAME = Md5Hash.ALGORITHM_NAME;
 
 	@Bean
