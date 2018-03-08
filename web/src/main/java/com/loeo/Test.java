@@ -3,7 +3,7 @@ package com.loeo;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.crypto.hash.SimpleHash;
 
-import com.loeo.config.ShiroConfig;
+import com.loeo.base.config.ShiroConfig;
 
 /**
  * 功能：

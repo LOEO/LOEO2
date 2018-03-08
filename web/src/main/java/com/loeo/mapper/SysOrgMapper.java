@@ -1,7 +1,7 @@
 package com.loeo.mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.loeo.entity.SysOrg;
+import com.loeo.domain.entity.SysOrg;
 
 /**
  * <p>

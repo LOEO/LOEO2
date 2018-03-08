@@ -1,6 +1,6 @@
 package com.loeo.mapper;
 
-import com.loeo.entity.SysLog;
+import com.loeo.domain.entity.SysLog;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**

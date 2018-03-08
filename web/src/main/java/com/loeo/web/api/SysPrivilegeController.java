@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
-import com.loeo.common.Result;
-import com.loeo.dto.MenuAndButton;
+import com.loeo.base.Result;
+import com.loeo.domain.dto.MenuAndButton;
 import com.loeo.service.SysPrivilegeService;
 
 /**

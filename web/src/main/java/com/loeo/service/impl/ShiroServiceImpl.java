@@ -12,15 +12,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.loeo.entity.SysPrivilege;
-import com.loeo.entity.SysResource;
-import com.loeo.entity.SysRole;
-import com.loeo.entity.SysUser;
+import com.loeo.domain.entity.SysPrivilege;
+import com.loeo.domain.entity.SysResource;
+import com.loeo.domain.entity.SysRole;
+import com.loeo.domain.entity.SysUser;
 import com.loeo.service.ShiroService;
 import com.loeo.service.SysPrivilegeService;
 import com.loeo.service.SysResourceService;
 import com.loeo.service.SysUserService;
-import com.loeo.shiro.ShiroContextUtils;
+import com.loeo.base.shiro.ShiroContextUtils;
 
 /**
  * 功能：

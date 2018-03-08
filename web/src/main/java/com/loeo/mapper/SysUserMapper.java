@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.loeo.entity.SysResource;
-import com.loeo.entity.SysUser;
+import com.loeo.domain.entity.SysResource;
+import com.loeo.domain.entity.SysUser;
 
 /**
  * <p>

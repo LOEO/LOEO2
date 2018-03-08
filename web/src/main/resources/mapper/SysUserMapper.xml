@@ -3,7 +3,7 @@
 <mapper namespace="com.loeo.mapper.SysUserMapper">
 
 	<!-- 通用查询映射结果 -->
-	<resultMap id="BaseResultMap" type="com.loeo.entity.SysUser">
+	<resultMap id="BaseResultMap" type="com.loeo.domain.entity.SysUser">
 		<id column="id" property="id"/>
 		<result column="username" property="username"/>
 		<result column="password" property="password"/>
@@ -21,7 +21,7 @@
 		<result column="updateUser" property="updateUser"/>
 		<result column="enable" property="enable"/>
 	</resultMap>
-	<select id="findUserMenus" resultType="com.loeo.entity.SysResource">
+	<select id="findUserMenus" resultType="com.loeo.domain.entity.SysResource">
 		SELECT
 			DISTINCT re.*
 		FROM

@@ -3,7 +3,7 @@
 <mapper namespace="com.loeo.mapper.SysOrgMapper">
 
 	<!-- 通用查询映射结果 -->
-	<resultMap id="BaseResultMap" type="com.loeo.entity.SysOrg">
+	<resultMap id="BaseResultMap" type="com.loeo.domain.entity.SysOrg">
 		<id column="id" property="id"/>
 		<result column="name" property="name"/>
 		<result column="pid" property="pid"/>

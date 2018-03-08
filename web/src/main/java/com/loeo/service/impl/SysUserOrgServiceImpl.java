@@ -2,7 +2,7 @@ package com.loeo.service.impl;
 
 import org.springframework.stereotype.Service;
 
-import com.loeo.entity.SysUserOrg;
+import com.loeo.domain.entity.SysUserOrg;
 import com.loeo.mapper.SysUserOrgMapper;
 import com.loeo.service.BaseServiceImpl;
 import com.loeo.service.SysUserOrgService;

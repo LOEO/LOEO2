@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.loeo.entity.SysRole;
+import com.loeo.domain.entity.SysRole;
 
 /**
  * <p>

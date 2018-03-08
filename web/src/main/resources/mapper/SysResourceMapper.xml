@@ -3,7 +3,7 @@
 <mapper namespace="com.loeo.mapper.SysResourceMapper">
 
 	<!-- 通用查询映射结果 -->
-	<resultMap id="BaseResultMap" type="com.loeo.entity.SysResource">
+	<resultMap id="BaseResultMap" type="com.loeo.domain.entity.SysResource">
 		<id column="id" property="id"/>
 		<result column="name" property="name"/>
 		<result column="api" property="api"/>
@@ -21,7 +21,7 @@
 		<result column="isLeaf" property="isLeaf"/>
 		<result column="orde" property="orde"/>
 	</resultMap>
-	<select id="getAuthorisedButtonsByMenuId" resultType="com.loeo.entity.SysResource">
+	<select id="getAuthorisedButtonsByMenuId" resultType="com.loeo.domain.entity.SysResource">
 		SELECT
 			DISTINCT allb.*
 		FROM

@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.loeo.common.Result;
-import com.loeo.dto.LoginDto;
-import com.loeo.shiro.ShiroContextUtils;
+import com.loeo.base.Result;
+import com.loeo.domain.dto.LoginDto;
+import com.loeo.base.shiro.ShiroContextUtils;
 
 /**
  * Created by LOEO on 2017/06/14 0:58

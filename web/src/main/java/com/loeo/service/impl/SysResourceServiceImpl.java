@@ -13,10 +13,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.loeo.dto.SysResourceTreeNode;
-import com.loeo.entity.SysResource;
-import com.loeo.event.ResourceUpdateEvent;
-import com.loeo.event.ResourceUpdateEvent.Action;
+import com.loeo.domain.dto.SysResourceTreeNode;
+import com.loeo.domain.entity.SysResource;
+import com.loeo.base.event.ResourceUpdateEvent;
+import com.loeo.base.event.ResourceUpdateEvent.Action;
 import com.loeo.mapper.SysResourceMapper;
 import com.loeo.service.BaseServiceImpl;
 import com.loeo.service.SysResourceService;

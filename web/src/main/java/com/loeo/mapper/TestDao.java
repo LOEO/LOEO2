@@ -1,7 +1,7 @@
 package com.loeo.mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.loeo.entity.Test;
+import com.loeo.domain.entity.Test;
 
 /**
  * 功能：

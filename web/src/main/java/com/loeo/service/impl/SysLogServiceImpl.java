@@ -2,7 +2,7 @@ package com.loeo.service.impl;
 
 import org.springframework.stereotype.Service;
 
-import com.loeo.entity.SysLog;
+import com.loeo.domain.entity.SysLog;
 import com.loeo.mapper.SysLogMapper;
 import com.loeo.service.BaseServiceImpl;
 import com.loeo.service.SysLogService;

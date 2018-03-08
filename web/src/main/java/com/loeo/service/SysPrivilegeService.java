@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.baomidou.mybatisplus.service.IService;
-import com.loeo.dto.MenuAndButton;
-import com.loeo.dto.SysResourceTreeNode;
-import com.loeo.entity.SysPrivilege;
+import com.loeo.domain.dto.MenuAndButton;
+import com.loeo.domain.dto.SysResourceTreeNode;
+import com.loeo.domain.entity.SysPrivilege;
 
 /**
  * <p>

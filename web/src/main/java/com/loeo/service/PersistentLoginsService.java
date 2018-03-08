@@ -1,7 +1,7 @@
 package com.loeo.service;
 
 import com.baomidou.mybatisplus.service.IService;
-import com.loeo.entity.PersistentLogins;
+import com.loeo.domain.entity.PersistentLogins;
 
 /**
  * <p>

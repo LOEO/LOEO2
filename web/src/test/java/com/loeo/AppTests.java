@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import com.loeo.entity.SysRole;
+import com.loeo.domain.entity.SysRole;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

@@ -8,8 +8,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.loeo.dto.SysResourceTreeNode;
-import com.loeo.entity.SysRole;
+import com.loeo.domain.dto.SysResourceTreeNode;
+import com.loeo.domain.entity.SysRole;
 import com.loeo.mapper.SysRoleMapper;
 import com.loeo.service.BaseServiceImpl;
 import com.loeo.service.SysPrivilegeService;

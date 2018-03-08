@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.loeo.entity.SysRole;
-import com.loeo.entity.SysUserRole;
+import com.loeo.domain.entity.SysRole;
+import com.loeo.domain.entity.SysUserRole;
 import com.loeo.mapper.SysUserRoleMapper;
 import com.loeo.service.BaseServiceImpl;
 import com.loeo.service.SysUserRoleService;

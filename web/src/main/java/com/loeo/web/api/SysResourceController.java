@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.loeo.common.Result;
-import com.loeo.entity.SysResource;
+import com.loeo.base.Result;
+import com.loeo.domain.entity.SysResource;
 import com.loeo.service.SysResourceService;
-import com.loeo.shiro.ShiroContextUtils;
+import com.loeo.base.shiro.ShiroContextUtils;
 import com.loeo.utils.validate.ValidateUtils;
 import com.loeo.utils.validate.group.Add;
 import com.loeo.utils.validate.group.Update;

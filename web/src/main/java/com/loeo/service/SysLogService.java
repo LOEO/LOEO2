@@ -1,6 +1,6 @@
 package com.loeo.service;
 
-import com.loeo.entity.SysLog;
+import com.loeo.domain.entity.SysLog;
 import com.baomidou.mybatisplus.service.IService;
 
 /**

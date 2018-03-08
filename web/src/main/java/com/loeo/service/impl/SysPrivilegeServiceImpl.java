@@ -9,10 +9,10 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.loeo.dto.MenuAndButton;
-import com.loeo.dto.SysResourceTreeNode;
-import com.loeo.entity.SysPrivilege;
-import com.loeo.entity.SysResource;
+import com.loeo.domain.dto.MenuAndButton;
+import com.loeo.domain.dto.SysResourceTreeNode;
+import com.loeo.domain.entity.SysPrivilege;
+import com.loeo.domain.entity.SysResource;
 import com.loeo.mapper.SysPrivilegeMapper;
 import com.loeo.service.BaseServiceImpl;
 import com.loeo.service.SysPrivilegeService;

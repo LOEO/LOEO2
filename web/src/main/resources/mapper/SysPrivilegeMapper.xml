@@ -3,7 +3,7 @@
 <mapper namespace="com.loeo.mapper.SysPrivilegeMapper">
 
 	<!-- 通用查询映射结果 -->
-	<resultMap id="BaseResultMap" type="com.loeo.entity.SysPrivilege">
+	<resultMap id="BaseResultMap" type="com.loeo.domain.entity.SysPrivilege">
 		<id column="id" property="id"/>
 		<result column="master" property="master"/>
 		<result column="masterValue" property="masterValue"/>
@@ -18,7 +18,7 @@
 	<delete id="deleteByMasterAndValue">
 		delete from t_sys_privilege where master=#{master} and masterValue=#{masterValue}
 	</delete>
-	<select id="getResources" resultType="com.loeo.entity.SysResource">
+	<select id="getResources" resultType="com.loeo.domain.entity.SysResource">
 		SELECT
 			CASE
 			when p.id is not NULL then "true"  end as checked,

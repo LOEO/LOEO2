@@ -3,7 +3,7 @@
 <mapper namespace="com.loeo.mapper.TestMybatisMapper">
 
 	<!-- 通用查询映射结果 -->
-	<resultMap id="BaseResultMap" type="com.loeo.entity.TestMybatis">
+	<resultMap id="BaseResultMap" type="com.loeo.domain.entity.TestMybatis">
 		<id column="id" property="id"/>
 		<result column="name" property="name"/>
 		<result column="remark" property="remark"/>

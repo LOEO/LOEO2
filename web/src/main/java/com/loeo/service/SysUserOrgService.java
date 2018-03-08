@@ -1,7 +1,7 @@
 package com.loeo.service;
 
 import com.baomidou.mybatisplus.service.IService;
-import com.loeo.entity.SysUserOrg;
+import com.loeo.domain.entity.SysUserOrg;
 
 /**
  * <p>

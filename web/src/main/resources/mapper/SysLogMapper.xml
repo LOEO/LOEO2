@@ -3,7 +3,7 @@
 <mapper namespace="com.loeo.mapper.SysLogMapper">
 
 	<!-- 通用查询映射结果 -->
-	<resultMap id="BaseResultMap" type="com.loeo.entity.SysLog">
+	<resultMap id="BaseResultMap" type="com.loeo.domain.entity.SysLog">
 		<id column="id" property="id"/>
 		<result column="url" property="url"/>
 		<result column="method" property="method"/>

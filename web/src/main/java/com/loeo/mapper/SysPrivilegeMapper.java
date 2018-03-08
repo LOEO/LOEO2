@@ -6,8 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.loeo.entity.SysPrivilege;
-import com.loeo.entity.SysResource;
+import com.loeo.domain.entity.SysPrivilege;
+import com.loeo.domain.entity.SysResource;
 
 /**
  * <p>

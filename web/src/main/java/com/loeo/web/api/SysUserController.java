@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
-import com.loeo.common.Result;
-import com.loeo.entity.SysRole;
-import com.loeo.entity.SysUser;
+import com.loeo.base.Result;
+import com.loeo.domain.entity.SysRole;
+import com.loeo.domain.entity.SysUser;
 import com.loeo.service.SysUserService;
 import com.loeo.utils.validate.ValidateUtils;
 import com.loeo.utils.validate.group.Add;

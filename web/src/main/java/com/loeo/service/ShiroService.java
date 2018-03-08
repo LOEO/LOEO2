@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
-import com.loeo.entity.SysResource;
-import com.loeo.entity.SysUser;
+import com.loeo.domain.entity.SysResource;
+import com.loeo.domain.entity.SysUser;
 
 /**
  * 功能：

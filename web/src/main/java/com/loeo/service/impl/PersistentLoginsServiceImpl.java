@@ -2,7 +2,7 @@ package com.loeo.service.impl;
 
 import org.springframework.stereotype.Service;
 
-import com.loeo.entity.PersistentLogins;
+import com.loeo.domain.entity.PersistentLogins;
 import com.loeo.mapper.PersistentLoginsMapper;
 import com.loeo.service.BaseServiceImpl;
 import com.loeo.service.PersistentLoginsService;

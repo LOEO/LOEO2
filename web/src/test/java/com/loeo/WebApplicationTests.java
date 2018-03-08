@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.loeo.entity.SysUser;
+import com.loeo.domain.entity.SysUser;
 import com.loeo.service.SysUserService;
 
 @RunWith(SpringRunner.class)

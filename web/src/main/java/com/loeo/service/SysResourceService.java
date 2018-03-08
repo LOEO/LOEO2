@@ -5,8 +5,8 @@ import java.util.List;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
-import com.loeo.dto.SysResourceTreeNode;
-import com.loeo.entity.SysResource;
+import com.loeo.domain.dto.SysResourceTreeNode;
+import com.loeo.domain.entity.SysResource;
 
 /**
  * <p>

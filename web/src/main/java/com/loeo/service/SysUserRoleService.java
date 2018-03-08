@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.baomidou.mybatisplus.service.IService;
-import com.loeo.entity.SysRole;
-import com.loeo.entity.SysUserRole;
+import com.loeo.domain.entity.SysRole;
+import com.loeo.domain.entity.SysUserRole;
 
 /**
  * <p>

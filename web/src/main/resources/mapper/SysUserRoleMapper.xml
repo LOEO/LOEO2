@@ -3,7 +3,7 @@
 <mapper namespace="com.loeo.mapper.SysUserRoleMapper">
 
 	<!-- 通用查询映射结果 -->
-	<resultMap id="BaseResultMap" type="com.loeo.entity.SysUserRole">
+	<resultMap id="BaseResultMap" type="com.loeo.domain.entity.SysUserRole">
 		<id column="userId" property="userId"/>
 		<result column="roleId" property="roleId"/>
 	</resultMap>
