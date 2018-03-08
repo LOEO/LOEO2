@@ -35,7 +35,7 @@ import com.loeo.utils.ApplicationContextUtils;
  */
 public class SysPermFilter extends PermissionsAuthorizationFilter {
 	private static final Logger logger = LoggerFactory.getLogger(SysPermFilter.class);
-	protected Map<String, Pattern> pathPatternMap = new HashMap<>();
+	private Map<String, Pattern> pathPatternMap = new HashMap<>();
 
 	@Override
 	protected boolean pathsMatch(String path, ServletRequest request) {
