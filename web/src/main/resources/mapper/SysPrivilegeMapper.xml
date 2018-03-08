@@ -10,13 +10,13 @@
 		<result column="access" property="access"/>
 		<result column="accessValue" property="accessValue"/>
 		<result column="operation" property="operation"/>
-		<result column="createUser" property="createUser"/>
+		<result column="create_user" property="createUser"/>
 		<result column="created" property="created"/>
-		<result column="updateUser" property="updateUser"/>
+		<result column="update_user" property="updateUser"/>
 		<result column="updated" property="updated"/>
 	</resultMap>
 	<delete id="deleteByMasterAndValue">
-		delete from t_sys_privilege where master=#{master} and masterValue=#{masterValue}
+		delete from sys_privilege where `master`=#{master} and master_value=#{masterValue}
 	</delete>
 	<select id="getResources" resultType="com.loeo.domain.entity.SysResource">
 		SELECT
@@ -24,10 +24,10 @@
 			when p.id is not NULL then "true"  end as checked,
 			r.*
 		FROM
-			t_sys_resource r
-			LEFT JOIN t_sys_privilege p ON p.accessValue = r.id
-										   AND p.`master` = #{master}
-										   AND p.masterValue = #{masterValue} order by r.orde
+			sys_resource r
+			LEFT JOIN sys_privilege p ON p.access_value = r.id
+										 AND p.`master` = #{master}
+										 AND p.master_value = #{masterValue} order by r.orde
 	</select>
 
 </mapper>

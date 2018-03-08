@@ -10,9 +10,9 @@
 		<result column="descp" property="descp"/>
 		<result column="leaf" property="leaf"/>
 		<result column="created" property="created"/>
-		<result column="createUser" property="createUser"/>
+		<result column="create_user" property="createUser"/>
 		<result column="updated" property="updated"/>
-		<result column="updateUser" property="updateUser"/>
+		<result column="update_user" property="updateUser"/>
 	</resultMap>
 
 </mapper>

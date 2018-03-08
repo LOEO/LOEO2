@@ -25,7 +25,7 @@ import com.loeo.utils.validate.group.Update;
  * @author LT
  * @since 2017-05-25
  */
-@TableName("t_sys_user")
+@TableName("sys_user")
 public class SysUser extends Model<SysUser> {
 
 	private static final long serialVersionUID = 1L;
@@ -45,7 +45,7 @@ public class SysUser extends Model<SysUser> {
 	private String nickname;
 	private Integer age;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@NotEmpty(groups = Add.class)
+	@NotNull(groups = Add.class)
 	private Date birthday;
 	@NotEmpty(groups = Add.class)
 	private String sex;

@@ -16,7 +16,7 @@ import com.baomidou.mybatisplus.enums.FieldFill;
  * @author LT
  * @since 2017-05-25
  */
-@TableName("t_sys_user_org")
+@TableName("sys_user_org")
 public class SysUserOrg extends Model<SysUserOrg> {
 
 	private static final long serialVersionUID = 1L;

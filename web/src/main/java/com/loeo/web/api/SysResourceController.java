@@ -44,8 +44,8 @@ public class SysResourceController {
 	@PostMapping
 	public Result add(SysResource sysResource) {
 		ValidateUtils.validate(sysResource, Add.class);
-		sysResource.setIsLeaf(1);
-		resourceService.insert(sysResource);
+		sysResource.setLeaf(Boolean.TRUE);
+		resourceService.add(sysResource);
 		return Result.success("保存成功");
 	}
 

@@ -14,29 +14,29 @@
 		<result column="avatar" property="avatar"/>
 		<result column="email" property="email"/>
 		<result column="phone" property="phone"/>
-		<result column="orgId" property="orgId"/>
+		<result column="org_id" property="orgId"/>
 		<result column="created" property="created"/>
-		<result column="createUser" property="createUser"/>
+		<result column="create_user" property="createUser"/>
 		<result column="updated" property="updated"/>
-		<result column="updateUser" property="updateUser"/>
+		<result column="update_user" property="updateUser"/>
 		<result column="enable" property="enable"/>
 	</resultMap>
 	<select id="findUserMenus" resultType="com.loeo.domain.entity.SysResource">
 		SELECT
 			DISTINCT re.*
 		FROM
-			t_sys_role r,
-			t_sys_user_role ur,
-			t_sys_resource re,
-			t_sys_privilege p
+			sys_role r,
+			sys_user_role ur,
+			sys_resource re,
+			sys_privilege p
 		WHERE
-			ur.userid = #{userId}
-			AND r.id = ur.roleId
-				AND (re.type = 0 or re.type = 1)
+			ur.user_id = #{userId}
+			AND r.id = ur.role_id
+			AND (re.type = 0 or re.type = 1)
 			AND (
 				((p.`master` = 'role'
-				  AND p.masterValue = r.id) OR (p.`master` = 'user' AND p.masterValue = #{userId}))
-				AND p.accessValue = re.id
+				  AND p.master_value = r.id) OR (p.`master` = 'user' AND p.master_value = #{userId}))
+				AND p.access_value = re.id
 			)
 	</select>
 

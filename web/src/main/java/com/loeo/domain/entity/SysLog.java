@@ -17,7 +17,7 @@ import com.baomidou.mybatisplus.enums.FieldFill;
  * @author LT
  * @since 2018-03-08
  */
-@TableName("t_sys_log")
+@TableName("sys_log")
 public class SysLog extends Model<SysLog> {
 
     private static final long serialVersionUID = 1L;

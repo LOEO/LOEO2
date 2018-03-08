@@ -25,11 +25,11 @@ public class SysResourceTreeNode extends SysResource {
         this.setUpdated(resource.getUpdated());
         this.setUpdateUser(resource.getUpdateUser());
         this.setEnable(resource.getEnable());
-        this.setIsLeaf(resource.getIsLeaf());
+        this.setLeaf(resource.isLeaf());
         this.setOrde(resource.getOrde());
         this.setChecked(resource.isChecked()==null? Boolean.FALSE:resource.isChecked());
         if (this.isChecked()) {
-            if (this.getIsLeaf() == 0) {
+            if (this.isLeaf()) {
                 this.checkState = "indeterminate";
                 this.setChecked(false);
             }else{

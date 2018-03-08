@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.loeo.base.shiro.ShiroContextUtils;
 import com.loeo.domain.entity.SysPrivilege;
 import com.loeo.domain.entity.SysResource;
 import com.loeo.domain.entity.SysRole;
@@ -20,7 +21,7 @@ import com.loeo.service.ShiroService;
 import com.loeo.service.SysPrivilegeService;
 import com.loeo.service.SysResourceService;
 import com.loeo.service.SysUserService;
-import com.loeo.base.shiro.ShiroContextUtils;
+
 
 /**
  * 功能：
@@ -51,7 +52,7 @@ public class ShiroServiceImpl implements ShiroService {
 		roles.forEach(role -> {
 			List<SysPrivilege> sysPrivileges = sysPrivilegeService.selectList(new EntityWrapper<SysPrivilege>()
 					.eq("master", "role")
-					.eq("masterValue", role));
+					.eq("master_value", role));
 			permSet.addAll(sysPrivileges.stream().map(sp -> sp.getAccess() + ShiroService.PART_DIVIDER_TOKEN + sp.getAccessValue()).collect(Collectors.toSet()));
 		});
 		return permSet;
@@ -59,7 +60,7 @@ public class ShiroServiceImpl implements ShiroService {
 
 	@Override
 	public Set<String> findPermByUserId(Serializable userId) {
-		List<SysPrivilege> sysPrivileges = sysPrivilegeService.selectList(new EntityWrapper<SysPrivilege>().eq("master", "user").eq("masterValue", userId));
+		List<SysPrivilege> sysPrivileges = sysPrivilegeService.selectList(new EntityWrapper<SysPrivilege>().eq("master", "user").eq("master_value", userId));
 		return sysPrivileges.stream().map(sp -> sp.getAccess() + ShiroService.PART_DIVIDER_TOKEN + sp.getAccessValue()).collect(Collectors.toSet());
 	}
 

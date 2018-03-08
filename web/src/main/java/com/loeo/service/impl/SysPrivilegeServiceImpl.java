@@ -63,7 +63,7 @@ public class SysPrivilegeServiceImpl extends BaseServiceImpl<SysPrivilegeMapper,
 		sysPrivilege.setMaster(master);
 		sysPrivilege.setMasterValue(masterValue);
 		sysPrivilege.setAccess(menuAndButton.getType());
-		sysPrivilege.setAccessValue(menuAndButton.getId().toString());
+		sysPrivilege.setAccessValue(menuAndButton.getId());
 		sysPrivilege.setOperation("enable");
 		return sysPrivilege;
 	}

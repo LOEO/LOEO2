@@ -13,7 +13,7 @@ import com.baomidou.mybatisplus.annotations.TableName;
  * @author LT
  * @since 2017-05-25
  */
-@TableName("t_sys_user_role")
+@TableName("sys_user_role")
 public class SysUserRole extends Model<SysUserRole> {
 
 	private static final long serialVersionUID = 1L;

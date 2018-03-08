@@ -8,17 +8,17 @@
 		<result column="name" property="name"/>
 		<result column="code" property="code"/>
 		<result column="descp" property="descp"/>
-		<result column="createUser" property="createUser"/>
+		<result column="create_user" property="createUser"/>
 		<result column="created" property="created"/>
-		<result column="updateUser" property="updateUser"/>
+		<result column="update_user" property="updateUser"/>
 		<result column="updated" property="updated"/>
 		<result column="enable" property="enable"/>
 	</resultMap>
 	<select id="getUserHasRoles" resultType="com.loeo.domain.entity.SysRole">
-		select r.* from t_sys_role r join t_sys_user_role ur on r.id=ur.roleId and ur.userId=#{userId};
+		select r.* from sys_role r join sys_user_role ur on r.id=ur.role_id and ur.user_id=#{userId};
 	</select>
 	<select id="getUserNotHasRoles" resultType="com.loeo.domain.entity.SysRole">
-		select r.* from t_sys_role r where r.id not in (select roleId from t_sys_user_role where userId=#{userId});
+		select r.* from sys_role r where r.id not in (select role_id from sys_user_role where user_id=#{userId});
 	</select>
 
 </mapper>

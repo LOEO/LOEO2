@@ -13,18 +13,19 @@ import org.springframework.transaction.annotation.Transactional;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.loeo.base.config.ShiroConfig;
+import com.loeo.base.exception.UsernameAlreadyExistException;
 import com.loeo.domain.dto.SysResourceTreeNode;
 import com.loeo.domain.entity.SysResource;
 import com.loeo.domain.entity.SysRole;
 import com.loeo.domain.entity.SysUser;
 import com.loeo.domain.entity.SysUserRole;
-import com.loeo.base.exception.UsernameAlreadyExistException;
 import com.loeo.mapper.SysUserMapper;
 import com.loeo.service.BaseServiceImpl;
 import com.loeo.service.SysPrivilegeService;
 import com.loeo.service.SysRoleService;
 import com.loeo.service.SysUserRoleService;
 import com.loeo.service.SysUserService;
+
 
 /**
  * <p>
@@ -37,7 +38,6 @@ import com.loeo.service.SysUserService;
 @Service
 public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> implements SysUserService {
 	public SysUserServiceImpl() {
-		System.out.println("=======================");
 	}
 
 	@Resource
@@ -104,7 +104,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public void saveUserRole(List<SysRole> roleList, String userId) {
-		userRoleService.delete(new EntityWrapper<SysUserRole>().eq("userId", userId));
+		userRoleService.delete(new EntityWrapper<SysUserRole>().eq("user_id", userId));
 		userRoleService.saveUserRoles(roleList, userId);
 	}
 }

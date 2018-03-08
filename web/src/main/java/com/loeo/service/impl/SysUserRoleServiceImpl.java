@@ -16,6 +16,7 @@ import com.loeo.mapper.SysUserRoleMapper;
 import com.loeo.service.BaseServiceImpl;
 import com.loeo.service.SysUserRoleService;
 
+
 /**
  * <p>
  * 服务实现类
@@ -31,14 +32,14 @@ public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRoleMapper, S
 
 	@Override
 	public List<SysUserRole> findRolesByUserId(Serializable userId) {
-		return selectList(new EntityWrapper<SysUserRole>().eq("userId",userId));
+		return selectList(new EntityWrapper<SysUserRole>().eq("user_id",userId));
 	}
 
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void saveUserRoles(List<SysRole> roleList, Serializable userId) {
 		if (CollectionUtils.isEmpty(roleList)) {
-			sysUserRoleMapper.delete(new EntityWrapper<SysUserRole>().eq("userId", userId));
+			sysUserRoleMapper.delete(new EntityWrapper<SysUserRole>().eq("user_id", userId));
 		}else{
 			sysUserRoleMapper.saveUserRoles(roleList, userId);
 		}

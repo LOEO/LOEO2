@@ -11,14 +11,14 @@
 		<result column="type" property="type"/>
 		<result column="pid" property="pid"/>
 		<result column="descp" property="descp"/>
-		<result column="iconCls" property="iconCls"/>
+		<result column="icon_cls" property="iconCls"/>
 		<result column="script" property="script"/>
 		<result column="created" property="created"/>
-		<result column="createUser" property="createUser"/>
+		<result column="create_user" property="createUser"/>
 		<result column="updated" property="updated"/>
-		<result column="updateUser" property="updateUser"/>
+		<result column="update_user" property="updateUser"/>
 		<result column="enable" property="enable"/>
-		<result column="isLeaf" property="isLeaf"/>
+		<result column="leaf" property="leaf"/>
 		<result column="orde" property="orde"/>
 	</resultMap>
 	<select id="getAuthorisedButtonsByMenuId" resultType="com.loeo.domain.entity.SysResource">
@@ -29,7 +29,7 @@
 				SELECT
 					*
 				FROM
-					t_sys_resource
+					sys_resource
 				WHERE
 					pid = #{menuId}
 					AND type = 2
@@ -38,26 +38,26 @@
 					 SELECT
 						 p.*
 					 FROM
-						 t_sys_privilege p,
+						 sys_privilege p,
 						 (
 							 SELECT
 								 r.*
 							 FROM
-								 t_sys_role r,
-								 t_sys_user_role ur,
-								 t_sys_user u
+								 sys_role r,
+								 sys_user_role ur,
+								 sys_user u
 							 WHERE
-								 r.id = ur.roleId
-								 AND ur.userId = u.id
+								 r.id = ur.role_id
+								 AND ur.user_id = u.id
 								 AND u.id = 1
 						 ) ro
 					 WHERE
 						 p.`master` = 'role'
-						 AND p.masterValue = ro.id
+						 AND p.master_value = ro.id
 						 AND p.access = 2
 					 union
-					 select * from t_sys_privilege p1 where p1.`master`='user' and p1.masterValue=#{userId} and p1.access=2
-				 ) b ON allb.id = b.accessValue;
+					 select * from sys_privilege p1 where p1.`master`='user' and p1.master_value=#{userId} and p1.access=2
+				 ) b ON allb.id = b.access_value;
 	</select>
 
 </mapper>

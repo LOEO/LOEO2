@@ -4,11 +4,11 @@
 
 	<!-- 通用查询映射结果 -->
 	<resultMap id="BaseResultMap" type="com.loeo.domain.entity.SysUserRole">
-		<id column="userId" property="userId"/>
-		<result column="roleId" property="roleId"/>
+		<id column="user_id" property="userId"/>
+		<result column="role_id" property="roleId"/>
 	</resultMap>
 	<insert id="saveUserRoles">
-		insert into t_sys_user_role (userId, roleId) VALUES
+		insert into sys_user_role (user_id, role_id) VALUES
 		<foreach collection="roles" item="role" separator=",">
 			(#{userId},#{role.id})
 		</foreach>

@@ -15,7 +15,6 @@ import com.baomidou.mybatisplus.enums.FieldFill;
 import com.loeo.utils.validate.group.Add;
 import com.loeo.utils.validate.group.Update;
 
-
 /**
  * <p>
  * <p>
@@ -24,7 +23,7 @@ import com.loeo.utils.validate.group.Update;
  * @author LT
  * @since 2017-05-25
  */
-@TableName("t_sys_privilege")
+@TableName("sys_privilege")
 public class SysPrivilege extends Model<SysPrivilege> {
 
 	private static final long serialVersionUID = 1L;

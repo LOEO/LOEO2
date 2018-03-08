@@ -15,6 +15,7 @@ import com.loeo.service.BaseServiceImpl;
 import com.loeo.service.SysPrivilegeService;
 import com.loeo.service.SysRoleService;
 
+
 /**
  * <p>
  * 服务实现类
@@ -28,7 +29,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRole> 
 	@Resource
 	private SysPrivilegeService privilegeService;
 	@Resource
-	private SysRoleMapper roleMapper;
+	private SysRoleMapper sysRoleMapper;
 
 	@Override
 	public Page<SysRole> findRolesByPage(int pageNo, int pageSize) {
@@ -42,12 +43,12 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRole> 
 
 	@Override
 	public List<SysRole> getUserHasRoles(Serializable userId) {
-		return roleMapper.getUserHasRoles(userId);
+		return sysRoleMapper.getUserHasRoles(userId);
 	}
 
 	@Override
 	public List<SysRole> getUserNotHasRoles(Serializable userId) {
-		return roleMapper.getUserNotHasRoles(userId);
+		return sysRoleMapper.getUserNotHasRoles(userId);
 	}
 
 }

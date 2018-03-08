@@ -15,7 +15,6 @@ import com.baomidou.mybatisplus.enums.FieldFill;
 import com.loeo.utils.validate.group.Add;
 import com.loeo.utils.validate.group.Update;
 
-
 /**
  * <p>
  * <p>
@@ -24,7 +23,7 @@ import com.loeo.utils.validate.group.Update;
  * @author LT
  * @since 2017-05-25
  */
-@TableName("t_sys_resource")
+@TableName("sys_resource")
 public class SysResource extends Model<SysResource> {
 
 	private static final long serialVersionUID = 1L;
@@ -52,7 +51,7 @@ public class SysResource extends Model<SysResource> {
 	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private String updateUser;
 	private Integer enable;
-	private Integer isLeaf;
+	private Boolean leaf;
 	private Integer orde;
 	@TableField(exist = false)
 	private Boolean checked;
@@ -170,12 +169,12 @@ public class SysResource extends Model<SysResource> {
 		this.enable = enable;
 	}
 
-	public Integer getIsLeaf() {
-		return isLeaf;
+	public Boolean isLeaf() {
+		return leaf;
 	}
 
-	public void setIsLeaf(Integer isLeaf) {
-		this.isLeaf = isLeaf;
+	public void setLeaf(Boolean leaf) {
+		this.leaf = leaf;
 	}
 
 	public Integer getOrde() {

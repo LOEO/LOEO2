@@ -23,7 +23,7 @@ import com.loeo.utils.validate.group.Update;
  * @author LT
  * @since 2017-05-25
  */
-@TableName("t_sys_role")
+@TableName("sys_role")
 public class SysRole extends Model<SysRole> {
 
 	private static final long serialVersionUID = 1L;

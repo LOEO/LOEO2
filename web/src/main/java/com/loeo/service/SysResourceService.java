@@ -19,6 +19,8 @@ import com.loeo.domain.entity.SysResource;
 public interface SysResourceService extends IService<SysResource> {
 	String ROOT_ID = "0";
 
+	boolean add(SysResource sysResource);
+
 	List<SysResourceTreeNode> getResourceTree();
 
 	Page<SysResource> findResourcesByPage(int pageNo, int pageSize);
