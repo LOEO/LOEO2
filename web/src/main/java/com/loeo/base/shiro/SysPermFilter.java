@@ -1,12 +1,12 @@
 package com.loeo.base.shiro;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.ServletRequest;
@@ -14,14 +14,12 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.util.StringUtils;
-import org.apache.shiro.web.filter.authz.PermissionsAuthorizationFilter;
+import org.apache.shiro.util.ThreadContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.alibaba.fastjson.JSON;
-import com.loeo.base.Result;
-import com.loeo.domain.entity.SysResource;
 import com.loeo.base.event.ResourceUpdateEvent;
+import com.loeo.domain.entity.SysResource;
 import com.loeo.service.ShiroService;
 import com.loeo.utils.ApplicationContextUtils;
 
@@ -33,53 +31,48 @@ import com.loeo.utils.ApplicationContextUtils;
  * @version：2018 Version：1.0
  * @company：创海科技 Created with IntelliJ IDEA
  */
-public class SysPermFilter extends PermissionsAuthorizationFilter {
+public class SysPermFilter extends AbstractSysFilter {
 	private static final Logger logger = LoggerFactory.getLogger(SysPermFilter.class);
+	private static final String CUR_SYS_RESOURCE_KEY = "CUR_SYS_RESOURCE_KEY";
+	private static final String CUR_MATCHER_KEY = "CUR_MATCHER_KEY";
 	private Map<String, Pattern> pathPatternMap = new HashMap<>();
+	private Map<String, SysResource> resourceMap = new HashMap<>();
 
 	@Override
-	protected boolean pathsMatch(String path, ServletRequest request) {
-		if (super.pathsMatch(path, request)) {
-			return true;
-		}
+	protected boolean doRegexMatch(String path, ServletRequest request) {
 		Pattern pattern;
 		String requestURI = getPathWithinApplication(request);
+		String requestMethod = ((HttpServletRequest) request).getMethod();
+
 		String[] pathAndMethod = path.split(ShiroService.PART_DIVIDER_TOKEN);
-		String url = pathAndMethod[0];
+		String urlPattern = pathAndMethod[0];
 		String method = pathAndMethod.length == 2 ? pathAndMethod[1] : null;
-		if (!pathPatternMap.containsKey(path)) {
-			pattern = Pattern.compile(url);
-			pathPatternMap.put(path, pattern);
+
+		pattern = getPattern(path, urlPattern);
+
+		Matcher matcher = pattern.matcher(requestURI);
+		if (match(method, requestMethod, matcher)) {
+			ThreadContext.put(CUR_MATCHER_KEY, matcher);
+			ThreadContext.put(CUR_SYS_RESOURCE_KEY, resourceMap.get(path));
+			return true;
 		} else {
-			pattern = pathPatternMap.get(path);
+			return false;
 		}
-		return method == null ? pattern.matcher(requestURI).matches()
-				: method.toUpperCase().equals(((HttpServletRequest) request).getMethod().toUpperCase()) && pattern.matcher(requestURI).matches();
 	}
 
 	@Override
 	public boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) throws IOException {
-		return super.isAccessAllowed(request, response, mappedValue) ;
+		return super.isAccessAllowed(request, response, mappedValue);
 	}
 
 	@Override
-	protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws IOException {
-		response.setCharacterEncoding("utf8");
-		PrintWriter printWriter = response.getWriter();
-		printWriter.write(JSON.toJSONString(Result.failed("没有权限")));
-		printWriter.flush();
-		return false;
-		/*if (WebUtils.isAjax((HttpServletRequest) request)) {
-			PrintWriter printWriter = response.getWriter();
-			printWriter.write(JSON.toJSONString(Result.failed("没有权限")));
-			printWriter.flush();
-			return false;
-		}else{
-			return super.onAccessDenied(request, response);
-		}*/
+	public void afterCompletion(ServletRequest request, ServletResponse response, Exception exception) throws Exception {
+		super.afterCompletion(request, response, exception);
+		ThreadContext.remove(CUR_MATCHER_KEY);
+		ThreadContext.remove(CUR_SYS_RESOURCE_KEY);
 	}
 
-
+	@Override
 	public void init() {
 		logger.info("开始初始化系统权限...");
 		ShiroService shiroService = ApplicationContextUtils.getBean(ShiroService.class);
@@ -92,6 +85,7 @@ public class SysPermFilter extends PermissionsAuthorizationFilter {
 		logger.info("系统权限初始化完成...");
 	}
 
+	@Override
 	public void updateResource(ResourceUpdateEvent event) {
 		SysResource sysResource = event.getSource();
 		if (!StringUtils.hasText(sysResource.getApi())) {
@@ -113,6 +107,25 @@ public class SysPermFilter extends PermissionsAuthorizationFilter {
 		}
 	}
 
+	private Pattern getPattern(String path, String url) {
+		Pattern pattern;
+		if (!pathPatternMap.containsKey(path)) {
+			pattern = Pattern.compile(url);
+			pathPatternMap.put(path, pattern);
+		} else {
+			pattern = pathPatternMap.get(path);
+		}
+		return pattern;
+	}
+
+	private boolean match(String method, String requestMethod, Matcher matcher) {
+		if (method == null) {
+			return matcher.matches();
+		} else {
+			return method.toUpperCase().equals(requestMethod.toUpperCase()) && matcher.matches();
+		}
+	}
+
 	private String getPath(SysResource sysResource) {
 		return sysResource.getApi() + (StringUtils.hasText(sysResource.getMethod()) ? ShiroService.PART_DIVIDER_TOKEN + sysResource.getMethod() : "");
 	}
@@ -121,7 +134,7 @@ public class SysPermFilter extends PermissionsAuthorizationFilter {
 		return sysResource.getType() + ShiroService.PART_DIVIDER_TOKEN + sysResource.getId();
 	}
 
-	protected void addToAppliedPaths(String path, SysResource sysResource) {
+	private void addToAppliedPaths(String path, SysResource sysResource) {
 		String permStr = getPermStr(sysResource);
 		if (appliedPaths.containsKey(path)) {
 			String[] values = (String[]) appliedPaths.get(path);
@@ -133,9 +146,10 @@ public class SysPermFilter extends PermissionsAuthorizationFilter {
 		} else {
 			appliedPaths.put(path, new String[]{permStr});
 		}
+		addToResourceMap(path, sysResource);
 	}
 
-	protected void removeFromAppliedPaths(String path, SysResource sysResource) {
+	private void removeFromAppliedPaths(String path, SysResource sysResource) {
 		String[] values = (String[]) appliedPaths.get(path);
 		if (values != null) {
 			if (values.length <= 1) {
@@ -146,6 +160,25 @@ public class SysPermFilter extends PermissionsAuthorizationFilter {
 				appliedPaths.put(path, valueList.toArray(new String[]{}));
 			}
 		}
+		removeFromResourceMap(path);
+	}
+
+	private void addToResourceMap(String path, SysResource resource) {
+		resourceMap.put(path, resource);
+	}
+
+	private void removeFromResourceMap(String path) {
+		if (!appliedPaths.containsKey(path)) {
+			resourceMap.remove(path);
+		}
+	}
+
+	protected Matcher getCurPathMatcher() {
+		return (Matcher) ThreadContext.get(CUR_MATCHER_KEY);
+	}
+
+	protected SysResource getCurSysResource() {
+		return (SysResource) ThreadContext.get(CUR_SYS_RESOURCE_KEY);
 	}
 
 }

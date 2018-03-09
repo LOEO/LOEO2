@@ -14,7 +14,6 @@ import org.springframework.util.StringUtils;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.loeo.base.Const;
 import com.loeo.base.event.ResourceUpdateEvent;
 import com.loeo.base.event.ResourceUpdateEvent.Action;
 import com.loeo.domain.dto.SysResourceTreeNode;
@@ -50,7 +49,7 @@ public class SysResourceServiceImpl extends BaseServiceImpl<SysResourceMapper, S
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public boolean add(SysResource sysResource) {
-		if (!Const.TREE_ROOT_ID.equals(sysResource.getPid())) {
+		if (!ROOT_ID.equals(sysResource.getPid())) {
 			SysResource parent = selectById(sysResource.getPid());
 			if (parent.isLeaf()) {
 				parent.setLeaf(Boolean.FALSE);
@@ -86,10 +85,10 @@ public class SysResourceServiceImpl extends BaseServiceImpl<SysResourceMapper, S
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public boolean insertOrUpdate(SysResource entity) {
+	public boolean updateById(SysResource entity) {
 		SysResource old = selectById(entity.getId());
-		boolean result = super.insertOrUpdate(entity);
-		if (StringUtils.isEmpty(entity.getApi()) || StringUtils.isEmpty(entity.getType()) || StringUtils.isEmpty(entity.getMethod())) {
+		boolean result = super.updateById(entity);
+		if (!StringUtils.isEmpty(entity.getApi()) || !StringUtils.isEmpty(entity.getType()) || !StringUtils.isEmpty(entity.getMethod())) {
 			applicationEventPublisher.publishEvent(new ResourceUpdateEvent(old, Action.DELETE));
 			if (StringUtils.hasText(entity.getApi())) {
 				old.setApi(entity.getApi());

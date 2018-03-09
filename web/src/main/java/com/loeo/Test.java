@@ -1,9 +1,9 @@
 package com.loeo;
 
-import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
-import org.apache.shiro.crypto.hash.SimpleHash;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import com.loeo.base.config.ShiroConfig;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 
 /**
  * 功能：
@@ -15,9 +15,11 @@ import com.loeo.base.config.ShiroConfig;
  */
 public class Test extends HashedCredentialsMatcher {
 	public static void main(String[] args) {
-		Test test = new Test();
+		/*Test test = new Test();
 		test.setHashAlgorithmName(ShiroConfig.HASH_ALGORITHM_NAME);
 		System.out.println(test.hashProvidedCredentials("123", "1", 1));
-		System.out.println(new SimpleHash(ShiroConfig.HASH_ALGORITHM_NAME, "123123", "admin1", 1));
+		System.out.println(new SimpleHash(ShiroConfig.HASH_ALGORITHM_NAME, "123123", "admin1", 1));*/
+		Pattern pattern = Pattern.compile("/api/users/1(\\d+)/menus");
+		Matcher matcher = pattern.matcher("/api/users/11231231/menus");
 	}
 }
