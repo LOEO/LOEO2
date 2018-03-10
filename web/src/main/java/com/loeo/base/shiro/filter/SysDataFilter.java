@@ -35,6 +35,7 @@ public class SysDataFilter extends SysPermFilter {
 			SysResource sysResource = super.getCurSysResource();
 			String script = sysResource.getScript();
 			DataPermission dataPermission = resolveDataPermission(script);
+
 			return true;
 		}
 		return false;

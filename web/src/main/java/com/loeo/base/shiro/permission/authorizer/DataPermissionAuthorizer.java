@@ -14,4 +14,9 @@ import com.loeo.base.shiro.permission.DataPermission;
  */
 public interface DataPermissionAuthorizer {
 	boolean authorize(Matcher matcher, DataPermission dataPermission);
+
+	default boolean doAuthorize(Matcher matcher, DataPermission dataPermission) {
+		matcher.group(dataPermission.getGroupIndex());
+		return false;
+	}
 }

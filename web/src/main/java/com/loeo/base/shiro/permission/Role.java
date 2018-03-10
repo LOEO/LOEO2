@@ -12,5 +12,5 @@ public enum Role {
 		/**
 		 * 成员
 		 */
-		MEMBER
-	}
+		MEMBER;
+}

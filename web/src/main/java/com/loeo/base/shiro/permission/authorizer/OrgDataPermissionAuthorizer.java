@@ -6,9 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
 
-import com.loeo.base.shiro.ShiroContextUtils;
 import com.loeo.base.shiro.permission.DataPermission;
-import com.loeo.domain.entity.SysUser;
 import com.loeo.service.SysUserService;
 
 /**
@@ -20,18 +18,12 @@ import com.loeo.service.SysUserService;
  * @company：创海科技 Created with IntelliJ IDEA
  */
 @Component
-public class UserDataPermissionAuthorizer implements DataPermissionAuthorizer {
+public class OrgDataPermissionAuthorizer implements DataPermissionAuthorizer {
 	@Resource
 	private SysUserService sysUserService;
 
 	@Override
 	public boolean authorize(Matcher matcher, DataPermission dataPermission) {
-		switch (dataPermission.getRole()) {
-			case CREATOR:
-				SysUser sysUser = sysUserService.selectById(matcher.group(dataPermission.getGroupIndex()));
-				return sysUser.getCreator().equals(ShiroContextUtils.getCurUserId());
-			default:
-				return false;
-		}
+		return false;
 	}
 }
