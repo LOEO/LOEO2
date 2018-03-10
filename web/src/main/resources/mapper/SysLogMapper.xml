@@ -9,7 +9,7 @@
 		<result column="method" property="method"/>
 		<result column="action" property="action"/>
 		<result column="params" property="params"/>
-		<result column="create_user" property="createUser"/>
+		<result column="creator" property="creator"/>
 		<result column="created" property="created"/>
 	</resultMap>
 

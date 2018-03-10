@@ -10,9 +10,9 @@
 		<result column="access" property="access"/>
 		<result column="accessValue" property="accessValue"/>
 		<result column="operation" property="operation"/>
-		<result column="create_user" property="createUser"/>
+		<result column="creator" property="creator"/>
 		<result column="created" property="created"/>
-		<result column="update_user" property="updateUser"/>
+		<result column="updater" property="updater"/>
 		<result column="updated" property="updated"/>
 	</resultMap>
 	<delete id="deleteByMasterAndValue">

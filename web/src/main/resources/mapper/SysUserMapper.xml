@@ -16,9 +16,9 @@
 		<result column="phone" property="phone"/>
 		<result column="org_id" property="orgId"/>
 		<result column="created" property="created"/>
-		<result column="create_user" property="createUser"/>
+		<result column="creator" property="creator"/>
 		<result column="updated" property="updated"/>
-		<result column="update_user" property="updateUser"/>
+		<result column="updater" property="updater"/>
 		<result column="enable" property="enable"/>
 	</resultMap>
 	<select id="findUserMenus" resultType="com.loeo.domain.entity.SysResource">

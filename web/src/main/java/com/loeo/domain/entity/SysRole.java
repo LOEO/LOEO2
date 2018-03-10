@@ -38,11 +38,11 @@ public class SysRole extends Model<SysRole> {
 	private String code;
 	private String descp;
 	@TableField(fill = FieldFill.INSERT)
-	private String createUser;
+	private String creator;
 	@TableField(fill = FieldFill.INSERT)
 	private Date created;
 	@TableField(fill = FieldFill.INSERT_UPDATE)
-	private String updateUser;
+	private String updater;
 	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private Date updated;
 	private Integer enable;
@@ -80,12 +80,12 @@ public class SysRole extends Model<SysRole> {
 		this.descp = descp;
 	}
 
-	public String getCreateUser() {
-		return createUser;
+	public String getCreator() {
+		return creator;
 	}
 
-	public void setCreateUser(String createUser) {
-		this.createUser = createUser;
+	public void setCreator(String creator) {
+		this.creator = creator;
 	}
 
 	public Date getCreated() {
@@ -96,12 +96,12 @@ public class SysRole extends Model<SysRole> {
 		this.created = created;
 	}
 
-	public String getUpdateUser() {
-		return updateUser;
+	public String getUpdater() {
+		return updater;
 	}
 
-	public void setUpdateUser(String updateUser) {
-		this.updateUser = updateUser;
+	public void setUpdater(String updater) {
+		this.updater = updater;
 	}
 
 	public Date getUpdated() {

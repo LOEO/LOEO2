@@ -8,9 +8,9 @@
 		<result column="name" property="name"/>
 		<result column="code" property="code"/>
 		<result column="descp" property="descp"/>
-		<result column="create_user" property="createUser"/>
+		<result column="creator" property="creator"/>
 		<result column="created" property="created"/>
-		<result column="update_user" property="updateUser"/>
+		<result column="updater" property="updater"/>
 		<result column="updated" property="updated"/>
 		<result column="enable" property="enable"/>
 	</resultMap>

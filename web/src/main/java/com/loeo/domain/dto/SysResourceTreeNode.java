@@ -21,9 +21,9 @@ public class SysResourceTreeNode extends SysResource {
         this.setIconCls(resource.getIconCls());
         this.setScript(resource.getScript());
         this.setCreated(resource.getCreated());
-        this.setCreateUser(resource.getCreateUser());
+        this.setCreator(resource.getCreator());
         this.setUpdated(resource.getUpdated());
-        this.setUpdateUser(resource.getUpdateUser());
+        this.setUpdater(resource.getUpdater());
         this.setEnable(resource.getEnable());
         this.setLeaf(resource.isLeaf());
         this.setOrde(resource.getOrde());

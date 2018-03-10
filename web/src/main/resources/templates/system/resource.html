@@ -117,11 +117,11 @@
 				}
 			},
 			{field: 'descp', title: '描述', align: 'center', width: 60},
-			{field: 'createUser', title: '创建人', align: 'center'},
+			{field: 'creator', title: '创建人', align: 'center'},
 			{field: 'created', title: '创建时间', align: 'center',formatter:function (value,row,index) {
 					return value ? new Date(value).format(LOEO.DATE_PATTERN) : "";
 				}},
-			{field: 'updateUser', title: '修改人', align: 'center'},
+			{field: 'updater', title: '修改人', align: 'center'},
 			{field: 'updated', title: '修改时间', align: 'center',formatter:function (value,row,index) {
 					return value ? new Date(value).format(LOEO.DATE_PATTERN) : "";
 				}}

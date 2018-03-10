@@ -29,7 +29,7 @@ public class SysLog extends Model<SysLog> {
 	private String action;
 	private String params;
 	@TableField(fill = FieldFill.INSERT)
-	private String createUser;
+	private String creator;
 	@TableField(fill = FieldFill.INSERT)
 	private Date created;
 
@@ -74,12 +74,12 @@ public class SysLog extends Model<SysLog> {
 		this.params = params;
 	}
 
-	public String getCreateUser() {
-		return createUser;
+	public String getCreator() {
+		return creator;
 	}
 
-	public void setCreateUser(String createUser) {
-		this.createUser = createUser;
+	public void setCreator(String creator) {
+		this.creator = creator;
 	}
 
 	public Date getCreated() {
@@ -101,7 +101,7 @@ public class SysLog extends Model<SysLog> {
 			"id=" + id +
 			", action=" + action +
 			", params=" + params +
-			", createUser=" + createUser +
+			", creator=" + creator +
 			", created=" + created +
 			"}";
 	}

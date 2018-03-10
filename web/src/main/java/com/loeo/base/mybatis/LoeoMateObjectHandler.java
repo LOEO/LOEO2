@@ -29,16 +29,16 @@ public class LoeoMateObjectHandler extends MetaObjectHandler {
         }
         String curUserId = ShiroContextUtils.getCurUserId();
         Date now = DateUtils.now();
-        setFieldValByName("createUser", curUserId, metaObject);
+        setFieldValByName("creator", curUserId, metaObject);
         setFieldValByName("created", now, metaObject);
-        setFieldValByName("updateUser", curUserId, metaObject);
+        setFieldValByName("updater", curUserId, metaObject);
         setFieldValByName("updated", now, metaObject);
     }
 
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        setFieldValByName("updateUser", ShiroContextUtils.getCurUserId(), metaObject);
+        setFieldValByName("updater", ShiroContextUtils.getCurUserId(), metaObject);
         setFieldValByName("updated", DateUtils.now(), metaObject);
     }
 

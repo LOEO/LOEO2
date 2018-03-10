@@ -32,11 +32,11 @@ public class SysOrg extends Model<SysOrg> {
 	@TableField(fill = FieldFill.INSERT)
 	private Date created;
 	@TableField(fill = FieldFill.INSERT)
-	private String createUser;
+	private String creator;
 	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private Date updated;
 	@TableField(fill = FieldFill.INSERT_UPDATE)
-	private String updateUser;
+	private String updater;
 
 
 	public String getId() {
@@ -87,12 +87,12 @@ public class SysOrg extends Model<SysOrg> {
 		this.created = created;
 	}
 
-	public String getCreateUser() {
-		return createUser;
+	public String getCreator() {
+		return creator;
 	}
 
-	public void setCreateUser(String createUser) {
-		this.createUser = createUser;
+	public void setCreator(String creator) {
+		this.creator = creator;
 	}
 
 	public Date getUpdated() {
@@ -103,12 +103,12 @@ public class SysOrg extends Model<SysOrg> {
 		this.updated = updated;
 	}
 
-	public String getUpdateUser() {
-		return updateUser;
+	public String getUpdater() {
+		return updater;
 	}
 
-	public void setUpdateUser(String updateUser) {
-		this.updateUser = updateUser;
+	public void setUpdater(String updater) {
+		this.updater = updater;
 	}
 
 	@Override

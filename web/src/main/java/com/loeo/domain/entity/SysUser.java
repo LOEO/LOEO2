@@ -59,12 +59,12 @@ public class SysUser extends Model<SysUser> {
 	@TableField(fill = FieldFill.INSERT)
 	private Date created;
 	@TableField(fill = FieldFill.INSERT)
-	private String createUser;
+	private String creator;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private Date updated;
 	@TableField(fill = FieldFill.INSERT_UPDATE)
-	private String updateUser;
+	private String updater;
 	private Integer enable;
 
 
@@ -164,12 +164,12 @@ public class SysUser extends Model<SysUser> {
 		this.created = created;
 	}
 
-	public String getCreateUser() {
-		return createUser;
+	public String getCreator() {
+		return creator;
 	}
 
-	public void setCreateUser(String createUser) {
-		this.createUser = createUser;
+	public void setCreator(String creator) {
+		this.creator = creator;
 	}
 
 	public Date getUpdated() {
@@ -180,12 +180,12 @@ public class SysUser extends Model<SysUser> {
 		this.updated = updated;
 	}
 
-	public String getUpdateUser() {
-		return updateUser;
+	public String getUpdater() {
+		return updater;
 	}
 
-	public void setUpdateUser(String updateUser) {
-		this.updateUser = updateUser;
+	public void setUpdater(String updater) {
+		this.updater = updater;
 	}
 
 	public Integer getEnable() {

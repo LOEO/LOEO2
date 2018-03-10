@@ -25,8 +25,8 @@ import org.springframework.context.annotation.Lazy;
 
 import com.loeo.base.event.ResourceUpdateEvent;
 import com.loeo.base.shiro.LoeoRealm;
-import com.loeo.base.shiro.SysPermFilter;
-import com.loeo.base.shiro.SysPermLogFilter;
+import com.loeo.base.shiro.filter.SysPermFilter;
+import com.loeo.base.shiro.filter.SysPermLogFilter;
 
 /**
  * Created by LOEO on 2017/05/31 22:44

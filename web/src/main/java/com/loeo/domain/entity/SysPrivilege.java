@@ -43,11 +43,11 @@ public class SysPrivilege extends Model<SysPrivilege> {
 	@NotEmpty(groups = Add.class)
 	private String operation;
 	@TableField(fill = FieldFill.INSERT)
-	private String createUser;
+	private String creator;
 	@TableField(fill = FieldFill.INSERT)
 	private Date created;
 	@TableField(fill = FieldFill.INSERT_UPDATE)
-	private String updateUser;
+	private String updater;
 	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private Date updated;
 
@@ -100,12 +100,12 @@ public class SysPrivilege extends Model<SysPrivilege> {
 		this.operation = operation;
 	}
 
-	public String getCreateUser() {
-		return createUser;
+	public String getCreator() {
+		return creator;
 	}
 
-	public void setCreateUser(String createUser) {
-		this.createUser = createUser;
+	public void setCreator(String creator) {
+		this.creator = creator;
 	}
 
 	public Date getCreated() {
@@ -116,12 +116,12 @@ public class SysPrivilege extends Model<SysPrivilege> {
 		this.created = created;
 	}
 
-	public String getUpdateUser() {
-		return updateUser;
+	public String getUpdater() {
+		return updater;
 	}
 
-	public void setUpdateUser(String updateUser) {
-		this.updateUser = updateUser;
+	public void setUpdater(String updater) {
+		this.updater = updater;
 	}
 
 	public Date getUpdated() {
