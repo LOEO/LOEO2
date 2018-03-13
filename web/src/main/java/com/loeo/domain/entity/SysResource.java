@@ -36,6 +36,7 @@ public class SysResource extends Model<SysResource> {
 	private String name;
 	private String api;
 	private String method;
+	private String dataPermission;
 	@NotEmpty(groups = {Add.class, Update.class})
 	private String type;
 	private String pid;
@@ -87,6 +88,14 @@ public class SysResource extends Model<SysResource> {
 
 	public void setMethod(String method) {
 		this.method = method;
+	}
+
+	public String getDataPermission() {
+		return dataPermission;
+	}
+
+	public void setDataPermission(String dataPermission) {
+		this.dataPermission = dataPermission;
 	}
 
 	public String getType() {

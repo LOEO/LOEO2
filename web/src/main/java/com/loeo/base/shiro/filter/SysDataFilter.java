@@ -35,11 +35,11 @@ public class SysDataFilter extends SysPermFilter {
 		if (super.isAccessAllowed(request, response, mappedValue)) {
 			Matcher matcher = super.getCurPathMatcher();
 			SysResource sysResource = super.getCurSysResource();
-			String script = sysResource.getScript();
-			if (StringUtils.isEmpty(script)) {
+			String dataPermissionStr = sysResource.getDataPermission();
+			if (StringUtils.isEmpty(dataPermissionStr)) {
 				return true;
 			}
-			DataPermission dataPermission = resolveDataPermission(matcher, script);
+			DataPermission dataPermission = resolveDataPermission(matcher, dataPermissionStr);
 			return dataPermission.authorize();
 		}
 		return false;

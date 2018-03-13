@@ -99,6 +99,9 @@ public class SysResourceServiceImpl extends BaseServiceImpl<SysResourceMapper, S
 			if (StringUtils.hasText(entity.getMethod())) {
 				old.setMethod(entity.getMethod());
 			}
+			if (StringUtils.hasText(entity.getDataPermission())) {
+				old.setDataPermission(entity.getDataPermission());
+			}
 			applicationEventPublisher.publishEvent(new ResourceUpdateEvent(old, Action.ADD));
 		}
 		return result;

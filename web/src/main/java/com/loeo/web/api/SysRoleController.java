@@ -11,13 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.loeo.base.Result;
 import com.loeo.domain.entity.SysRole;
-import com.loeo.service.SysOrgService;
-import com.loeo.service.SysPrivilegeService;
-import com.loeo.service.SysResourceService;
 import com.loeo.service.SysRoleService;
-import com.loeo.service.SysUserOrgService;
-import com.loeo.service.SysUserRoleService;
-import com.loeo.service.SysUserService;
 import com.loeo.utils.validate.ValidateUtils;
 import com.loeo.utils.validate.group.Add;
 import com.loeo.utils.validate.group.Update;
@@ -35,20 +29,6 @@ import com.loeo.utils.validate.group.Update;
 public class SysRoleController {
 	@Resource
 	private SysRoleService roleService;
-	@Resource
-	private SysOrgService sysOrgService;
-	@Resource
-	private SysPrivilegeService sysPrivilegeService;
-	@Resource
-	private SysResourceService sysResourceService;
-	@Resource
-	private SysUserRoleService sysUserRoleService;
-	@Resource
-	private SysUserOrgService sysUserOrgService;
-	@Resource
-	private SysUserService sysUserService;
-
-
 
 	@PostMapping("/list")
 	public Result roles(@RequestParam int page, @RequestParam int rows) {

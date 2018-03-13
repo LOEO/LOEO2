@@ -161,6 +161,7 @@ CREATE TABLE `sys_resource` (
   `name` varchar(255) DEFAULT NULL,
   `api` varchar(255) DEFAULT NULL,
   `method` varchar(10) DEFAULT NULL,
+  `data_permission` varchar(10) DEFAULT NULL,
   `type` varchar(255) DEFAULT NULL,
   `pid` char(12) DEFAULT NULL,
   `descp` varchar(255) DEFAULT NULL,
