@@ -1,7 +1,5 @@
 package com.loeo.base.shiro.permission.authorizer;
 
-import java.util.regex.Matcher;
-
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
@@ -25,11 +23,11 @@ public class UserDataPermissionAuthorizer implements DataPermissionAuthorizer {
 	private SysUserService sysUserService;
 
 	@Override
-	public boolean authorize(Matcher matcher, DataPermission dataPermission) {
+	public boolean authorize(DataPermission dataPermission) {
 		switch (dataPermission.getRole()) {
 			case CREATOR:
-				SysUser sysUser = sysUserService.selectById(matcher.group(dataPermission.getGroupIndex()));
-				return sysUser.getCreator().equals(ShiroContextUtils.getCurUserId());
+				SysUser sysUser = sysUserService.selectById(dataPermission.getResourceId());
+				return ShiroContextUtils.getCurUserId().equals(sysUser.getCreator());
 			default:
 				return false;
 		}

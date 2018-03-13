@@ -1,7 +1,5 @@
 package com.loeo.base.shiro.permission.authorizer;
 
-import java.util.regex.Matcher;
-
 import com.loeo.base.shiro.permission.DataPermission;
 
 /**
@@ -13,10 +11,5 @@ import com.loeo.base.shiro.permission.DataPermission;
  * @company：创海科技 Created with IntelliJ IDEA
  */
 public interface DataPermissionAuthorizer {
-	boolean authorize(Matcher matcher, DataPermission dataPermission);
-
-	default boolean doAuthorize(Matcher matcher, DataPermission dataPermission) {
-		matcher.group(dataPermission.getGroupIndex());
-		return false;
-	}
+	boolean authorize(DataPermission dataPermission);
 }

@@ -8,6 +8,8 @@ import java.util.regex.Matcher;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.loeo.base.exception.DataPermissionResolveException;
 import com.loeo.base.shiro.permission.DataPermission;
 import com.loeo.base.shiro.permission.authorizer.DataPermissionAuthorizer;
@@ -34,9 +36,11 @@ public class SysDataFilter extends SysPermFilter {
 			Matcher matcher = super.getCurPathMatcher();
 			SysResource sysResource = super.getCurSysResource();
 			String script = sysResource.getScript();
-			DataPermission dataPermission = resolveDataPermission(script);
-
-			return true;
+			if (StringUtils.isEmpty(script)) {
+				return true;
+			}
+			DataPermission dataPermission = resolveDataPermission(matcher, script);
+			return dataPermission.authorize();
 		}
 		return false;
 	}
@@ -51,12 +55,13 @@ public class SysDataFilter extends SysPermFilter {
 	 * 域:正则中的group索引:角色
 	 * org:1:member
 	 *
+	 * @param matcher
 	 * @param script
 	 */
-	private DataPermission resolveDataPermission(String script) {
+	private DataPermission resolveDataPermission(Matcher matcher, String script) {
 		String[] scriptArr = script.split(ShiroService.PART_DIVIDER_TOKEN);
 		if (scriptArr.length == 3) {
-			return new DataPermission(Domain.valueOf(scriptArr[1]), Integer.valueOf(scriptArr[1]), Role.valueOf(scriptArr[2]));
+			return new DataPermission(Domain.valueOf(scriptArr[0]), matcher.group(Integer.parseInt(scriptArr[1])), Role.valueOf(scriptArr[2]));
 		}
 		throw new DataPermissionResolveException();
 	}

@@ -71,7 +71,7 @@ public class SysPermFilter extends AbstractSysFilter {
 		ThreadContext.remove(CUR_MATCHER_KEY);
 		ThreadContext.remove(CUR_SYS_RESOURCE_KEY);
 	}
-
+//USER:1:CREATOR
 	@Override
 	public void init() {
 		logger.info("开始初始化系统权限...");

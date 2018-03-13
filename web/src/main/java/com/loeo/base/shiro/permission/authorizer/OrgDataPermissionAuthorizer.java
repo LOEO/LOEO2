@@ -1,7 +1,5 @@
 package com.loeo.base.shiro.permission.authorizer;
 
-import java.util.regex.Matcher;
-
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
@@ -23,7 +21,7 @@ public class OrgDataPermissionAuthorizer implements DataPermissionAuthorizer {
 	private SysUserService sysUserService;
 
 	@Override
-	public boolean authorize(Matcher matcher, DataPermission dataPermission) {
+	public boolean authorize(DataPermission dataPermission) {
 		return false;
 	}
 }
