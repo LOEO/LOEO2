@@ -7,8 +7,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 import com.alibaba.fastjson.JSON;
-import com.loeo.domain.entity.SysLog;
-import com.loeo.service.SysLogService;
+import com.loeo.admin.domain.entity.SysLog;
+import com.loeo.admin.service.SysLogService;
 import com.loeo.utils.ApplicationContextUtils;
 
 /**

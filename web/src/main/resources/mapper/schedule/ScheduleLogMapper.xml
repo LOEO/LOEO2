@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.loeo.schedule.mapper.ScheduleLogMapper">
+	<resultMap id="ScheduleLogMap" type="com.loeo.schedule.domain.entity.ScheduleLog">
+		<id column="id" property="id" jdbcType="CHAR"/>
+		<result column="job_id" property="jobId" jdbcType="CHAR"/>
+		<result column="trigger_id" property="triggerId" jdbcType="CHAR"/>
+		<result column="is_success" property="success" jdbcType="BIT"/>
+		<result column="descr" property="descr" jdbcType="VARCHAR"/>
+		<result column="started" property="started" jdbcType="TIMESTAMP"/>
+		<result column="ended" property="ended" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	<sql id="columns">
+		id, job_id, trigger_id, is_success, descr, started, ended
+	</sql>
+
+
+</mapper>

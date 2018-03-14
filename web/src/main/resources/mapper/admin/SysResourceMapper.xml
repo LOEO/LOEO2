@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.loeo.admin.mapper.SysResourceMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.loeo.admin.domain.entity.SysResource">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="api" property="api"/>
+		<result column="method" property="method"/>
+		<result column="data_permission" property="dataPermission"/>
+		<result column="type" property="type"/>
+		<result column="pid" property="pid"/>
+		<result column="descp" property="descp"/>
+		<result column="icon_cls" property="iconCls"/>
+		<result column="script" property="script"/>
+		<result column="created" property="created"/>
+		<result column="creator" property="creator"/>
+		<result column="updated" property="updated"/>
+		<result column="updater" property="updater"/>
+		<result column="enable" property="enable"/>
+		<result column="leaf" property="leaf"/>
+		<result column="orde" property="orde"/>
+	</resultMap>
+	<select id="getAuthorisedButtonsByMenuId" resultType="com.loeo.admin.domain.entity.SysResource">
+		SELECT
+			DISTINCT allb.*
+		FROM
+			(
+				SELECT *
+				FROM
+					sys_resource
+				WHERE
+					pid = #{menuId}
+					AND type = 2
+			) allb
+			JOIN (
+					 SELECT p.*
+					 FROM
+						 sys_privilege p,
+						 (
+							 SELECT r.*
+							 FROM
+								 sys_role r,
+								 sys_user_role ur,
+								 sys_user u
+							 WHERE
+								 r.id = ur.role_id
+								 AND ur.user_id = u.id
+								 AND u.id = 1
+						 ) ro
+					 WHERE
+						 p.`master` = 'role'
+						 AND p.master_value = ro.id
+						 AND p.access = 2
+					 UNION
+					 SELECT *
+					 FROM sys_privilege p1
+					 WHERE p1.`master` = 'user' AND p1.master_value = #{userId} AND p1.access = 2
+				 ) b ON allb.id = b.access_value;
+	</select>
+
+</mapper>

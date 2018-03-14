@@ -14,8 +14,8 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.SimpleByteSource;
 
-import com.loeo.domain.entity.SysUser;
-import com.loeo.service.ShiroService;
+import com.loeo.admin.domain.entity.SysUser;
+import com.loeo.admin.service.ShiroService;
 import com.loeo.utils.ApplicationContextUtils;
 
 

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.loeo.schedule.mapper.ScheduleTriggerJobMapper">
+	<resultMap id="ScheduleTriggerJobMap" type="com.loeo.schedule.domain.entity.ScheduleTriggerJob">
+		<result column="id" property="id"/>
+		<result column="trigger_id" property="triggerId" jdbcType="CHAR"/>
+		<result column="job_id" property="jobId" jdbcType="CHAR"/>
+	</resultMap>
+	<sql id="columns">
+		id,trigger_id, job_id
+	</sql>
+
+	<select id="findByTriggerAndJobId" resultMap="ScheduleTriggerJobMap">
+		select
+		<include refid="columns"/>
+		from schedule_trigger_job where trigger_id=#{triggerId} and job_id = #{jobId}
+	</select>
+	<select id="findTriggersByJobId" resultType="com.loeo.schedule.domain.entity.ScheduleTrigger">
+		select st.id,st.name,st.priority,st.cron,st.creator,st.created,st.updater,st.updated from schedule_trigger st,schedule_trigger_job stj
+		WHERE st.id = stj.trigger_id and stj.job_id=#{jobId}
+	</select>
+
+
+
+	<insert id="batchInsert">
+		INSERT INTO schedule_trigger_job (trigger_id, job_id) VALUES
+		<foreach collection="list" item="scheduleTriggerJob"  separator=",">
+			(#{scheduleTriggerJob.triggerId},#{scheduleTriggerJob.jobId})
+		</foreach>
+	</insert>
+
+	<delete id="deleteByJobId">
+		DELETE FROM schedule_trigger_job
+		WHERE job_id = #{jobId}
+	</delete>
+	<delete id="deleteByTriggerIdAndJobId">
+		DELETE FROM schedule_trigger_job
+		WHERE trigger_id = #{triggerId} AND job_id = #{jobId}
+	</delete>
+
+</mapper>

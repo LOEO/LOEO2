@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.loeo.schedule.mapper.ScheduleJobInnerMapper">
+	<resultMap id="ScheduleJobInnerMap" type="com.loeo.schedule.domain.entity.ScheduleJobInner">
+		<result column="id" property="id"/>
+		<result column="job_id" property="jobId" jdbcType="CHAR"/>
+		<result column="class_name" property="className" jdbcType="VARCHAR"/>
+	</resultMap>
+	<sql id="columns">
+		id,job_id, class_name
+	</sql>
+
+
+	<delete id="deleteByJobId">
+		DELETE FROM schedule_job_inner
+		WHERE job_id = #{jobId}
+	</delete>
+
+	<select id="findByJobId" resultMap="ScheduleJobInnerMap">
+		select
+		<include refid="columns"/>
+		from schedule_job_inner where job_id = #{jobId}
+	</select>
+
+</mapper>

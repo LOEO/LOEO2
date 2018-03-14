@@ -19,8 +19,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.loeo.base.event.ResourceUpdateEvent;
-import com.loeo.domain.entity.SysResource;
-import com.loeo.service.ShiroService;
+import com.loeo.admin.domain.entity.SysResource;
+import com.loeo.admin.service.ShiroService;
 import com.loeo.utils.ApplicationContextUtils;
 
 /**

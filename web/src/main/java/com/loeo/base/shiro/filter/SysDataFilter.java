@@ -15,8 +15,8 @@ import com.loeo.base.shiro.permission.DataPermission;
 import com.loeo.base.shiro.permission.authorizer.DataPermissionAuthorizer;
 import com.loeo.base.shiro.permission.Domain;
 import com.loeo.base.shiro.permission.Role;
-import com.loeo.domain.entity.SysResource;
-import com.loeo.service.ShiroService;
+import com.loeo.admin.domain.entity.SysResource;
+import com.loeo.admin.service.ShiroService;
 
 /**
  * 功能：

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.loeo.schedule.mapper.ScheduleJobDependMapper">
+	<resultMap id="ScheduleJobDependMap" type="com.loeo.schedule.domain.entity.ScheduleJobDepend">
+		<result column="id" property="id"/>
+		<result column="job_id" property="jobId" jdbcType="CHAR"/>
+		<result column="depend_job_id" property="dependJobId" jdbcType="CHAR"/>
+		<result column="expect_result" property="expectResult" jdbcType="VARCHAR"/>
+		<result column="actual_result" property="actualResult" jdbcType="VARCHAR"/>
+	</resultMap>
+	<sql id="columns">
+		id,job_id, depend_job_id, expect_result, actual_result
+	</sql>
+
+	<update id="clearActualResultByDependJobId">
+		UPDATE schedule_job_depend
+		SET actual_result = NULL
+		WHERE depend_job_id = #{dependJobId}
+	</update>
+	<update id="updateActualResultByDependJobId">
+		UPDATE schedule_job_depend
+		SET actual_result = #{actualResult}
+		WHERE depend_job_id = #{dependJobId}
+	</update>
+
+	<delete id="deleteByJobIdAndDependJobId">
+		DELETE FROM schedule_job_depend
+		WHERE job_id = #{jobId} AND depend_job_id = #{dependJobId}
+	</delete>
+	<delete id="deleteByDependJobId">
+		delete from schedule_job_depend where depend_job_id=#{dependJobId}
+	</delete>
+	<select id="findByDependJobId" resultMap="ScheduleJobDependMap">
+		select
+		<include refid="columns"/>
+		from schedule_job_depend where depend_job_id = #{dependJobId}
+	</select>
+	<select id="findByJobIdAndDependJobId" resultMap="ScheduleJobDependMap">
+		SELECT
+		<include refid="columns"/>
+		from schedule_job_depend where job_id = #{jobId} and depend_job_id = #{dependJobId}
+	</select>
+	<select id="hasDependByJobId" resultType="java.lang.Boolean">
+		select count(*) from schedule_job_depend where job_id=#{jobId}
+	</select>
+	<insert id="batchAdd">
+		INSERT INTO schedule_job_depend VALUES
+			<foreach collection="list" item="scheduleJobDepend" separator=",">
+				(#{scheduleJobDepend.jobId},#{scheduleJobDepend.dependJobId},#{scheduleJobDepend.expectResult},#{scheduleJobDepend.actualResult},0)
+			</foreach>
+	</insert>
+
+</mapper>

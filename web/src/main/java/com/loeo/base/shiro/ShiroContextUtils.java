@@ -2,7 +2,7 @@ package com.loeo.base.shiro;
 
 import org.apache.shiro.SecurityUtils;
 
-import com.loeo.domain.entity.SysUser;
+import com.loeo.admin.domain.entity.SysUser;
 
 /**
  * Created by LOEO on 2017/07/12 20:46

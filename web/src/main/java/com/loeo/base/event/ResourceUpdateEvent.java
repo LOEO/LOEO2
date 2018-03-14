@@ -2,7 +2,7 @@ package com.loeo.base.event;
 
 import org.springframework.context.ApplicationEvent;
 
-import com.loeo.domain.entity.SysResource;
+import com.loeo.admin.domain.entity.SysResource;
 
 /**
  * 功能：

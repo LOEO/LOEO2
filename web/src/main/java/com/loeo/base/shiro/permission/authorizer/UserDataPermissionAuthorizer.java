@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 
 import com.loeo.base.shiro.ShiroContextUtils;
 import com.loeo.base.shiro.permission.DataPermission;
-import com.loeo.domain.entity.SysUser;
-import com.loeo.service.SysUserService;
+import com.loeo.admin.domain.entity.SysUser;
+import com.loeo.admin.service.SysUserService;
 
 /**
  * 功能：

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.loeo.admin.mapper.SysRoleMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.loeo.admin.domain.entity.SysRole">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="code" property="code"/>
+		<result column="descp" property="descp"/>
+		<result column="creator" property="creator"/>
+		<result column="created" property="created"/>
+		<result column="updater" property="updater"/>
+		<result column="updated" property="updated"/>
+		<result column="enable" property="enable"/>
+	</resultMap>
+	<select id="getUserHasRoles" resultType="com.loeo.admin.domain.entity.SysRole">
+		select r.* from sys_role r join sys_user_role ur on r.id=ur.role_id and ur.user_id=#{userId};
+	</select>
+	<select id="getUserNotHasRoles" resultType="com.loeo.admin.domain.entity.SysRole">
+		select r.* from sys_role r where r.id not in (select role_id from sys_user_role where user_id=#{userId});
+	</select>
+
+</mapper>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.loeo.schedule.mapper.ScheduleJobMapper">
+	<resultMap id="ScheduleJobMap" type="com.loeo.schedule.domain.entity.ScheduleJob">
+		<id column="id" property="id" jdbcType="CHAR"/>
+		<result column="schedule_id" property="scheduleId" jdbcType="CHAR"/>
+		<result column="name" property="name" jdbcType="VARCHAR"/>
+		<result column="parent" property="parent" jdbcType="CHAR"/>
+		<result column="type" property="type" jdbcType="BIT"/>
+		<result column="is_enabled" property="enabled" jdbcType="BIT"/>
+		<result column="data" property="data" jdbcType="VARCHAR"/>
+		<result column="creator" property="creator" jdbcType="CHAR"/>
+		<result column="created" property="created" jdbcType="TIMESTAMP"/>
+		<result column="updater" property="updater" jdbcType="CHAR"/>
+		<result column="updated" property="updated" jdbcType="TIMESTAMP"/>
+		<collection property="triggers" ofType="com.loeo.schedule.domain.entity.ScheduleTrigger">
+			<id column="triggerId" property="id"/>
+			<result column="triggerName" property="name"/>
+			<result column="triggerPriority" property="priority"/>
+			<result column="triggerCron" property="cron"/>
+			<result column="triggerCreator" property="creator"/>
+			<result column="triggerCreated" property="created"/>
+			<result column="triggerUpdater" property="updater"/>
+			<result column="triggerUpdated" property="updated"/>
+		</collection>
+	</resultMap>
+	<sql id="columns">
+		id, schedule_id, name, parent, type, is_enabled, data, creator, created, updater, updated
+	</sql>
+
+	<select id="findAllEnabledJob" resultMap="ScheduleJobMap">
+		select
+		<include refid="columns"/>
+		from `schedule` where is_enabled = 1
+	</select>
+	<select id="findAllEnabledJobsAndTriggers" resultMap="ScheduleJobMap">
+		SELECT
+			sj.id,
+			sj.schedule_id,
+			sj.name,
+			sj.parent,
+			sj.type,
+			sj.is_enabled,
+			sj.data,
+			sj.creator,
+			sj.created,
+			sj.updater,
+			sj.updated,
+			st.id       AS triggerId,
+			st.name     AS triggerName,
+			st.priority AS triggerPriority,
+			st.cron     AS triggerCron,
+			st.creator  AS triggerCreator,
+			st.created  AS triggerCreated,
+			st.updater  AS triggerUpdater,
+			st.updated  AS triggerUpdated
+		FROM schedule_job sj, schedule_trigger_job stj, schedule_trigger st
+		WHERE sj.id = stj.job_id AND st.id = stj.trigger_id AND job_id AND sj.is_enabled = 1;
+	</select>
+	<select id="hasTriggerById" resultType="java.lang.Boolean">
+		SELECT count(*)
+		FROM schedule_trigger_job
+		WHERE job_id = #{jobId}
+	</select>
+	<select id="findByIdList" resultMap="ScheduleJobMap">
+		select
+		<include refid="columns"/>
+		from schedule_job where id in
+		<foreach collection="list" separator="," open="(" close=")" item="id">
+			#{id}
+		</foreach>
+	</select>
+	<select id="findById" resultMap="ScheduleJobMap">
+		select <include refid="columns"/> from schedule_job where id = #{id}
+	</select>
+	<select id="findByScheduleId" resultMap="ScheduleJobMap">
+		SELECT <include refid="columns"/> from schedule_job where schedule_id = #{scheduleId}
+	</select>
+	<select id="isExistByIdList" resultType="int">
+		select count(*) from schedule_job where id in
+		<foreach collection="list" open="(" close=")" separator="," item="id">
+			#{id}
+		</foreach>
+	</select>
+	<select id="findEnabledJobsByTriggerId" resultMap="ScheduleJobMap">
+		select sj.id,
+			sj.schedule_id,
+			sj.name,
+			sj.parent,
+			sj.type,
+			sj.is_enabled,
+			sj.data,
+			sj.creator,
+			sj.created,
+			sj.updater,
+			sj.updated,
+			st.id       AS triggerId,
+			st.name     AS triggerName,
+			st.priority AS triggerPriority,
+			st.cron     AS triggerCron,
+			st.creator  AS triggerCreator,
+			st.created  AS triggerCreated,
+			st.updater  AS triggerUpdater,
+			st.updated  AS triggerUpdated
+		from schedule_job sj, schedule_trigger_job stj,schedule_trigger st
+		where sj.id = stj.job_id AND st.id = stj.trigger_id and stj.trigger_id = #{triggerId} and sj.is_enabled = 1;
+	</select>
+
+</mapper>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.loeo.schedule.mapper.ScheduleTriggerMapper">
+	<resultMap id="ScheduleTriggerMap" type="com.loeo.schedule.domain.entity.ScheduleTrigger">
+		<id column="id" property="id" jdbcType="CHAR"/>
+		<result column="name" property="name" jdbcType="VARCHAR"/>
+		<result column="priority" property="priority" jdbcType="INTEGER"/>
+		<result column="cron" property="cron" jdbcType="VARCHAR"/>
+		<result column="creator" property="creator" jdbcType="CHAR"/>
+		<result column="created" property="created" jdbcType="TIMESTAMP"/>
+		<result column="updater" property="updater" jdbcType="CHAR"/>
+		<result column="updated" property="updated" jdbcType="TIMESTAMP"/>
+	</resultMap>
+</mapper>

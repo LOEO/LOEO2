@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Component;
 
 import com.loeo.base.shiro.permission.DataPermission;
-import com.loeo.service.SysUserService;
+import com.loeo.admin.service.SysUserService;
 
 /**
  * 功能：
