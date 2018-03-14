@@ -9,6 +9,9 @@ import com.loeo.schedule.domain.entity.ScheduleTrigger;
 import com.loeo.schedule.domain.entity.ScheduleTriggerJob;
 
 
+/**
+ * @author LT(286269159 @ qq.com)
+ */
 public interface ScheduleTriggerJobService extends IService<ScheduleTriggerJob>{
 
 	void deleteByJobId(String id);

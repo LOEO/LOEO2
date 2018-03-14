@@ -10,6 +10,9 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.loeo.schedule.domain.entity.ScheduleTrigger;
 import com.loeo.schedule.domain.entity.ScheduleTriggerJob;
 
+/**
+ * @author LT(286269159 @ qq.com)
+ */
 @Mapper
 public interface ScheduleTriggerJobMapper extends BaseMapper<ScheduleTriggerJob> {
 

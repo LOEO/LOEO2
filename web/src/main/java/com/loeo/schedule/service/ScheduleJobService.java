@@ -9,6 +9,9 @@ import com.loeo.schedule.domain.entity.ScheduleJob;
 import com.loeo.schedule.domain.entity.ScheduleJobDepend;
 
 
+/**
+ * @author LT(286269159 @ qq.com)
+ */
 public interface ScheduleJobService extends IService<ScheduleJob> {
 
 	void addScheduleJob(ScheduleJobDto scheduleJobDto);

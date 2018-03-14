@@ -23,6 +23,9 @@ import com.loeo.schedule.service.ScheduleJobDependService;
 import com.loeo.schedule.service.ScheduleJobService;
 import com.loeo.schedule.service.ScheduleTriggerJobService;
 
+/**
+ * @author LT(286269159 @ qq.com)
+ */
 @Service("scheduleJobDependService")
 public class ScheduleJobDependServiceImpl extends BaseServiceImpl<ScheduleJobDependMapper, ScheduleJobDepend> implements ScheduleJobDependService, JobDependManager {
 	@Resource

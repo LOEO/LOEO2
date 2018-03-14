@@ -39,6 +39,9 @@ import com.loeo.schedule.service.ScheduleJobService;
 import com.loeo.schedule.service.ScheduleTriggerJobService;
 
 
+/**
+ * @author LT(286269159 @ qq.com)
+ */
 @Service("scheduleJobService")
 public class ScheduleJobServiceImpl extends BaseServiceImpl<ScheduleJobMapper, ScheduleJob> implements ScheduleJobService, JobExecutingInfoFactory, JobLoader {
 	private static final Logger logger = LoggerFactory.getLogger(ScheduleJobServiceImpl.class);

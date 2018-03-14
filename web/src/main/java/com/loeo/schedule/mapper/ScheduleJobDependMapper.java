@@ -7,6 +7,9 @@ import org.apache.ibatis.annotations.Mapper;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.loeo.schedule.domain.entity.ScheduleJobDepend;
 
+/**
+ * @author LT(286269159 @ qq.com)
+ */
 @Mapper
 public interface ScheduleJobDependMapper extends BaseMapper<ScheduleJobDepend> {
 

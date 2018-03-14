@@ -15,6 +15,9 @@ import com.loeo.schedule.service.ScheduleJobService;
 import com.loeo.schedule.service.ScheduleService;
 
 
+/**
+ * @author LT(286269159 @ qq.com)
+ */
 @Service("scheduleService")
 public class ScheduleServiceImpl extends BaseServiceImpl<ScheduleMapper,Schedule> implements ScheduleService {
 	@Resource

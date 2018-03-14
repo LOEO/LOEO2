@@ -11,6 +11,9 @@ import com.loeo.schedule.mapper.ScheduleJobInnerMapper;
 import com.loeo.schedule.service.ScheduleJobInnerService;
 
 
+/**
+ * @author LT(286269159 @ qq.com)
+ */
 @Service("scheduleJobInnerService")
 public class ScheduleJobInnerServiceImpl extends BaseServiceImpl<ScheduleJobInnerMapper,ScheduleJobInner> implements ScheduleJobInnerService {
 	@Resource
