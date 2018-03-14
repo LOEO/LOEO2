@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50716
 File Encoding         : 65001
 
-Date: 2018-03-08 15:53:37
+Date: 2018-03-14 17:38:23
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -29,6 +29,146 @@ CREATE TABLE `persistent_logins` (
 
 -- ----------------------------
 -- Records of persistent_logins
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for schedule
+-- ----------------------------
+DROP TABLE IF EXISTS `schedule`;
+CREATE TABLE `schedule` (
+  `id` char(12) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_enabled` bit(1) NOT NULL,
+  `descr` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `creator` char(12) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created` datetime NOT NULL,
+  `updater` char(12) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `updated` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of schedule
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for schedule_job
+-- ----------------------------
+DROP TABLE IF EXISTS `schedule_job`;
+CREATE TABLE `schedule_job` (
+  `id` char(12) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `schedule_id` char(12) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `parent` char(12) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `type` bit(1) NOT NULL,
+  `is_enabled` bit(1) DEFAULT NULL,
+  `data` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` bit(1) DEFAULT NULL,
+  `creator` char(12) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created` datetime NOT NULL,
+  `updater` char(12) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `updated` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `schedule_id` (`schedule_id`),
+  CONSTRAINT `schedule_job_ibfk_1` FOREIGN KEY (`schedule_id`) REFERENCES `schedule` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of schedule_job
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for schedule_job_depend
+-- ----------------------------
+DROP TABLE IF EXISTS `schedule_job_depend`;
+CREATE TABLE `schedule_job_depend` (
+  `job_id` char(12) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `depend_job_id` char(12) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `expect_result` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '期望依赖job的返回结果',
+  `actual_result` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '实际依赖job的返回结果',
+  `depend_order` int(11) DEFAULT NULL,
+  PRIMARY KEY (`job_id`),
+  KEY `depend_job_id` (`depend_job_id`),
+  CONSTRAINT `schedule_job_depend_ibfk_1` FOREIGN KEY (`job_id`) REFERENCES `schedule_job` (`id`),
+  CONSTRAINT `schedule_job_depend_ibfk_2` FOREIGN KEY (`depend_job_id`) REFERENCES `schedule_job` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of schedule_job_depend
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for schedule_job_inner
+-- ----------------------------
+DROP TABLE IF EXISTS `schedule_job_inner`;
+CREATE TABLE `schedule_job_inner` (
+  `job_id` char(12) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `class_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`job_id`),
+  CONSTRAINT `schedule_job_inner_ibfk_1` FOREIGN KEY (`job_id`) REFERENCES `schedule_job` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of schedule_job_inner
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for schedule_log
+-- ----------------------------
+DROP TABLE IF EXISTS `schedule_log`;
+CREATE TABLE `schedule_log` (
+  `id` char(12) NOT NULL,
+  `job_id` char(12) NOT NULL,
+  `trigger_id` char(12) DEFAULT NULL,
+  `is_success` bit(1) DEFAULT NULL,
+  `descr` varchar(255) DEFAULT NULL,
+  `started` datetime DEFAULT NULL,
+  `ended` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of schedule_log
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for schedule_trigger
+-- ----------------------------
+DROP TABLE IF EXISTS `schedule_trigger`;
+CREATE TABLE `schedule_trigger` (
+  `id` char(12) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `priority` int(2) NOT NULL,
+  `cron` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `creator` char(12) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created` datetime NOT NULL,
+  `updater` char(12) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `updated` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of schedule_trigger
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for schedule_trigger_job
+-- ----------------------------
+DROP TABLE IF EXISTS `schedule_trigger_job`;
+CREATE TABLE `schedule_trigger_job` (
+  `trigger_id` char(12) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `job_id` char(12) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pre_fire_time` datetime DEFAULT NULL,
+  `next_fire_time` datetime DEFAULT NULL,
+  `status` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`trigger_id`,`job_id`),
+  KEY `job_id` (`job_id`),
+  CONSTRAINT `schedule_trigger_job_ibfk_1` FOREIGN KEY (`trigger_id`) REFERENCES `schedule_trigger` (`id`),
+  CONSTRAINT `schedule_trigger_job_ibfk_2` FOREIGN KEY (`job_id`) REFERENCES `schedule_job` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of schedule_trigger_job
 -- ----------------------------
 
 -- ----------------------------
@@ -61,6 +201,43 @@ INSERT INTO `sys_log` VALUES ('3pt24n2hj6dc', 'http://localhost:9999/orgs', 'GET
 INSERT INTO `sys_log` VALUES ('3pt24pu3herk', 'http://localhost:9999/roles', 'GET', '角色管理', '{}', '1', '2018-03-08 15:21:49');
 INSERT INTO `sys_log` VALUES ('3pt25t9ja8e8', 'http://localhost:9999/api/users/1/menus', 'POST', '获取主菜单', '{}', '1', '2018-03-08 15:22:10');
 INSERT INTO `sys_log` VALUES ('3pt27lax2l1c', 'http://localhost:9999/api/users/1/menus', 'POST', '获取主菜单', '{}', '1', '2018-03-08 15:22:43');
+INSERT INTO `sys_log` VALUES ('3pt63ejzim80', 'http://localhost:9999/api/users/1/menus', 'POST', '获取主菜单', '{}', '1', '2018-03-08 16:06:15');
+INSERT INTO `sys_log` VALUES ('3pt6gozxvg1s', 'http://localhost:9999/api/users/1/menus', 'POST', '获取主菜单', '{}', '1', '2018-03-08 16:10:23');
+INSERT INTO `sys_log` VALUES ('3pt6gsnlis5c', 'http://localhost:9999/users', 'GET', '用户管理', '{}', '1', '2018-03-08 16:10:25');
+INSERT INTO `sys_log` VALUES ('3pt6j67xt2ps', 'http://localhost:9999/api/users/1/menus', 'POST', '获取主菜单', '{}', '1', '2018-03-08 16:11:10');
+INSERT INTO `sys_log` VALUES ('3pt6l167by0w', 'http://localhost:9999/orgs', 'GET', '组织架构', '{}', '1', '2018-03-08 16:11:44');
+INSERT INTO `sys_log` VALUES ('3pt71zk53qww', 'http://localhost:9999/api/users/1/menus', 'POST', '获取主菜单', '{}', '1', '2018-03-08 16:17:01');
+INSERT INTO `sys_log` VALUES ('3ptbhca5lse8', 'http://localhost:9999/api/users/1/menus', 'POST', '获取主菜单', '{}', '1', '2018-03-08 17:06:38');
+INSERT INTO `sys_log` VALUES ('3ptbhfn26uww', 'http://localhost:9999/api/users/1/menus', 'POST', '获取主菜单', '{}', '1', '2018-03-08 17:06:40');
+INSERT INTO `sys_log` VALUES ('3ptbhl8mzvgg', 'http://localhost:9999/users', 'GET', '用户管理', '{}', '1', '2018-03-08 17:06:43');
+INSERT INTO `sys_log` VALUES ('3ptbvwzxqvpc', 'http://localhost:9999/users', 'GET', '用户管理', '{}', '1', '2018-03-08 17:11:11');
+INSERT INTO `sys_log` VALUES ('3ptd6e0901ds', 'http://localhost:9999/api/users/35', 'DELETE', '删除', '{}', '1', '2018-03-08 17:25:39');
+INSERT INTO `sys_log` VALUES ('3ptd6e0izmrk', 'http://localhost:9999/users', 'GET', '用户管理', '{}', '1', '2018-03-08 17:25:39');
+INSERT INTO `sys_log` VALUES ('3ptd6sg5d88w', 'http://localhost:9999/privileges', 'GET', '权限管理', '{}', '1', '2018-03-08 17:25:46');
+INSERT INTO `sys_log` VALUES ('3ptd79p94bgg', 'http://localhost:9999/orgs', 'GET', '组织架构', '{}', '1', '2018-03-08 17:25:55');
+INSERT INTO `sys_log` VALUES ('3ptd7dqfpuyo', 'http://localhost:9999/users', 'GET', '用户管理', '{}', '1', '2018-03-08 17:25:58');
+INSERT INTO `sys_log` VALUES ('3ptdulq8uadc', 'http://localhost:9999/privileges', 'GET', '权限管理', '{}', '1', '2018-03-08 17:33:11');
+INSERT INTO `sys_log` VALUES ('3pwhjynb25mo', 'http://localhost:9999/api/users/1/menus', 'POST', '获取主菜单', '{}', '1', '2018-03-09 14:25:24');
+INSERT INTO `sys_log` VALUES ('3pwhq6lxtgxs', 'http://localhost:9999/api/users/1/menus', 'POST', '获取主菜单', '{}', '1', '2018-03-09 14:27:21');
+INSERT INTO `sys_log` VALUES ('3pwhqs9r4b28', 'http://localhost:9999/users', 'GET', '用户管理', '{}', '1', '2018-03-09 14:27:32');
+INSERT INTO `sys_log` VALUES ('3pwvifym1eyo', 'http://localhost:9999/orgs', 'GET', '组织架构', '{}', '1', '2018-03-09 17:01:52');
+INSERT INTO `sys_log` VALUES ('3pwvj2amutq8', 'http://localhost:9999/privileges', 'GET', '权限管理', '{}', '1', '2018-03-09 17:02:04');
+INSERT INTO `sys_log` VALUES ('3pwvjlw5odmo', 'http://localhost:9999/orgs', 'GET', '组织架构', '{}', '1', '2018-03-09 17:02:14');
+INSERT INTO `sys_log` VALUES ('3pwvlh12xi4g', 'http://localhost:9999/orgs', 'GET', '组织架构', '{}', '1', '2018-03-09 17:02:49');
+INSERT INTO `sys_log` VALUES ('3qa90qnstmo0', 'http://localhost:9999/users', 'GET', '用户管理', '{}', '1', '2018-03-13 10:59:37');
+INSERT INTO `sys_log` VALUES ('3qa90vdjf8jk', 'http://localhost:9999/privileges', 'GET', '权限管理', '{}', '1', '2018-03-13 10:59:40');
+INSERT INTO `sys_log` VALUES ('3qa9isfzxzb4', 'http://localhost:9999/users', 'GET', '用户管理', '{}', '1', '2018-03-13 11:05:15');
+INSERT INTO `sys_log` VALUES ('3qabq9c6dedc', 'http://localhost:9999/users', 'GET', '用户管理', '{}', '1', '2018-03-13 11:29:59');
+INSERT INTO `sys_log` VALUES ('3qabu9wktdz4', 'http://localhost:9999/users', 'GET', '用户管理', '{}', '1', '2018-03-13 11:31:14');
+INSERT INTO `sys_log` VALUES ('3qabud9tvy80', 'http://localhost:9999/privileges', 'GET', '权限管理', '{}', '1', '2018-03-13 11:31:16');
+INSERT INTO `sys_log` VALUES ('3qabuhii6j28', 'http://localhost:9999/orgs', 'GET', '组织架构', '{}', '1', '2018-03-13 11:31:18');
+INSERT INTO `sys_log` VALUES ('3qesq7kbofls', 'http://localhost:9999/users', 'GET', '用户管理', '{}', '1', '2018-03-14 17:34:48');
+INSERT INTO `sys_log` VALUES ('3qesqbj0dmo0', 'http://localhost:9999/orgs', 'GET', '组织架构', '{}', '1', '2018-03-14 17:34:50');
+INSERT INTO `sys_log` VALUES ('3qesqepy7fgg', 'http://localhost:9999/orgs', 'GET', '组织架构', '{}', '1', '2018-03-14 17:34:51');
+INSERT INTO `sys_log` VALUES ('3qesqh23aark', 'http://localhost:9999/roles', 'GET', '角色管理', '{}', '1', '2018-03-14 17:34:53');
+INSERT INTO `sys_log` VALUES ('3qesqo5fen7k', 'http://localhost:9999/orgs', 'GET', '组织架构', '{}', '1', '2018-03-14 17:34:56');
+INSERT INTO `sys_log` VALUES ('3qesqpjavnr4', 'http://localhost:9999/roles', 'GET', '角色管理', '{}', '1', '2018-03-14 17:34:57');
+INSERT INTO `sys_log` VALUES ('3qesqqwtv6kg', 'http://localhost:9999/privileges', 'GET', '权限管理', '{}', '1', '2018-03-14 17:34:58');
 
 -- ----------------------------
 -- Table structure for sys_org
@@ -161,14 +338,14 @@ CREATE TABLE `sys_resource` (
   `name` varchar(255) DEFAULT NULL,
   `api` varchar(255) DEFAULT NULL,
   `method` varchar(10) DEFAULT NULL,
-  `data_permission` varchar(10) DEFAULT NULL,
+  `data_permission` varchar(255) CHARACTER SET utf8mb4 DEFAULT NULL,
   `type` varchar(255) DEFAULT NULL,
   `pid` char(12) DEFAULT NULL,
   `descp` varchar(255) DEFAULT NULL,
   `icon_cls` varchar(255) DEFAULT NULL,
   `script` varchar(255) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
-  `creator` int(255) DEFAULT NULL,
+  `creator` char(255) DEFAULT NULL,
   `updated` datetime DEFAULT NULL,
   `updater` char(12) DEFAULT NULL,
   `enable` tinyint(255) DEFAULT NULL,
@@ -180,19 +357,19 @@ CREATE TABLE `sys_resource` (
 -- ----------------------------
 -- Records of sys_resource
 -- ----------------------------
-INSERT INTO `sys_resource` VALUES ('10', '组织架构', '/orgs', 'GET', '1', '7', '组织架构', 'fa fa-sitemap', '', '2016-11-06 01:39:12', '1', '2016-11-06 01:39:12', '1', '1', '1', '3');
-INSERT INTO `sys_resource` VALUES ('11', '角色管理', '/roles', 'GET', '1', '7', '角色管理', 'fa fa-users', '', '2016-11-06 01:41:58', '1', '2016-11-06 01:41:58', '1', '1', '1', '4');
-INSERT INTO `sys_resource` VALUES ('13', '权限管理', '/privileges', 'GET', '1', '7', '权限管理', 'fa fa-eye', '', '2016-11-06 01:50:09', '1', '2016-11-06 01:53:40', '1', '1', '1', '5');
-INSERT INTO `sys_resource` VALUES ('22', '权威', '', null, '0', '21', '', '123', '123', '2016-11-20 22:13:51', '1', '2016-11-20 22:13:51', '1', '1', '1', '123');
-INSERT INTO `sys_resource` VALUES ('23', '新增', '/api/users', 'POST', '2', '8', '', 'fa fa-user', '', '2017-01-02 21:30:14', '1', '2017-01-02 21:30:14', '1', '1', '1', '0');
-INSERT INTO `sys_resource` VALUES ('24', '修改', '/api/users/\\d+', 'POST', '2', '8', '', 'fa fa-user', '', '2017-01-02 21:31:57', '1', '2017-01-02 21:38:25', '1', '1', '1', '1');
-INSERT INTO `sys_resource` VALUES ('25', '删除', '/api/users/\\d+', 'DELETE', '2', '8', '', 'fa fa-user', '', '2017-01-02 21:32:07', '1', '2017-01-02 21:38:39', '1', '1', '1', '2');
-INSERT INTO `sys_resource` VALUES ('26', '获取主菜单', '/api/users/\\d+/menus', 'POST', '3', '0', null, 'fa fa-list-ol', null, '2018-02-26 14:43:23', '1', null, null, '1', '1', '1');
-INSERT INTO `sys_resource` VALUES ('27', '123123', '1111', 'GET', '3', '13', null, null, null, '2018-02-26 15:23:54', '1', null, null, '1', null, null);
-INSERT INTO `sys_resource` VALUES ('5', '获取用户', '/api/user/\\d+/resources', 'GET', '3', '0', null, 'fa fa-user', null, '2018-02-07 17:15:19', '1', '2018-02-07 17:15:22', '1', '1', '1', '1');
-INSERT INTO `sys_resource` VALUES ('7', '系统管理', '', null, '0', '0', '系统管理', 'fa fa-files-o', '', '2016-11-06 00:48:37', '1', '2016-11-06 00:48:37', '1', '1', '0', '1');
-INSERT INTO `sys_resource` VALUES ('8', '用户管理', '/users', 'GET', '1', '7', '用户管理', 'fa fa-user', '', '2016-11-06 01:02:10', '1', '2016-11-06 01:02:10', '1', '1', '0', '2');
-INSERT INTO `sys_resource` VALUES ('9', '资源管理', '/resources', 'GET', '1', '7', '资源管理', 'fa fa-list-ol', '', '2016-11-06 01:33:15', '1', '2016-11-06 01:33:15', '1', '1', '1', '2');
+INSERT INTO `sys_resource` VALUES ('10', '组织架构', '/orgs', 'GET', null, '1', '7', '组织架构', 'fa fa-sitemap', '', '2016-11-06 01:39:12', '1', '2016-11-06 01:39:12', '1', '1', '1', '3');
+INSERT INTO `sys_resource` VALUES ('11', '角色管理', '/roles', 'GET', null, '1', '7', '角色管理', 'fa fa-users', '', '2016-11-06 01:41:58', '1', '2016-11-06 01:41:58', '1', '1', '1', '4');
+INSERT INTO `sys_resource` VALUES ('13', '权限管理', '/privileges', 'GET', null, '1', '7', '权限管理', 'fa fa-eye', '', '2016-11-06 01:50:09', '1', '2016-11-06 01:53:40', '1', '1', '1', '5');
+INSERT INTO `sys_resource` VALUES ('22', '权威', '', null, null, '0', '21', '', '123', '123', '2016-11-20 22:13:51', '1', '2016-11-20 22:13:51', '1', '1', '1', '123');
+INSERT INTO `sys_resource` VALUES ('23', '新增', '/api/users', 'POST', null, '2', '8', '', 'fa fa-user', '', '2017-01-02 21:30:14', '1', '2017-01-02 21:30:14', '1', '1', '1', '0');
+INSERT INTO `sys_resource` VALUES ('24', '修改', '/api/users/(\\d+)', 'POST', 'USER:1:CREATOR', '2', '8', '', 'fa fa-user', '1', '2017-01-02 21:31:57', '1', '2018-03-13 11:31:04', '1', '1', '1', '1');
+INSERT INTO `sys_resource` VALUES ('25', '删除', '/api/users/\\d+', 'DELETE', null, '2', '8', '', 'fa fa-user', '', '2017-01-02 21:32:07', '1', '2017-01-02 21:38:39', '1', '1', '1', '2');
+INSERT INTO `sys_resource` VALUES ('26', '获取主菜单', '/api/users/1(\\d+)/menus', 'POST', null, '3', '0', null, 'fa fa-list-ol', null, '2018-02-26 14:43:23', '1', '2018-03-09 14:36:30', '1', '1', '1', '1');
+INSERT INTO `sys_resource` VALUES ('27', '123123', '1111', 'GET', null, '3', '13', null, null, null, '2018-02-26 15:23:54', '1', null, null, '1', null, null);
+INSERT INTO `sys_resource` VALUES ('5', '获取用户', '/api/user/\\d+/resources', 'GET', null, '3', '0', null, 'fa fa-user', null, '2018-02-07 17:15:19', '1', '2018-02-07 17:15:22', '1', '1', '1', '1');
+INSERT INTO `sys_resource` VALUES ('7', '系统管理', '', null, null, '0', '0', '系统管理', 'fa fa-files-o', '', '2016-11-06 00:48:37', '1', '2016-11-06 00:48:37', '1', '1', '0', '1');
+INSERT INTO `sys_resource` VALUES ('8', '用户管理', '/users', 'GET', null, '1', '7', '用户管理', 'fa fa-user', '', '2016-11-06 01:02:10', '1', '2016-11-06 01:02:10', '1', '1', '0', '2');
+INSERT INTO `sys_resource` VALUES ('9', '资源管理', '/resources', 'GET', null, '1', '7', '资源管理', 'fa fa-list-ol', '', '2016-11-06 01:33:15', '1', '2016-11-06 01:33:15', '1', '1', '1', '2');
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -257,7 +434,6 @@ INSERT INTO `sys_user` VALUES ('11', 'liutao', '4af56b53ccce830e6566022fab445b8c
 INSERT INTO `sys_user` VALUES ('2', '2', 'de94903812cefa17dc6b0a5955680ac1', '啊啦雷', '8', '2014-12-01', '女', null, 'wer@qqq.com', '(123) 123-1231', null, null, null, null, null, '1');
 INSERT INTO `sys_user` VALUES ('31', 'qinzeyu', '76068304ad13dbd7526d837e2a74735d', '秦133', '0', '1989-11-19', '保密', null, '22@wq.com', '110111', null, null, null, null, null, '1');
 INSERT INTO `sys_user` VALUES ('33', 'admin1', 'b6fad01be4bb2c981e7802414fbaa4fe', '管理员1', null, '2018-02-08', '男', null, '1@1q.c', '1233231', null, '2018-02-08 17:03:42', '1', null, null, '1');
-INSERT INTO `sys_user` VALUES ('35', 'admin2', '123321', '11233311111', null, '2018-03-08', '男', null, '11@qq.com', '123321', null, '2018-03-02 13:39:31', '1', '2018-03-08 14:33:32', '1', '1');
 
 -- ----------------------------
 -- Table structure for sys_user_org
