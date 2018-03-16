@@ -35,14 +35,14 @@ public class SchedulerContext implements ApplicationListener<ApplicationReadyEve
 	private static final Logger logger = LoggerFactory.getLogger(SchedulerContext.class);
 	private SchedulerFactory schedulerFactory = new StdSchedulerFactory();
 	private Scheduler scheduler;
-	@Value("${ch.schedule.enable:#{false}}")
+	@Value("${app.schedule.enable:#{false}}")
 	private boolean enable;
 	@Resource
 	private JobLoader jobLoader;
 	@Resource
 	private JobListener jobListener;
 
-	public void init() throws SchedulerException, ClassNotFoundException {
+	public void init() throws SchedulerException {
 		scheduler = schedulerFactory.getScheduler();
 		scheduler.getListenerManager().addJobListener(jobListener);
 		scheduler.start();
@@ -57,7 +57,7 @@ public class SchedulerContext implements ApplicationListener<ApplicationReadyEve
 	}
 
 	public void deleteJob(JobKey jobKey) throws SchedulerException {
-		System.out.println(scheduler.deleteJob(jobKey));
+		scheduler.deleteJob(jobKey);
 	}
 
 
@@ -81,10 +81,12 @@ public class SchedulerContext implements ApplicationListener<ApplicationReadyEve
 	public void onApplicationEvent(ApplicationReadyEvent event) {
 		try {
 			if (enable) {
+				logger.info("开始初始化任务调度...");
 				init();
+				logger.info("任务调度初始化完成...");
 			}
-		} catch (SchedulerException | ClassNotFoundException e) {
-			logger.error("初始化任务失败",e);
+		} catch (SchedulerException e) {
+			logger.error("任务调度初始化失败",e);
 		}
 	}
 }
