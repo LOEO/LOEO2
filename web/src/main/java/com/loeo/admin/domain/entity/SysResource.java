@@ -3,9 +3,8 @@ package com.loeo.admin.domain.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotEmpty;
 
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;

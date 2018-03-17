@@ -31,8 +31,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<thymeleaf.version>3.0.2.RELEASE</thymeleaf.version>
-		<thymeleaf-layout-dialect.version>2.1.1</thymeleaf-layout-dialect.version>
 		<mybatis-plus.version>2.1.6</mybatis-plus.version>
 	</properties>
 
@@ -173,8 +171,15 @@
 	</dependencies>
 
 	<build>
-		<!--<plugins>
+		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<proc>none</proc>
+				</configuration>
+			</plugin>
+			<!--<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<dependencies>
@@ -184,9 +189,29 @@
 						<version>1.2.8.BUILD-SNAPSHOT</version>
 					</dependency>
 				</dependencies>
-			</plugin>
-		</plugins>-->
+			</plugin>-->
+		</plugins>
 	</build>
-
+	<repositories>
+		<repository>
+			<id>spring-snapshots</id>
+			<url>http://repo.spring.io/snapshot</url>
+			<snapshots><enabled>true</enabled></snapshots>
+		</repository>
+		<repository>
+			<id>spring-milestones</id>
+			<url>http://repo.spring.io/milestone</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>spring-snapshots</id>
+			<url>http://repo.spring.io/snapshot</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>spring-milestones</id>
+			<url>http://repo.spring.io/milestone</url>
+		</pluginRepository>
+	</pluginRepositories>
 
 </project>

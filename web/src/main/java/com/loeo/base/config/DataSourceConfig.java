@@ -19,6 +19,15 @@ import com.alibaba.druid.pool.DruidDataSource;
  */
 @Configuration
 public class DataSourceConfig {
+	private String name;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	@Bean
 	@ConfigurationProperties("app.datasource")
