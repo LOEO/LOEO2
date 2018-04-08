@@ -63,15 +63,15 @@ public class ShiroConfig implements ApplicationRunner, ApplicationListener<Resou
 	public ShiroFilterFactoryBean shiroFilterFactoryBean(org.apache.shiro.mgt.SecurityManager securityManager) {
 		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 		shiroFilterFactoryBean.setSecurityManager(securityManager);
-		shiroFilterFactoryBean.setLoginUrl("/login.html");
-		shiroFilterFactoryBean.setUnauthorizedUrl("/login.html");
+		shiroFilterFactoryBean.setLoginUrl("/login");
+		shiroFilterFactoryBean.setUnauthorizedUrl("/login");
 		//配置访问权限
 		LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-		filterChainDefinitionMap.put("/login.html", "anon");
-		filterChainDefinitionMap.put("/logout", "logout");
 		filterChainDefinitionMap.put("/login", "anon");
+		filterChainDefinitionMap.put("/logout", "logout");
 		filterChainDefinitionMap.put("/api/login", "anon");
 		filterChainDefinitionMap.put("/resources/**", "anon");
+		filterChainDefinitionMap.put("/actuator/**", "anon");
 		filterChainDefinitionMap.put("/**", "user,sysPerm");
 		Map<String, Filter> filters = new LinkedHashMap<>();
 		filters.put("sysPerm", sysPermFilter);
