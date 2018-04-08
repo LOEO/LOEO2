@@ -14,8 +14,10 @@ public class Result implements Serializable {
 	private String msg;
 	private Object data;
 
-	private Result() {
-
+	private Result(ResultBuilder resultBuilder) {
+		this.success = resultBuilder.success;
+		this.msg = resultBuilder.msg;
+		this.data = resultBuilder.data;
 	}
 
 	public static Result success(String msg) {
@@ -68,24 +70,26 @@ public class Result implements Serializable {
 	}
 
 	private static class ResultBuilder {
-		private Result result = new Result();
+		private Boolean success;
+		private String msg;
+		private Object data;
 
 		public Result build() {
-			return result;
+			return new Result(this);
 		}
 
 		public ResultBuilder setMsg(String msg) {
-			result.setMsg(msg);
+			this.msg = msg;
 			return this;
 		}
 
 		public ResultBuilder setData(Object data) {
-			result.setData(data);
+			this.data = data;
 			return this;
 		}
 
 		public ResultBuilder setSuccess(Boolean success) {
-			result.setSuccess(success);
+			this.success = success;
 			return this;
 		}
 
