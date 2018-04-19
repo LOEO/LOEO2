@@ -8,10 +8,10 @@ import com.baomidou.mybatisplus.annotations.TableName;
 /**
  * 功能：schedule_job_inner 实体类
  *
- * @author：LT(286269159@qq.com)
+ * @author ：LT(286269159@qq.com)
  * @created：2017-11-17 03:11 
- * @version：2017 Version：1.0 
- * @company：创海科技 Created with IntelliJ IDEA 
+ * @version ：2017 Version：1.0
+
  */ 
 @TableName("schedule_job_inner")
 public class ScheduleJobInner extends Model<ScheduleJobInner> {

@@ -18,10 +18,10 @@ import com.loeo.schedule.service.ScheduleService;
 /**
  * 功能：
  *
- * @author：LT(286269159@qq.com)
- * @create：2017-11-21 09:28:43
- * @version：2017 Version：1.0
- * @company：创海科技 Created with IntelliJ IDEA
+ * @author ：LT(286269159@qq.com)
+ * @create ：2017-11-21 09:28:43
+ * @version ：2017 Version：1.0
+
  */
 @RestController
 @RequestMapping("/api/schedules")

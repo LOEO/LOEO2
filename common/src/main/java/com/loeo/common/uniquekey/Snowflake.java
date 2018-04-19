@@ -3,10 +3,10 @@ package com.loeo.common.uniquekey;
 /**
  * 功能：生成唯一主键
  *
- * @author：renzhongshan(zhongshan.ren@ihydt.com)
- * @create：2017-03-17 9:57:44
- * @version：2017 Version：1.0
- * @company：创海科技 Created with IntelliJ IDEA
+ * @author ：renzhongshan(zhongshan.ren@ihydt.com)
+ * @create ：2017-03-17 9:57:44
+ * @version ：2017 Version：1.0
+
  */
 public class Snowflake implements IIdGenerator {
 	private static final long twepoch = 1288834974657L;

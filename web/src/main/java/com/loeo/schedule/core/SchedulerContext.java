@@ -25,10 +25,10 @@ import com.loeo.schedule.core.jobloader.JobLoader;
 /**
  * 功能：
  *
- * @author：LT(286269159@qq.com)
- * @create：2017-11-16 16:50:59
- * @version：2017 Version：1.0
- * @company：创海科技 Created with IntelliJ IDEA
+ * @author ：LT(286269159@qq.com)
+ * @create ：2017-11-16 16:50:59
+ * @version ：2017 Version：1.0
+
  */
 @Component
 public class SchedulerContext implements ApplicationListener<ApplicationReadyEvent> {

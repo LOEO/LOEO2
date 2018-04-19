@@ -14,10 +14,10 @@ import com.loeo.schedule.core.jobs.info.JobExecutingInfo;
 /**
  * 功能：
  *
- * @author：LT(286269159@qq.com)
- * @create：2017-11-20 11:34:15
- * @version：2017 Version：1.0
- * @company：创海科技 Created with IntelliJ IDEA
+ * @author ：LT(286269159@qq.com)
+ * @create ：2017-11-20 11:34:15
+ * @version ：2017 Version：1.0
+
  */
 public abstract class AbstractJobWrapper implements JobWrapper {
 	public static final String JOB_DATA_MAP_KEY_CURRENT_TRIGGER_DATA = "JOB_DATA_MAP_KEY_CURRENT_TRIGGER_DATA";

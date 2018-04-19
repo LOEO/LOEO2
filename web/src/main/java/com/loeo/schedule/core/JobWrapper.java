@@ -12,10 +12,10 @@ import com.loeo.schedule.core.jobs.info.JobExecutingInfo;
 /**
  * 功能：对Job数据做一次包装，对quartz提供统一调用接口
  *
- * @author：LT(286269159@qq.com)
- * @create：2017-11-18 09:56:10
- * @version：2017 Version：1.0
- * @company：创海科技 Created with IntelliJ IDEA
+ * @author ：LT(286269159@qq.com)
+ * @create ：2017-11-18 09:56:10
+ * @version ：2017 Version：1.0
+
  */
 public interface JobWrapper extends JobData {
 	String JOB_DATA_MAP_KEY_JOB_WRAPPER = "JOB_DATA_MAP_KEY_JOB_WRAPPER";

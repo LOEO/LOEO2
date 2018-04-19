@@ -7,10 +7,10 @@ import com.loeo.admin.domain.entity.SysResource;
 /**
  * 功能：资源更新事件类
  *
- * @author：LT(286269159@qq.com)
- * @create：2018-02-26 09:46:07
- * @version：2018 Version：1.0
- * @company：创海科技 Created with IntelliJ IDEA
+ * @author ：LT(286269159@qq.com)
+ * @create ：2018-02-26 09:46:07
+ * @version ：2018 Version：1.0
+
  */
 public class ResourceUpdateEvent extends ApplicationEvent {
 	private Action action;

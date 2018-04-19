@@ -14,10 +14,10 @@ import com.loeo.utils.DateUtils;
 /**
  * 功能：
  *
- * @author：LT(286269159@qq.com)
- * @create：2018-03-03 15:19:15
- * @version：2018 Version：1.0
- * @company：创海科技 Created with IntelliJ IDEA
+ * @author ：LT(286269159@qq.com)
+ * @create ：2018-03-03 15:19:15
+ * @version ：2018 Version：1.0
+
  */
 public class LoeoMateObjectHandler extends MetaObjectHandler {
     private IdGenerateFactory idGenerateFactory;

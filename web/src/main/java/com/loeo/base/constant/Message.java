@@ -3,9 +3,9 @@ package com.loeo.base.constant;
 /**
  * 功能：
  *
- * @author：LT(286269159@qq.com)
- * @create：2018-03-14 17:13:00
- * @version：2018 Version：1.0
+ * @author ：LT(286269159@qq.com)
+ * @create ：2018-03-14 17:13:00
+ * @version ：2018 Version：1.0
  * @company：黄羊数据 Created with IntelliJ IDEA
  */
 public interface Message {

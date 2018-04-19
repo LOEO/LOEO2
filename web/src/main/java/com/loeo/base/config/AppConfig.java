@@ -9,10 +9,9 @@ import com.loeo.test.TestBeanPostProcessor;
 /**
  * 功能：系统配置
  *
- * @author：LT(286269159@qq.com)
- * @create：2017-06-14 10:05:36
- * @version：2017 Version：1.0
- * @company：创海科技 Created with IntelliJ IDEA
+ * @author ：LT(286269159@qq.com)
+ * @create ：2017-06-14 10:05:36
+ * @version ：2017 Version：1.0
  */
 
 @Configuration

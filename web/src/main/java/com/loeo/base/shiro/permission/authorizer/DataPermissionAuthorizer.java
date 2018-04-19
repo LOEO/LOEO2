@@ -5,10 +5,10 @@ import com.loeo.base.shiro.permission.DataPermission;
 /**
  * 功能：
  *
- * @author：LT(286269159@qq.com)
- * @create：2018-03-10 09:16:52
- * @version：2018 Version：1.0
- * @company：创海科技 Created with IntelliJ IDEA
+ * @author ：LT(286269159@qq.com)
+ * @create ：2018-03-10 09:16:52
+ * @version ：2018 Version：1.0
+
  */
 public interface DataPermissionAuthorizer {
 	boolean authorize(DataPermission dataPermission);

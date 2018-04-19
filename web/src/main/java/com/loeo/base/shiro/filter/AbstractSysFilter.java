@@ -15,10 +15,10 @@ import com.loeo.base.event.ResourceUpdateEvent;
 /**
  * 功能：
  *
- * @author：LT(286269159@qq.com)
- * @create：2018-03-09 15:51:39
- * @version：2018 Version：1.0
- * @company：创海科技 Created with IntelliJ IDEA
+ * @author ：LT(286269159@qq.com)
+ * @create ：2018-03-09 15:51:39
+ * @version ：2018 Version：1.0
+
  */
 public abstract class AbstractSysFilter extends PermissionsAuthorizationFilter {
 

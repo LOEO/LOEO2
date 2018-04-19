@@ -7,10 +7,10 @@ import com.loeo.schedule.domain.entity.ScheduleTrigger;
 /**
  * 功能：
  *
- * @author：LT(286269159@qq.com)
- * @create：2017-11-17 18:15:57
- * @version：2017 Version：1.0
- * @company：创海科技 Created with IntelliJ IDEA
+ * @author ：LT(286269159@qq.com)
+ * @create ：2017-11-17 18:15:57
+ * @version ：2017 Version：1.0
+
  */
 public class HelloJobExecutor implements JobExecutor {
 

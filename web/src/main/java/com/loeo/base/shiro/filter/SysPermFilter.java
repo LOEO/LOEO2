@@ -26,10 +26,10 @@ import com.loeo.utils.ApplicationContextUtils;
 /**
  * 功能：
  *
- * @author：LT(286269159@qq.com)
- * @create：2018-02-25 10:36:52
- * @version：2018 Version：1.0
- * @company：创海科技 Created with IntelliJ IDEA
+ * @author ：LT(286269159@qq.com)
+ * @create ：2018-02-25 10:36:52
+ * @version ：2018 Version：1.0
+
  */
 public class SysPermFilter extends AbstractSysFilter {
 	private static final Logger logger = LoggerFactory.getLogger(SysPermFilter.class);

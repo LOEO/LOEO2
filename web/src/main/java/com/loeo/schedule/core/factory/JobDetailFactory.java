@@ -13,10 +13,10 @@ import com.loeo.schedule.core.jobs.InnerJob;
 /**
  * 功能：创建JobDetail的工厂类
  *
- * @author：LT(286269159@qq.com)
- * @create：2017-11-18 10:14:43
- * @version：2017 Version：1.0
- * @company：创海科技 Created with IntelliJ IDEA
+ * @author ：LT(286269159@qq.com)
+ * @create ：2017-11-18 10:14:43
+ * @version ：2017 Version：1.0
+
  */
 public abstract class JobDetailFactory {
 	public static JobDetail createJobDetail(JobWrapper jobWrapper) {

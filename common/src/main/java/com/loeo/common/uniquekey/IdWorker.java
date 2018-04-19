@@ -10,10 +10,10 @@ import org.slf4j.LoggerFactory;
  *       注意这里进行了小改动: snowkflake是5位的datacenter加5位的机器id; 这里变成使用10位的机器id
  *   (b) 对系统时间的依赖性非常强，需关闭ntp的时间同步功能。当检测到ntp时间调整后，将会拒绝分配id
  *
- * @author：renzhongshan(zhongshan.ren@ihydt.com)
- * @create：2017-03-28 11:02:49
- * @version：2017 Version：1.0
- * @company：创海科技 Created with IntelliJ IDEA
+ * @author ：renzhongshan(zhongshan.ren@ihydt.com)
+ * @create ：2017-03-28 11:02:49
+ * @version ：2017 Version：1.0
+
  */
 public class IdWorker implements IIdGenerator {
 	private final static Logger logger = LoggerFactory.getLogger(IdWorker.class);

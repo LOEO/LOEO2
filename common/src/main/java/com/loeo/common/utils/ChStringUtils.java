@@ -16,10 +16,10 @@ import org.slf4j.LoggerFactory;
 /**
  * 功能：
  *
- * @author：renzhongshan(zhongshan.ren@ihydt.com)
- * @create：2017-03-08 17:02:28
- * @version：2017 Version：1.0
- * @company：创海科技 Created with IntelliJ IDEA
+ * @author ：renzhongshan(zhongshan.ren@ihydt.com)
+ * @create ：2017-03-08 17:02:28
+ * @version ：2017 Version：1.0
+
  */
 public class ChStringUtils extends org.apache.commons.lang3.StringUtils {
 	private static Logger logger = LoggerFactory.getLogger(ChStringUtils.class);

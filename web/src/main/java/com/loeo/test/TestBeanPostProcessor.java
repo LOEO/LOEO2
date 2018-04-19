@@ -8,10 +8,10 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
 /**
  * 功能：
  *
- * @author：LT(286269159@qq.com)
- * @create：2017-06-14 10:03:58
- * @version：2017 Version：1.0
- * @company：创海科技 Created with IntelliJ IDEA
+ * @author ：LT(286269159@qq.com)
+ * @create ：2017-06-14 10:03:58
+ * @version ：2017 Version：1.0
+
  */
 public class TestBeanPostProcessor implements BeanPostProcessor {
     private static final Logger logger = LoggerFactory.getLogger(TestBeanPostProcessor.class);
