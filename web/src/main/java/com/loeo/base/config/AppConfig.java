@@ -7,7 +7,7 @@ import com.loeo.common.uniquekey.IdGenerateFactory;
 import com.loeo.test.TestBeanPostProcessor;
 
 /**
- * 功能：
+ * 功能：系统配置
  *
  * @author：LT(286269159@qq.com)
  * @create：2017-06-14 10:05:36

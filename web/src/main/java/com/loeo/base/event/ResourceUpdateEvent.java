@@ -5,7 +5,7 @@ import org.springframework.context.ApplicationEvent;
 import com.loeo.admin.domain.entity.SysResource;
 
 /**
- * 功能：
+ * 功能：资源更新事件类
  *
  * @author：LT(286269159@qq.com)
  * @create：2018-02-26 09:46:07
@@ -37,7 +37,18 @@ public class ResourceUpdateEvent extends ApplicationEvent {
 		this.action = action;
 	}
 
-	public static enum Action{
-		ADD,UPDATE,DELETE
+	public enum Action{
+		/**
+		 * 添加资源
+		 */
+		ADD,
+		/**
+		 * 修改资源
+		 */
+		UPDATE,
+		/**
+		 * 删除资源
+		 */
+		DELETE
 	}
 }
