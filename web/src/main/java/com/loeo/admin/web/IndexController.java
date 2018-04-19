@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.loeo.base.shiro.ShiroContextUtils;
 
 /**
- * Created by LOEO on 2017/06/14 21:43
+ * @author ：Tony.L(286269159@qq.com)
+ * @create ：2017/06/14 21:43
+ * @version ：2018 Version：1.0
  */
 @Controller
 @RequestMapping("/")

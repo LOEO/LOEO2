@@ -7,7 +7,7 @@ import com.loeo.admin.domain.entity.SysResource;
 /**
  * 功能：资源更新事件类
  *
- * @author ：LT(286269159@qq.com)
+ * @author ：Tony.L(286269159@qq.com)
  * @create ：2018-02-26 09:46:07
  * @version ：2018 Version：1.0
 

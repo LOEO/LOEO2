@@ -8,7 +8,7 @@ import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 /**
  * 功能：
  *
- * @author ：LT(286269159@qq.com)
+ * @author ：Tony.L(286269159@qq.com)
  * @create ：2018-03-02 11:04:56
  * @version ：2018 Version：1.0
 

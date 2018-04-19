@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.annotations.TableName;
 /**
  * 功能：schedule_trigger_job 实体类
  *
- * @author ：LT(286269159@qq.com)
+ * @author ：Tony.L(286269159@qq.com)
  * @created：2017-11-17 03:11 
  * @version ：2017 Version：1.0
 

@@ -13,7 +13,7 @@ import com.loeo.schedule.core.jobs.InnerJob;
 /**
  * 功能：创建JobDetail的工厂类
  *
- * @author ：LT(286269159@qq.com)
+ * @author ：Tony.L(286269159@qq.com)
  * @create ：2017-11-18 10:14:43
  * @version ：2017 Version：1.0
 

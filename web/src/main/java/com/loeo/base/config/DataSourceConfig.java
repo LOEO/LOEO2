@@ -12,7 +12,7 @@ import com.alibaba.druid.pool.DruidDataSource;
 /**
  * 功能：数据源配置
  *
- * @author ：LT(286269159@qq.com)
+ * @author ：Tony.L(286269159@qq.com)
  * @create ：2017-05-25 19:03:17
  * @version ：2017 Version：1.0
  */

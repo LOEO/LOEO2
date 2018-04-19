@@ -25,7 +25,7 @@ import com.loeo.schedule.core.jobloader.JobLoader;
 /**
  * 功能：
  *
- * @author ：LT(286269159@qq.com)
+ * @author ：Tony.L(286269159@qq.com)
  * @create ：2017-11-16 16:50:59
  * @version ：2017 Version：1.0
 

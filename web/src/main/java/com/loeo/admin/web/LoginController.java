@@ -19,7 +19,9 @@ import com.loeo.admin.domain.dto.LoginDto;
 import com.loeo.base.shiro.ShiroContextUtils;
 
 /**
- * Created by LOEO on 2017/06/14 0:58
+ * @author ：Tony.L(286269159@qq.com)
+ * @create ：2017/06/14 0:58
+ * @version ：2018 Version：1.0
  */
 @RestController
 @RequestMapping("/api")

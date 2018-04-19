@@ -12,7 +12,7 @@ import com.loeo.schedule.core.jobs.info.JobExecutingInfo;
 /**
  * 功能：对Job数据做一次包装，对quartz提供统一调用接口
  *
- * @author ：LT(286269159@qq.com)
+ * @author ：Tony.L(286269159@qq.com)
  * @create ：2017-11-18 09:56:10
  * @version ：2017 Version：1.0
 

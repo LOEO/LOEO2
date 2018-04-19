@@ -29,7 +29,9 @@ import com.loeo.base.shiro.filter.SysPermFilter;
 import com.loeo.base.shiro.filter.SysPermLogFilter;
 
 /**
- * Created by LOEO on 2017/05/31 22:44
+ * @author ：Tony.L(286269159@qq.com)
+ * @create ：2017/05/31 22:44
+ * @version ：2018 Version：1.0
  */
 @Configuration
 public class ShiroConfig implements ApplicationRunner, ApplicationListener<ResourceUpdateEvent> {

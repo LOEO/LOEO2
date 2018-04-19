@@ -7,7 +7,9 @@ import java.util.Map;
 import com.alibaba.fastjson.JSON;
 
 /**
- * Created by LT on 2015/12/13 0013 21:41
+ * @author ：Tony.L(286269159@qq.com)
+ * @create ：2015/12/13 0013 21:41
+ * @version ：2018 Version：1.0
  */
 public class EntityUtil {
     public static <T> T buildEntity(Class<T> cls, Map<String,Object> formData) {

@@ -17,7 +17,7 @@ import com.loeo.schedule.domain.entity.ScheduleTrigger;
 /**
  * 功能：
  *
- * @author ：LT(286269159@qq.com)
+ * @author ：Tony.L(286269159@qq.com)
  * @create ：2017-11-18 10:13:31
  * @version ：2017 Version：1.0
 

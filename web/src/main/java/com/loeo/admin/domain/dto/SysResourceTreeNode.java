@@ -5,7 +5,9 @@ import java.util.List;
 import com.loeo.admin.domain.entity.SysResource;
 
 /**
- * Created by LT on 2016/11/05 11:40
+ * @author ：Tony.L(286269159@qq.com)
+ * @create ：2016/11/05 11:40
+ * @version ：2018 Version：1.0
  */
 public class SysResourceTreeNode extends SysResource {
 	private String checkState;

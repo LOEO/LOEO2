@@ -1,7 +1,9 @@
 package com.loeo.admin.domain.dto;
 
 /**
- * Created by LT on 2016/10/03 0:08
+ * @author ：Tony.L(286269159@qq.com)
+ * @create ：2016/10/03 0:08
+ * @version ：2018 Version：1.0
  */
 public class MenuAndButton {
     private String id;

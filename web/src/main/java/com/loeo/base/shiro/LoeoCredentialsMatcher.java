@@ -6,7 +6,9 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authc.credential.SimpleCredentialsMatcher;
 
 /**
- * Created by LOEO on 2017/06/14 0:10
+ * @author ：Tony.L(286269159@qq.com)
+ * @create ：2017/06/14 0:10
+ * @version ：2018 Version：1.0
  */
 public class LoeoCredentialsMatcher extends SimpleCredentialsMatcher {
     @Override

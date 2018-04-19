@@ -9,7 +9,7 @@ import com.loeo.test.TestBeanPostProcessor;
 /**
  * 功能：系统配置
  *
- * @author ：LT(286269159@qq.com)
+ * @author ：Tony.L(286269159@qq.com)
  * @create ：2017-06-14 10:05:36
  * @version ：2017 Version：1.0
  */
