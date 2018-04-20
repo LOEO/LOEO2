@@ -50,7 +50,7 @@ public class SysResourceServiceImpl extends BaseServiceImpl<SysResourceMapper, S
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public boolean add(SysResource sysResource) {
-		if (!ROOT_ID.equals(sysResource.getPid())) {
+		if (!SysResourceService.ROOT_ID.equals(sysResource.getPid())) {
 			SysResource parent = selectById(sysResource.getPid());
 			if (parent.isLeaf()) {
 				parent.setLeaf(Boolean.FALSE);
@@ -71,7 +71,7 @@ public class SysResourceServiceImpl extends BaseServiceImpl<SysResourceMapper, S
 		if (!sysResource.isLeaf()) {
 			throw new IsNotLeafNodeCanNotDelete();
 		}
-		if (!StringUtils.isEmpty(sysResource.getPid())) {
+		if (!SysResourceService.ROOT_ID.equals(sysResource.getPid())) {
 			List<SysResource> sysResources = selectList(new EntityWrapper<SysResource>().eq("pid", sysResource.getPid()));
 			if (sysResources.size() == 1) {
 				SysResource resource = new SysResource();
