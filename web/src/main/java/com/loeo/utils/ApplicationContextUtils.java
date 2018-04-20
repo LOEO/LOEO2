@@ -17,15 +17,16 @@ public class ApplicationContextUtils implements ApplicationContextAware {
 	private static ApplicationContext applicationContext;
 
 	public static <T> T getBean(Class<T> cls) {
-		return applicationContext.getBean(cls);
+		System.out.println(ApplicationContextUtils.applicationContext);
+		return ApplicationContextUtils.applicationContext.getBean(cls);
 	}
 
 	public static Object getBean(String beanName) {
-		return applicationContext.getBean(beanName);
+		return ApplicationContextUtils.applicationContext.getBean(beanName);
 	}
 
 	public static ApplicationContext getApplicationContext() {
-		return applicationContext;
+		return ApplicationContextUtils.applicationContext;
 	}
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
