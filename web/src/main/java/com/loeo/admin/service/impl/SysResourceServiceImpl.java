@@ -14,13 +14,14 @@ import org.springframework.util.StringUtils;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.loeo.base.event.ResourceUpdateEvent;
-import com.loeo.base.event.ResourceUpdateEvent.Action;
 import com.loeo.admin.domain.dto.SysResourceTreeNode;
 import com.loeo.admin.domain.entity.SysResource;
 import com.loeo.admin.mapper.SysResourceMapper;
-import com.loeo.base.service.BaseServiceImpl;
 import com.loeo.admin.service.SysResourceService;
+import com.loeo.base.event.ResourceUpdateEvent;
+import com.loeo.base.event.ResourceUpdateEvent.Action;
+import com.loeo.base.exception.IsNotLeafNodeCanNotDelete;
+import com.loeo.base.service.BaseServiceImpl;
 
 
 /**
@@ -64,6 +65,12 @@ public class SysResourceServiceImpl extends BaseServiceImpl<SysResourceMapper, S
 	@Transactional(rollbackFor = Exception.class)
 	public boolean deleteById(Serializable id) {
 		SysResource sysResource = selectById(id);
+		if (sysResource == null) {
+			return true;
+		}
+		if (!sysResource.isLeaf()) {
+			throw new IsNotLeafNodeCanNotDelete();
+		}
 		if (!StringUtils.isEmpty(sysResource.getPid())) {
 			List<SysResource> sysResources = selectList(new EntityWrapper<SysResource>().eq("pid", sysResource.getPid()));
 			if (sysResources.size() == 1) {
