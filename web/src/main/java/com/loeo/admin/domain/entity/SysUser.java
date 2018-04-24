@@ -43,7 +43,7 @@ public class SysUser extends Model<SysUser> {
 	@Size(max = 20, groups = {Add.class, Update.class})
 	private String nickname;
 	private Integer age;
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
 	@NotNull(groups = Add.class)
 	private Date birthday;
 	@NotEmpty(groups = Add.class)
@@ -54,12 +54,10 @@ public class SysUser extends Model<SysUser> {
 	@NotEmpty(groups = Add.class)
 	private String phone;
 	private Integer orgId;
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@TableField(fill = FieldFill.INSERT)
 	private Date created;
 	@TableField(fill = FieldFill.INSERT)
 	private String creator;
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private Date updated;
 	@TableField(fill = FieldFill.INSERT_UPDATE)
