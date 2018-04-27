@@ -33,7 +33,7 @@ public class SysResourceTreeNode extends SysResource {
 		this.setDataPermission(resource.getDataPermission());
 		this.setChecked(resource.isChecked() == null ? Boolean.FALSE : resource.isChecked());
 		if (this.isChecked()) {
-			if (this.isLeaf()) {
+			if (!this.isLeaf()) {
 				this.checkState = "indeterminate";
 				this.setChecked(false);
 			} else {
