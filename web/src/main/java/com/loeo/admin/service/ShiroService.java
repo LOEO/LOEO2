@@ -11,9 +11,8 @@ import com.loeo.admin.domain.entity.SysUser;
  * 功能：
  *
  * @author ：Tony.L(286269159@qq.com)
- * @create ：2018-02-07 11:51:25
  * @version ：2018 Version：1.0
-
+ * @create ：2018-02-07 11:51:25
  */
 public interface ShiroService {
 	String PART_DIVIDER_TOKEN = ":";
@@ -28,5 +27,5 @@ public interface ShiroService {
 
 	SysUser findUserByUserName(String username);
 
-
+	SysUser login(String username, String password, boolean rememberMe);
 }

@@ -8,11 +8,16 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.loeo.base.shiro.ShiroContextUtils;
 import com.loeo.admin.domain.entity.SysPrivilege;
 import com.loeo.admin.domain.entity.SysResource;
 import com.loeo.admin.domain.entity.SysRole;
@@ -21,6 +26,8 @@ import com.loeo.admin.service.ShiroService;
 import com.loeo.admin.service.SysPrivilegeService;
 import com.loeo.admin.service.SysResourceService;
 import com.loeo.admin.service.SysUserService;
+import com.loeo.base.exception.LoginFailedException;
+import com.loeo.base.shiro.ShiroContextUtils;
 
 
 /**
@@ -67,11 +74,27 @@ public class ShiroServiceImpl implements ShiroService {
 	@Override
 	public Set<String> findRolesByUserId(Serializable id) {
 		List<SysRole> sysRoleList = sysUserService.findRolesById(ShiroContextUtils.getCurUser().getId());
-		return sysRoleList.stream().map(sysRole -> sysRole.getId().toString()).collect(Collectors.toSet());
+		return sysRoleList.stream().map(SysRole::getId).collect(Collectors.toSet());
 	}
 
 	@Override
 	public SysUser findUserByUserName(String username) {
 		return sysUserService.findByUserName(username);
+	}
+
+	@Override
+	public SysUser login(String username, String password, boolean rememberMe) {
+		try {
+			UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, password);
+			usernamePasswordToken.setRememberMe(rememberMe);
+			SecurityUtils.getSubject().login(usernamePasswordToken);
+			return ShiroContextUtils.getCurUser();
+		} catch (UnknownAccountException | IncorrectCredentialsException uae) {
+			throw new LoginFailedException("用户名或密码错误");
+		} catch (LockedAccountException lae) {
+			throw new LoginFailedException("用户名被锁定");
+		} catch (AuthenticationException ae) {
+			throw new LoginFailedException("认证失败");
+		}
 	}
 }

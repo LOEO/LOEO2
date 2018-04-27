@@ -1,11 +1,7 @@
 package com.loeo.admin.web;
 
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.LockedAccountException;
-import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.authc.UsernamePasswordToken;
+import javax.annotation.Resource;
+
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,19 +10,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.loeo.base.Result;
 import com.loeo.admin.domain.dto.LoginDto;
+import com.loeo.admin.domain.entity.SysUser;
+import com.loeo.admin.service.ShiroService;
+import com.loeo.base.Result;
 import com.loeo.base.shiro.ShiroContextUtils;
 
 /**
  * @author ：Tony.L(286269159@qq.com)
- * @create ：2017/06/14 0:58
  * @version ：2018 Version：1.0
+ * @create ：2017/06/14 0:58
  */
 @RestController
 @RequestMapping("/api")
 @SessionAttributes("user")
 public class LoginController {
+	@Resource
+	private ShiroService shiroService;
+
 	@GetMapping
 	public String page() {
 		return "login";
@@ -34,30 +35,14 @@ public class LoginController {
 
 	@PostMapping("/login")
 	public Result doLogin(@RequestBody LoginDto loginDto, ModelMap modelMap) {
-		try {
-			UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(loginDto.getUsername(), loginDto.getPassword());
-			usernamePasswordToken.setRememberMe(loginDto.isRememberMe());
-			SecurityUtils.getSubject().login(usernamePasswordToken);
-			modelMap.put("user", ShiroContextUtils.getCurUser());
-			return Result.success(ShiroContextUtils.getCurUser());
-		} catch (UnknownAccountException | IncorrectCredentialsException uae) {
-			return Result.failed("用户名或密码错误");
-		} catch (LockedAccountException lae) {
-			//账号锁住了，不能登入。给个提示?
-			return Result.failed("用户名被锁定");
-		} catch (AuthenticationException ae) {
-			//未考虑到的问题 - 错误?
-			return Result.failed("用户名或密码错误");
-		}
-
+		SysUser sysUser = shiroService.login(loginDto.getUsername(), loginDto.getPassword(), loginDto.isRememberMe());
+		modelMap.put("user", sysUser);
+		return Result.success(sysUser);
 	}
-
 
 	@GetMapping("/users")
 	public Result getUserInfo() {
 		return Result.success(ShiroContextUtils.getCurUser());
 	}
-
-
 
 }
