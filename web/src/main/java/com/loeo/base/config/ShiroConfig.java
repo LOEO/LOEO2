@@ -71,6 +71,8 @@ public class ShiroConfig implements ApplicationRunner, ApplicationListener<Resou
 		LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
 		filterChainDefinitionMap.put("/login", "anon");
 		filterChainDefinitionMap.put("/logout", "logout");
+		filterChainDefinitionMap.put("/hello/**", "anon");
+		filterChainDefinitionMap.put("/webSocket", "anon");
 		filterChainDefinitionMap.put("/api/login", "anon");
 		filterChainDefinitionMap.put("/resources/**", "anon");
 		filterChainDefinitionMap.put("/actuator/**", "anon");

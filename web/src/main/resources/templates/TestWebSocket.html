@@ -1,0 +1,84 @@
+<html>
+
+<head>
+	<script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
+	<script src="https://cdn.bootcss.com/stomp.js/2.3.3/stomp.js"></script>
+</head>
+
+<body>
+<button id="ws">发送</button>
+<div id="ret"></div>
+<script>
+	/* var ws = new WebSocket("ws://localhost:8080/test");
+
+			ws.onopen = function(evt) {
+				console.log("Connection open ...");
+				ws.send("Hello WebSockets!");
+			};
+
+			ws.onmessage = function(evt) {
+				console.log("Received Message: " + evt.data);
+			};
+
+			ws.onclose = function(evt) {
+				console.log("Connection closed.");
+			};
+
+			function connect() {
+				var socket = new SockJS("ws://localhost:8080/hello/test");
+				stompClient = Stomp.over(socket);
+				stompClient.connect({}, function(frame) {
+					console.log('Connected: ' + frame);
+
+				});
+			}
+
+			connect();*/
+	var socket = new SockJS('/hello');
+
+	/**
+	 * 建立成功的回调函数
+	 */
+	socket.onopen = function () {
+		console.log('open');
+	};
+
+	/**
+	 * 服务器有消息返回的回调函数
+	 */
+	socket.onmessage = function (e) {
+		console.log('message', e.data);
+	};
+
+	/**
+	 * websocket链接关闭的回调函数
+	 */
+	socket.onclose = function () {
+		console.log('close');
+	};
+
+	var stompClient = Stomp.over(socket);
+	var retDom = document.querySelector("#ret");
+	var connectAndSubscribe = function (client) {
+		client.connect({}, function (frame) {
+			client.subscribe('/topic', function (data) { //订阅消息
+				debugger;
+				retDom.innerHTML += ('<div>' + data.body + '</div>');
+			});
+			client.subscribe('/topic/swipingcard', function (data) { //订阅消息
+				retDom.innerHTML += ('<div>' + data.body + '</div>');
+			});
+		});
+	};
+	connectAndSubscribe(stompClient);
+	document.getElementById("ws").onclick = function () {
+		stompClient.send("/app/test", {}, JSON.stringify({
+			name: "nane",
+			taskName: "taskName",
+			taskDetail: "taskDetail"
+		}));
+	}
+</script>
+</body>
+
+</html>
