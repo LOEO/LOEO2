@@ -47,6 +47,7 @@ public class LoeoMateObjectHandler extends MetaObjectHandler {
         try {
             curUserId = ShiroContextUtils.getCurUserId();
         } catch (Exception e) {
+            //在没有登录的情况下调用ShiroContextUtils.getCurUserId()会发生异常，例如任务调度执行的sql
             curUserId = "auto";
         }
         return curUserId;
