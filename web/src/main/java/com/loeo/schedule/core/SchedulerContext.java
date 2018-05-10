@@ -30,17 +30,19 @@ import com.loeo.schedule.core.jobloader.JobLoader;
  * @version ：2017 Version：1.0
 
  */
-@Component
 public class SchedulerContext implements ApplicationListener<ApplicationReadyEvent> {
 	private static final Logger logger = LoggerFactory.getLogger(SchedulerContext.class);
 	private SchedulerFactory schedulerFactory = new StdSchedulerFactory();
 	private Scheduler scheduler;
-	@Value("${app.schedule.enable:#{false}}")
 	private boolean enable;
-	@Resource
 	private JobLoader jobLoader;
-	@Resource
 	private JobListener jobListener;
+
+	public SchedulerContext(boolean enable, JobLoader jobLoader, JobListener jobListener) {
+		this.enable = enable;
+		this.jobLoader = jobLoader;
+		this.jobListener = jobListener;
+	}
 
 	public void init() throws SchedulerException {
 		scheduler = schedulerFactory.getScheduler();

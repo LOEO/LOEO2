@@ -1,5 +1,8 @@
 package com.loeo.base.config;
 
+import javax.annotation.Resource;
+
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -12,6 +15,8 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
 
 import com.loeo.MyHandler;
+import com.loeo.base.config.properties.WebSocketProperties;
+
 
 /**
  * 功能：
@@ -22,15 +27,11 @@ import com.loeo.MyHandler;
  */
 @Configuration
 @EnableWebSocketMessageBroker
+@EnableConfigurationProperties(WebSocketProperties.class)
 public class WebSocketConfig implements WebSocketConfigurer, WebSocketMessageBrokerConfigurer {
 
-	/*@Bean
-	public ServletServerContainerFactoryBean createWebSocketContainer() {
-		ServletServerContainerFactoryBean container = new ServletServerContainerFactoryBean();
-		container.setMaxTextMessageBufferSize(8192);
-		container.setMaxBinaryMessageBufferSize(8192);
-		return container;
-	}*/
+	@Resource
+	private WebSocketProperties webSocketProperties;
 
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
@@ -45,13 +46,13 @@ public class WebSocketConfig implements WebSocketConfigurer, WebSocketMessageBro
 
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry registry) {
-		registry.setApplicationDestinationPrefixes("/app");
-		registry.enableSimpleBroker("/topic", "/queue");
+		registry.setApplicationDestinationPrefixes(webSocketProperties.getDestPrefix());
+		registry.enableSimpleBroker(webSocketProperties.getTopics().getSwipingCard());
 	}
 
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
-		registry.addEndpoint("/hello").withSockJS();
+		registry.addEndpoint(webSocketProperties.getStompEndpoint()).withSockJS();
 	}
 
 }
