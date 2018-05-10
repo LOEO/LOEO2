@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.loeo.base.service.BaseServiceImpl;
 import com.loeo.schedule.core.JobWrapper;
@@ -29,6 +30,7 @@ public class ScheduleLogServiceImpl extends BaseServiceImpl<ScheduleLogMapper,Sc
 	private ScheduleLogMapper scheduleLogMapper;
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public JobLogger logStart(JobWrapper jobWrapper) {
 		ScheduleJob scheduleJob = (ScheduleJob) jobWrapper.getJobData();
 		ScheduleTrigger scheduleTrigger = (ScheduleTrigger) jobWrapper.getCurrentTriggerData();
@@ -46,6 +48,7 @@ public class ScheduleLogServiceImpl extends BaseServiceImpl<ScheduleLogMapper,Sc
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void logEnd(JobLogger jobLogger, JobWrapper jobWrapper, String errMsg) {
 		ScheduleLog scheduleLog = new ScheduleLog();
 		scheduleLog.setId(jobLogger.getId());

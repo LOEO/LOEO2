@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.loeo.base.service.BaseServiceImpl;
 import com.loeo.schedule.JobWrapperImpl;
@@ -38,6 +39,7 @@ public class ScheduleJobDependServiceImpl extends BaseServiceImpl<ScheduleJobDep
 	private JobExecutingInfoFactory jobExecutingInfoFactory;
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void clearActualJobResult(JobWrapper jobWrapper) {
 		ScheduleJob scheduleJob = (ScheduleJob) jobWrapper.getJobData();
 		scheduleJobDependMapper.clearActualResultByDependJobId(scheduleJob.getId());
@@ -73,12 +75,14 @@ public class ScheduleJobDependServiceImpl extends BaseServiceImpl<ScheduleJobDep
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void setDependActualResult(JobWrapper jobWrapper, Object result) {
 		ScheduleJob scheduleJob = (ScheduleJob) jobWrapper.getJobData();
 		scheduleJobDependMapper.updateActualResultByDependJobId(scheduleJob.getId(), result);
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void add(ScheduleJobDepend scheduleJobDepend) {
 		ScheduleJobDepend sjd = scheduleJobDependMapper.findByJobIdAndDependJobId(scheduleJobDepend.getJobId(), scheduleJobDepend.getDependJobId());
 		if (sjd != null) {
@@ -101,6 +105,7 @@ public class ScheduleJobDependServiceImpl extends BaseServiceImpl<ScheduleJobDep
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void delete(ScheduleJobDepend scheduleJobDepend) {
 		scheduleJobDependMapper.deleteByJobIdAndDependJobId(scheduleJobDepend.getJobId(), scheduleJobDepend.getDependJobId());
 	}
@@ -111,11 +116,13 @@ public class ScheduleJobDependServiceImpl extends BaseServiceImpl<ScheduleJobDep
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void batchAdd(List<ScheduleJobDepend> scheduleJobDepends) {
 		scheduleJobDependMapper.batchAdd(scheduleJobDepends);
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void deleteByDependJobId(String scheduleJobId) {
 		scheduleJobDependMapper.deleteByDependJobId(scheduleJobId);
 	}

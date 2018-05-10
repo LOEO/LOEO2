@@ -4,6 +4,7 @@ package com.loeo.schedule.service.impl;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.loeo.base.service.BaseServiceImpl;
 import com.loeo.schedule.domain.entity.ScheduleJobInner;
@@ -25,6 +26,7 @@ public class ScheduleJobInnerServiceImpl extends BaseServiceImpl<ScheduleJobInne
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void deleteByJobId(String id) {
 		scheduleJobInnerMapper.deleteByJobId(id);
 	}

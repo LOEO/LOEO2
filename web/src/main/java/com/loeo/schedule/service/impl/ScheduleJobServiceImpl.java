@@ -70,7 +70,7 @@ public class ScheduleJobServiceImpl extends BaseServiceImpl<ScheduleJobMapper, S
 		scheduleJobInnerService.insert(scheduleJobInner);
 	}
 
-
+	@Transactional(rollbackFor = Exception.class)
 	public int deleteById(String id) {
 		ScheduleJob scheduleJob = this.scheduleJobMapper.findById(id);
 		if (scheduleJob != null) {
@@ -118,6 +118,7 @@ public class ScheduleJobServiceImpl extends BaseServiceImpl<ScheduleJobMapper, S
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void bindTriggers(String scheduleJobId, String[] triggerIds) {
 		ScheduleJob scheduleJob = selectById(scheduleJobId);
 		if (scheduleJob == null) {
@@ -154,6 +155,7 @@ public class ScheduleJobServiceImpl extends BaseServiceImpl<ScheduleJobMapper, S
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void setDepends(String scheduleJobId, List<ScheduleJobDepend> scheduleJobDepends) {
 		ScheduleJob scheduleJob = selectById(scheduleJobId);
 		if (scheduleJob == null) {

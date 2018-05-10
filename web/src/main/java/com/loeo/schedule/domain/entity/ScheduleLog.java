@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.loeo.schedule.core.log.JobLogger;
 
@@ -20,6 +21,7 @@ public class ScheduleLog extends Model<ScheduleLog> implements JobLogger {
 	private String id;
 	private String jobId;
 	private String triggerId;
+	@TableField("is_success")
 	private Boolean success;
 	private String descr;
 	private Date started;

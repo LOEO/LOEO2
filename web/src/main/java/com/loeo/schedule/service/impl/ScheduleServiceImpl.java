@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.loeo.base.service.BaseServiceImpl;
 import com.loeo.schedule.domain.entity.Schedule;
@@ -26,6 +27,7 @@ public class ScheduleServiceImpl extends BaseServiceImpl<ScheduleMapper,Schedule
 	@Resource
 	private ScheduleMapper scheduleMapper;
 
+	@Transactional(rollbackFor = Exception.class)
 	public int deleteById(String id) {
 		List<ScheduleJob> scheduleJobList = scheduleJobService.findByScheduleId(id);
 		for (ScheduleJob scheduleJob : scheduleJobList) {

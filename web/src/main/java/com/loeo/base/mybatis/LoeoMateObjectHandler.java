@@ -27,7 +27,8 @@ public class LoeoMateObjectHandler extends MetaObjectHandler {
         if (StringUtils.isEmpty(getFieldValByName("id",metaObject))) {
             setFieldValByName("id", getIdGenerateFactory().nextStringId(), metaObject);
         }
-        String curUserId = ShiroContextUtils.getCurUserId();
+        String curUserId = getCurUserId();
+
         Date now = DateUtils.now();
         setFieldValByName("creator", curUserId, metaObject);
         setFieldValByName("created", now, metaObject);
@@ -35,11 +36,20 @@ public class LoeoMateObjectHandler extends MetaObjectHandler {
         setFieldValByName("updated", now, metaObject);
     }
 
-
     @Override
     public void updateFill(MetaObject metaObject) {
-        setFieldValByName("updater", ShiroContextUtils.getCurUserId(), metaObject);
+        setFieldValByName("updater", getCurUserId(), metaObject);
         setFieldValByName("updated", DateUtils.now(), metaObject);
+    }
+
+    private String getCurUserId() {
+        String curUserId;
+        try {
+            curUserId = ShiroContextUtils.getCurUserId();
+        } catch (Exception e) {
+            curUserId = "auto";
+        }
+        return curUserId;
     }
 
     private IdGenerateFactory getIdGenerateFactory() {

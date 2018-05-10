@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 
 import org.quartz.SchedulerException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.loeo.base.service.BaseServiceImpl;
 import com.loeo.schedule.JobWrapperImpl;
@@ -42,11 +43,13 @@ public class ScheduleTriggerJobServiceImpl extends BaseServiceImpl<ScheduleTrigg
 	private SchedulerContext schedulerContext;
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void deleteByJobId(String id) {
 		scheduleTriggerJobMapper.deleteByJobId(id);
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void add(ScheduleTriggerJob triggerJob) {
 		ScheduleTriggerJob scheduleTriggerJob = scheduleTriggerJobMapper.findByTriggerAndJobId(triggerJob.getTriggerId(),triggerJob.getJobId());
 		if (scheduleTriggerJob != null) {
@@ -74,6 +77,7 @@ public class ScheduleTriggerJobServiceImpl extends BaseServiceImpl<ScheduleTrigg
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void delete(ScheduleTriggerJob triggerJob) {
 		ScheduleTriggerJob scheduleTriggerJob = scheduleTriggerJobMapper.findByTriggerAndJobId(triggerJob.getTriggerId(),triggerJob.getJobId());
 		if (scheduleTriggerJob == null) {
@@ -98,6 +102,7 @@ public class ScheduleTriggerJobServiceImpl extends BaseServiceImpl<ScheduleTrigg
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void batchInsert(List<ScheduleTriggerJob> scheduleTriggerJobs) {
 		scheduleTriggerJobMapper.batchInsert(scheduleTriggerJobs);
 	}

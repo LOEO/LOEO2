@@ -7,7 +7,7 @@
 		<result column="class_name" property="className" jdbcType="VARCHAR"/>
 	</resultMap>
 	<sql id="columns">
-		id,job_id, class_name
+		job_id, class_name
 	</sql>
 
 

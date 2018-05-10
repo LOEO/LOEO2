@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 
 /**
@@ -23,6 +24,7 @@ public class ScheduleJob extends Model<ScheduleJob> {
 	private String name;
 	private String parent;
 	private Integer type;
+	@TableField("is_enabled")
 	private Boolean enabled;
 	private String data;
 	private String creator;

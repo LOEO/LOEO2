@@ -4,6 +4,8 @@ package com.loeo.schedule.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.loeo.schedule.domain.entity.ScheduleJobDepend;
 
@@ -17,11 +19,11 @@ public interface ScheduleJobDependMapper extends BaseMapper<ScheduleJobDepend> {
 
 	void clearActualResultByDependJobId(String dependJobId);
 
-	void updateActualResultByDependJobId(String dependJobId, Object result);
+	void updateActualResultByDependJobId(@Param("dependJobId") String dependJobId, @Param("actualResult") Object actualResult);
 
-	ScheduleJobDepend findByJobIdAndDependJobId(String jobId, String dependJobId);
+	ScheduleJobDepend findByJobIdAndDependJobId(@Param("jobId") String jobId, @Param("dependJobId") String dependJobId);
 
-	void deleteByJobIdAndDependJobId(String jobId, String dependJobId);
+	void deleteByJobIdAndDependJobId(@Param("jobId") String jobId, @Param("dependJobId") String dependJobId);
 
 	boolean hasDependByJobId(String jobId);
 
