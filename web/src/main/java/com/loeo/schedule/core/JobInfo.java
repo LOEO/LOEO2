@@ -8,7 +8,7 @@ package com.loeo.schedule.core;
  * @version ：2017 Version：1.0
 
  */
-public interface JobData {
+public interface JobInfo {
 
 	/**
 	 * 获取当前的Trigger数据

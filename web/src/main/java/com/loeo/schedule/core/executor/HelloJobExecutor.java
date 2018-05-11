@@ -1,6 +1,6 @@
 package com.loeo.schedule.core.executor;
 
-import com.loeo.schedule.core.JobData;
+import com.loeo.schedule.core.JobInfo;
 import com.loeo.schedule.domain.entity.ScheduleJob;
 import com.loeo.schedule.domain.entity.ScheduleTrigger;
 
@@ -15,9 +15,9 @@ import com.loeo.schedule.domain.entity.ScheduleTrigger;
 public class HelloJobExecutor implements JobExecutor {
 
 	@Override
-	public String execute(JobData jobData) {
-		ScheduleJob scheduleJob = (ScheduleJob) jobData.getJobData();
-		ScheduleTrigger scheduleTrigger = (ScheduleTrigger) jobData.getCurrentTriggerData();
+	public String execute(JobInfo jobInfo) {
+		ScheduleJob scheduleJob = (ScheduleJob) jobInfo.getJobData();
+		ScheduleTrigger scheduleTrigger = (ScheduleTrigger) jobInfo.getCurrentTriggerData();
 		System.out.println("===========================执行任务："+scheduleJob.getName()+"===========================");
 		return "Hello JobExecutor";
 	}

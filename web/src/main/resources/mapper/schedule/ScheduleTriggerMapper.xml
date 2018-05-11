@@ -5,6 +5,7 @@
 		<id column="id" property="id" jdbcType="CHAR"/>
 		<result column="name" property="name" jdbcType="VARCHAR"/>
 		<result column="priority" property="priority" jdbcType="INTEGER"/>
+		<result column="start_time" property="startTime" jdbcType="INTEGER"/>
 		<result column="cron" property="cron" jdbcType="VARCHAR"/>
 		<result column="creator" property="creator" jdbcType="CHAR"/>
 		<result column="created" property="created" jdbcType="TIMESTAMP"/>

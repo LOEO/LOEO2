@@ -4,29 +4,31 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 
 /**
  * 功能：schedule_trigger 实体类
  *
  * @author ：Tony.L(286269159@qq.com)
- * @created：2017-11-17 03:11 
  * @version ：2017 Version：1.0
-
- */ 
+ * @created：2017-11-17 03:11
+ */
 @TableName("schedule_trigger")
 public class ScheduleTrigger extends Model<ScheduleTrigger> {
 	private String id;
 	private String name;
 	private Integer priority;
+	@TableField("start_time")
+	private Date startTime;
 	private String cron;
 	private String creator;
 	private Date created;
 	private String updater;
 	private Date updated;
 
-    public ScheduleTrigger() {  
-     }
+	public ScheduleTrigger() {
+	}
 
 	@Override
 	protected Serializable pkVal() {
@@ -41,59 +43,67 @@ public class ScheduleTrigger extends Model<ScheduleTrigger> {
 		this.id = id;
 	}
 
-	public void setName(String name){
-		this.name=name;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getName(){
+	public String getName() {
 		return name;
 	}
 
-	public void setPriority(Integer priority){
-		this.priority=priority;
+	public void setPriority(Integer priority) {
+		this.priority = priority;
 	}
 
-	public Integer getPriority(){
+	public Integer getPriority() {
 		return priority;
 	}
 
-	public void setCron(String cron){
-		this.cron=cron;
+	public Date getStartTime() {
+		return startTime;
 	}
 
-	public String getCron(){
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public void setCron(String cron) {
+		this.cron = cron;
+	}
+
+	public String getCron() {
 		return cron;
 	}
 
-	public void setCreator(String creator){
-		this.creator=creator;
+	public void setCreator(String creator) {
+		this.creator = creator;
 	}
 
-	public String getCreator(){
+	public String getCreator() {
 		return creator;
 	}
 
-	public void setCreated(Date created){
-		this.created=created;
+	public void setCreated(Date created) {
+		this.created = created;
 	}
 
-	public Date getCreated(){
+	public Date getCreated() {
 		return created;
 	}
 
-	public void setUpdater(String updater){
-		this.updater=updater;
+	public void setUpdater(String updater) {
+		this.updater = updater;
 	}
 
-	public String getUpdater(){
+	public String getUpdater() {
 		return updater;
 	}
 
-	public void setUpdated(Date updated){
-		this.updated=updated;
+	public void setUpdated(Date updated) {
+		this.updated = updated;
 	}
 
-	public Date getUpdated(){
+	public Date getUpdated() {
 		return updated;
 	}
 
@@ -111,6 +121,6 @@ public class ScheduleTrigger extends Model<ScheduleTrigger> {
 	@Override
 	public int hashCode() {
 		int result = super.hashCode();
-		return  31 * result + (id != null ? id.hashCode() : 0);
+		return 31 * result + (id != null ? id.hashCode() : 0);
 	}
 }

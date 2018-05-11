@@ -17,7 +17,7 @@ import com.loeo.schedule.core.jobs.info.JobExecutingInfo;
  * @version ：2017 Version：1.0
 
  */
-public interface JobWrapper extends JobData {
+public interface JobWrapper extends JobInfo {
 	String JOB_DATA_MAP_KEY_JOB_WRAPPER = "JOB_DATA_MAP_KEY_JOB_WRAPPER";
 
 

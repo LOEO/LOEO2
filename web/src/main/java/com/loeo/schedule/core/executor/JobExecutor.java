@@ -1,7 +1,7 @@
 package com.loeo.schedule.core.executor;
 
 
-import com.loeo.schedule.core.JobData;
+import com.loeo.schedule.core.JobInfo;
 
 /**
  * 功能：job执行器接口，外部要实现这个类才能在被执行
@@ -13,6 +13,6 @@ import com.loeo.schedule.core.JobData;
  */
 public interface JobExecutor {
 
-	Object execute(JobData jobData);
+	Object execute(JobInfo jobInfo);
 
 }

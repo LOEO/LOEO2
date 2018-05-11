@@ -77,8 +77,10 @@ public class ScheduleJobDependServiceImpl extends BaseServiceImpl<ScheduleJobDep
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public void setDependActualResult(JobWrapper jobWrapper, Object result) {
-		ScheduleJob scheduleJob = (ScheduleJob) jobWrapper.getJobData();
-		scheduleJobDependMapper.updateActualResultByDependJobId(scheduleJob.getId(), result);
+		if (result != null) {
+			ScheduleJob scheduleJob = (ScheduleJob) jobWrapper.getJobData();
+			scheduleJobDependMapper.updateActualResultByDependJobId(scheduleJob.getId(), result);
+		}
 	}
 
 	@Override
