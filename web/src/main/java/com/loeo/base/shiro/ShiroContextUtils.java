@@ -1,6 +1,7 @@
 package com.loeo.base.shiro;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationToken;
 
 import com.loeo.admin.domain.entity.SysUser;
 
@@ -16,5 +17,13 @@ public abstract class ShiroContextUtils {
 
     public static SysUser getCurUser() {
         return (SysUser) SecurityUtils.getSubject().getPrincipal();
+    }
+
+    public static void login(AuthenticationToken authenticationToken) {
+        SecurityUtils.getSubject().login(authenticationToken);
+    }
+
+    public static void logout() {
+        SecurityUtils.getSubject().logout();
     }
 }

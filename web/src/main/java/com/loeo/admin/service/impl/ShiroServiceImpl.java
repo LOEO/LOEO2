@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
@@ -87,7 +86,7 @@ public class ShiroServiceImpl implements ShiroService {
 		try {
 			UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, password);
 			usernamePasswordToken.setRememberMe(rememberMe);
-			SecurityUtils.getSubject().login(usernamePasswordToken);
+			ShiroContextUtils.login(usernamePasswordToken);
 			return ShiroContextUtils.getCurUser();
 		} catch (UnknownAccountException | IncorrectCredentialsException uae) {
 			throw new LoginFailedException("用户名或密码错误");

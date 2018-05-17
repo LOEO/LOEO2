@@ -13,6 +13,7 @@ public class Result implements Serializable {
 	private Boolean success;
 	private String msg;
 	private Object data;
+	private String currentAuthority="admin";
 
 	private Result(ResultBuilder resultBuilder) {
 		this.success = resultBuilder.success;
@@ -67,6 +68,14 @@ public class Result implements Serializable {
 
 	public void setData(Object data) {
 		this.data = data;
+	}
+
+	public String getCurrentAuthority() {
+		return currentAuthority;
+	}
+
+	public void setCurrentAuthority(String currentAuthority) {
+		this.currentAuthority = currentAuthority;
 	}
 
 	private static class ResultBuilder {
