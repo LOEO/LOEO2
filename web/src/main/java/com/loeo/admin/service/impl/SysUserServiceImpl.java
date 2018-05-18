@@ -1,6 +1,7 @@
 package com.loeo.admin.service.impl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,22 +10,23 @@ import javax.annotation.Resource;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.loeo.base.config.ShiroConfig;
-import com.loeo.base.exception.UsernameAlreadyExistException;
 import com.loeo.admin.domain.dto.SysResourceTreeNode;
 import com.loeo.admin.domain.entity.SysResource;
 import com.loeo.admin.domain.entity.SysRole;
 import com.loeo.admin.domain.entity.SysUser;
 import com.loeo.admin.domain.entity.SysUserRole;
 import com.loeo.admin.mapper.SysUserMapper;
-import com.loeo.base.service.BaseServiceImpl;
 import com.loeo.admin.service.SysPrivilegeService;
 import com.loeo.admin.service.SysRoleService;
 import com.loeo.admin.service.SysUserRoleService;
 import com.loeo.admin.service.SysUserService;
+import com.loeo.base.config.ShiroConfig;
+import com.loeo.base.exception.UsernameAlreadyExistException;
+import com.loeo.base.service.BaseServiceImpl;
 
 
 /**
@@ -73,6 +75,9 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
 	@Override
 	public List<SysRole> findRolesById(Serializable id) {
 		List<SysUserRole> sysUserRoles = sysUserRoleService.findRolesByUserId(id);
+		if (CollectionUtils.isEmpty(sysUserRoles)) {
+			return new ArrayList<>();
+		}
 		return sysRoleService.selectBatchIds(sysUserRoles.stream().map(SysUserRole::getRoleId).collect(Collectors.toList()));
 	}
 

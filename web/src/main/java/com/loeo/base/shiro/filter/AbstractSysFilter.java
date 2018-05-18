@@ -24,7 +24,7 @@ public abstract class AbstractSysFilter extends PermissionsAuthorizationFilter {
 
 	@Override
 	protected boolean pathsMatch(String path, ServletRequest request) {
-		return super.pathsMatch(path, request) || doRegexMatch(path, request);
+		return /*super.pathsMatch(path, request) ||*/ doRegexMatch(path, request);
 	}
 
 	@Override
