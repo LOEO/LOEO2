@@ -22,22 +22,22 @@
 		<result column="enable" property="enable"/>
 	</resultMap>
 	<select id="findUserMenus" resultType="com.loeo.admin.domain.entity.SysResource">
-		SELECT
-			DISTINCT re.*
+		SELECT DISTINCT re.*
 		FROM
-			sys_role r,
 			sys_user_role ur,
 			sys_resource re,
 			sys_privilege p
 		WHERE
-			ur.user_id = #{userId}
-			AND r.id = ur.role_id
-			AND (re.type = 0 or re.type = 1)
-			AND (
-				((p.`master` = 'role'
-				  AND p.master_value = r.id) OR (p.`master` = 'user' AND p.master_value = #{userId}))
-				AND p.access_value = re.id
-			)
+			(re.type = 0 OR re.type = 1)
+						   AND (((ur.user_id = #{userId}
+								  AND p.`master` = 'role'
+								  AND p.master_value = ur.role_id)
+								 OR (
+									 p.`master` = 'user'
+									 AND p.master_value = #{userId}))
+								AND p.access_value = re.id)
+		ORDER BY
+			created ASC
 	</select>
 
 </mapper>
