@@ -4,12 +4,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.loeo.base.shiro.ShiroContextUtils;
+import org.springframework.web.bind.annotation.*;
 
 import com.alibaba.fastjson.JSON;
 import com.loeo.base.Result;
@@ -34,6 +30,10 @@ public class SysUserController {
 	@Resource
 	private SysUserService sysUserService;
 
+	@GetMapping("/currentUser")
+	public Result currentUser() {
+		return Result.success(ShiroContextUtils.getCurUser());
+	}
 	@PostMapping
 	public Result add(SysUser sysUser) {
 		ValidateUtils.validate(sysUser, Add.class);

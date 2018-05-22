@@ -7,7 +7,8 @@ export default {
   namespace: 'login',
 
   state: {
-    status: undefined,
+    success: false,
+    message: '',
   },
 
   effects: {
@@ -50,8 +51,9 @@ export default {
       setAuthority(payload.currentAuthority);
       return {
         ...state,
-        status: payload.status,
-        type: payload.type,
+        success: payload.success,
+        type: 'account',
+        message: payload.msg,
       };
     },
   },

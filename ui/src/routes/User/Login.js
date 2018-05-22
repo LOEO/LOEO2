@@ -58,10 +58,10 @@ export default class LoginPage extends Component {
         >
           <Tab key="account" tab="账户密码登录">
             {
-              login.status === 'error' &&
+              login.success === false &&
               login.type === 'account' &&
               !login.submitting &&
-              this.renderMessage('账户或密码错误（admin/888888）')
+              this.renderMessage(login.message)
             }
             <UserName name="username" placeholder="admin/user" />
             <Password name="password" placeholder="888888/123456" />
