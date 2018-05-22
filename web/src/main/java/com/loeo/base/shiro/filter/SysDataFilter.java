@@ -53,8 +53,8 @@ public class SysDataFilter extends SysPermFilter {
 
 	/**
 	 * 域:正则中的group索引:角色
-	 * org:1:member
-	 *
+	 * ORG:1:MEMBER 验证当前用户是否是组织1（是从正则中匹配到的分组1的字符串）中的成员
+	 * USER:1:CREATOR 验证当前用户是否是用户1的创建者
 	 * @param matcher
 	 * @param script
 	 */

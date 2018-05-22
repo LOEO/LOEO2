@@ -69,6 +69,7 @@ class Login extends Component {
     e.preventDefault();
     const { active, type } = this.state;
     const activeFileds = active[type];
+    debugger;
     this.props.form.validateFields(activeFileds, { force: true },
       (err, values) => {
         this.props.onSubmit(err, values);

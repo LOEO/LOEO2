@@ -47,6 +47,10 @@ export default {
 
   reducers: {
     changeLoginStatus(state, { payload }) {
+      var aaa = routerRedux.push('/');
+      debugger;
+      console.log("----33333"+JSON.stringify(routerRedux.push('/')))
+      console.log(payload)
       setAuthority(payload.currentAuthority);
       return {
         ...state,

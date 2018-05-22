@@ -2,6 +2,7 @@ import Nightmare from 'nightmare';
 
 describe('Login', () => {
   let page;
+  console.log("------");
   beforeEach(() => {
     page = Nightmare();
     page
