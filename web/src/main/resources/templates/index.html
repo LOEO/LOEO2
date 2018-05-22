@@ -3,20 +3,20 @@
 <!-- Ionicons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
 <!-- jvectormap -->
-<head th:insert="~{/common/head::common_header}">
+<head th:insert="~{common/head::common_header}">
 	<!-- ADD THE CLASS sidedar-collapse TO HIDE THE SIDEBAR PRIOR TO LOADING THE SITE -->
 
 <body class="hold-transition skin-blue sidebar-expand sidebar-mini fixed">
 <!-- Site wrapper -->
 <div class="wrapper">
-	<header th:replace="~{/common/main_header::main_header}"></header>
+	<header th:replace="~{common/main_header::main_header}"></header>
 
 
 	<!-- =============================================== -->
 
 	<!-- Left side column. contains the sidebar -->
 
-	<aside th:replace="~{/common/left_menu::left_menu}"></aside>
+	<aside th:replace="~{common/left_menu::left_menu}"></aside>
 	<!-- =============================================== -->
 	<div class="content-wrapper" id="content-wrapper">
 		<ol class="breadcrumb" style="margin-bottom: 0px">
@@ -234,7 +234,7 @@
 </div>
 
 <!-- ./wrapper -->
-<div th:replace="~{/common/foot::foot}"></div>
+<div th:replace="~{common/foot::foot}"></div>
 <div th:text="${#session.getAttribute('user')}"></div>
 <script type="text/javascript" th:inline="javascript">
 	$(document).ajaxStart(function () {
