@@ -2,7 +2,9 @@ package com.loeo.base.shiro;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.util.ThreadContext;
 
+import com.loeo.admin.domain.entity.SysResource;
 import com.loeo.admin.domain.entity.SysUser;
 
 /**
@@ -11,6 +13,7 @@ import com.loeo.admin.domain.entity.SysUser;
  * @version ：2018 Version：1.0
  */
 public abstract class ShiroContextUtils {
+    private static final String CUR_SYS_RESOURCE_KEY = "CUR_SYS_RESOURCE_KEY";
     public static String getCurUserId() {
         return getCurUser().getId();
     }
@@ -25,5 +28,29 @@ public abstract class ShiroContextUtils {
 
     public static void logout() {
         SecurityUtils.getSubject().logout();
+    }
+
+    /**
+     * 设置当前用户访问的资源对象
+     * @return
+     */
+    public static void setCurResource(SysResource sysResource) {
+        ThreadContext.put(CUR_SYS_RESOURCE_KEY, sysResource);
+    }
+
+    /**
+     * 获取当前用户访问的资源对象
+     * @return
+     */
+    public static SysResource getCurResource() {
+        return (SysResource) ThreadContext.get(CUR_SYS_RESOURCE_KEY);
+    }
+
+    /**
+     * 获取当前用户访问的资源对象
+     * @return
+     */
+    public static void removeCurResource() {
+        ThreadContext.remove(CUR_SYS_RESOURCE_KEY);
     }
 }

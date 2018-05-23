@@ -18,9 +18,10 @@ import org.apache.shiro.util.ThreadContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.loeo.base.event.ResourceUpdateEvent;
 import com.loeo.admin.domain.entity.SysResource;
 import com.loeo.admin.service.ShiroService;
+import com.loeo.base.event.ResourceUpdateEvent;
+import com.loeo.base.shiro.ShiroContextUtils;
 import com.loeo.utils.ApplicationContextUtils;
 
 /**
@@ -33,7 +34,6 @@ import com.loeo.utils.ApplicationContextUtils;
  */
 public class SysPermFilter extends AbstractSysFilter {
 	private static final Logger logger = LoggerFactory.getLogger(SysPermFilter.class);
-	private static final String CUR_SYS_RESOURCE_KEY = "CUR_SYS_RESOURCE_KEY";
 	private static final String CUR_MATCHER_KEY = "CUR_MATCHER_KEY";
 	private Map<String, Pattern> pathPatternMap = new HashMap<>();
 	private Map<String, SysResource> resourceMap = new HashMap<>();
@@ -53,7 +53,7 @@ public class SysPermFilter extends AbstractSysFilter {
 		Matcher matcher = pattern.matcher(requestURI);
 		if (match(method, requestMethod, matcher)) {
 			ThreadContext.put(CUR_MATCHER_KEY, matcher);
-			ThreadContext.put(CUR_SYS_RESOURCE_KEY, resourceMap.get(path));
+			ShiroContextUtils.setCurResource(resourceMap.get(path));
 			return true;
 		} else {
 			return false;
@@ -69,7 +69,7 @@ public class SysPermFilter extends AbstractSysFilter {
 	public void afterCompletion(ServletRequest request, ServletResponse response, Exception exception) throws Exception {
 		super.afterCompletion(request, response, exception);
 		ThreadContext.remove(CUR_MATCHER_KEY);
-		ThreadContext.remove(CUR_SYS_RESOURCE_KEY);
+		ShiroContextUtils.removeCurResource();
 	}
 //USER:1:CREATOR
 	@Override
@@ -178,7 +178,7 @@ public class SysPermFilter extends AbstractSysFilter {
 	}
 
 	protected SysResource getCurSysResource() {
-		return (SysResource) ThreadContext.get(CUR_SYS_RESOURCE_KEY);
+		return ShiroContextUtils.getCurResource();
 	}
 
 }
