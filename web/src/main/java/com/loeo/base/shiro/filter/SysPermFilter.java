@@ -13,6 +13,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.StringUtils;
 import org.apache.shiro.util.ThreadContext;
 import org.slf4j.Logger;
@@ -28,15 +30,15 @@ import com.loeo.utils.ApplicationContextUtils;
  * 功能：
  *
  * @author ：Tony.L(286269159@qq.com)
- * @create ：2018-02-25 10:36:52
  * @version ：2018 Version：1.0
-
+ * @create ：2018-02-25 10:36:52
  */
 public class SysPermFilter extends AbstractSysFilter {
 	private static final Logger logger = LoggerFactory.getLogger(SysPermFilter.class);
 	private static final String CUR_MATCHER_KEY = "CUR_MATCHER_KEY";
 	private Map<String, Pattern> pathPatternMap = new HashMap<>();
 	private Map<String, SysResource> resourceMap = new HashMap<>();
+	private String loginApi;
 
 	@Override
 	protected boolean doRegexMatch(String path, ServletRequest request) {
@@ -62,7 +64,12 @@ public class SysPermFilter extends AbstractSysFilter {
 
 	@Override
 	public boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) throws IOException {
-		return super.isAccessAllowed(request, response, mappedValue);
+		return isLogined() && super.isAccessAllowed(request, response, mappedValue);
+	}
+
+	@Override
+	protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws IOException {
+		return isLoginRequest(request) || super.onAccessDenied(request, response);
 	}
 
 	@Override
@@ -71,7 +78,19 @@ public class SysPermFilter extends AbstractSysFilter {
 		ThreadContext.remove(CUR_MATCHER_KEY);
 		ShiroContextUtils.removeCurResource();
 	}
-//USER:1:CREATOR
+
+	private boolean isLoginRequest(ServletRequest request) {
+		if (StringUtils.hasText(loginApi)) {
+			return doRegexMatch(loginApi, request);
+		}
+		return false;
+	}
+
+	private boolean isLogined() {
+		Subject subject = SecurityUtils.getSubject();
+		return subject.getPrincipal() != null;
+	}
+
 	@Override
 	public void init() {
 		logger.info("开始初始化系统权限...");
@@ -179,6 +198,10 @@ public class SysPermFilter extends AbstractSysFilter {
 
 	protected SysResource getCurSysResource() {
 		return ShiroContextUtils.getCurResource();
+	}
+
+	public void setLoginApi(String loginApi) {
+		this.loginApi = loginApi;
 	}
 
 }

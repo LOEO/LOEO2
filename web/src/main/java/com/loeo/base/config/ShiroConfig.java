@@ -16,6 +16,7 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.ApplicationListener;
@@ -30,8 +31,8 @@ import com.loeo.base.shiro.filter.SysPermFilter;
 
 /**
  * @author ：Tony.L(286269159@qq.com)
- * @create ：2017/05/31 22:44
  * @version ：2018 Version：1.0
+ * @create ：2017/05/31 22:44
  */
 @Configuration
 public class ShiroConfig implements ApplicationRunner, ApplicationListener<ResourceUpdateEvent> {
@@ -40,8 +41,8 @@ public class ShiroConfig implements ApplicationRunner, ApplicationListener<Resou
 	private final SysPermFilter sysPermFilter = new SysDataFilter();
 
 	@Bean
-	public Realm realm(CredentialsMatcher credentialsMatcher) {
-		AuthorizingRealm realm = new LoeoRealm();
+	public Realm realm(CredentialsMatcher credentialsMatcher, @Value("${app.admin-id}") String adminId) {
+		AuthorizingRealm realm = new LoeoRealm(adminId);
 		realm.setCredentialsMatcher(credentialsMatcher);
 		return realm;
 	}
@@ -62,7 +63,7 @@ public class ShiroConfig implements ApplicationRunner, ApplicationListener<Resou
 	 */
 	@Bean
 	@Lazy
-	public ShiroFilterFactoryBean shiroFilterFactoryBean(org.apache.shiro.mgt.SecurityManager securityManager) {
+	public ShiroFilterFactoryBean shiroFilterFactoryBean(org.apache.shiro.mgt.SecurityManager securityManager, @Value("${app.login-api}") String loginApi) {
 		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 		shiroFilterFactoryBean.setSecurityManager(securityManager);
 		shiroFilterFactoryBean.setLoginUrl("/login");
@@ -76,8 +77,9 @@ public class ShiroConfig implements ApplicationRunner, ApplicationListener<Resou
 		filterChainDefinitionMap.put("/api/login", "anon");
 		filterChainDefinitionMap.put("/resources/**", "anon");
 		filterChainDefinitionMap.put("/actuator/**", "anon");
-		filterChainDefinitionMap.put("/**", "user,sysPerm");
+		filterChainDefinitionMap.put("/**", "sysPerm");
 		Map<String, Filter> filters = new LinkedHashMap<>();
+		sysPermFilter.setLoginApi(loginApi);
 		filters.put("sysPerm", sysPermFilter);
 		shiroFilterFactoryBean.setFilters(filters);
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);

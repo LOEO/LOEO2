@@ -8,21 +8,21 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpInputMessage;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdvice;
 
-import com.alibaba.fastjson.JSON;
-import com.loeo.admin.domain.entity.SysLog;
 import com.loeo.admin.domain.entity.SysResource;
 import com.loeo.admin.service.SysLogService;
 import com.loeo.base.shiro.ShiroContextUtils;
 
 
 /**
- * 功能：
+ * 功能：记录系统日志
  *
  * @author ：Tony.L(286269159@qq.com)
  * @version ：2018 Version：1.0
@@ -32,6 +32,14 @@ import com.loeo.base.shiro.ShiroContextUtils;
 public class SysLogAdvice implements RequestBodyAdvice {
 	@Resource
 	private SysLogService sysLogService;
+
+	@ModelAttribute
+	public void logGetRequest() {
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		if (HttpMethod.GET.toString().equals(request.getMethod())) {
+			log(request, null);
+		}
+	}
 
 	@Override
 	public boolean supports(MethodParameter methodParameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
@@ -45,21 +53,18 @@ public class SysLogAdvice implements RequestBodyAdvice {
 
 	@Override
 	public Object afterBodyRead(Object body, HttpInputMessage inputMessage, MethodParameter parameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
-		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
-		SysResource curResource = ShiroContextUtils.getCurResource();
-		if (curResource != null) {
-			SysLog sysLog = new SysLog();
-			sysLog.setAction(curResource.getName());
-			sysLog.setUrl(request.getRequestURI());
-			sysLog.setMethod(request.getMethod());
-			sysLog.setParams(JSON.toJSONString(body));
-			sysLogService.insert(sysLog);
-		}
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		log(request, body);
 		return body;
 	}
 
 	@Override
 	public Object handleEmptyBody(Object body, HttpInputMessage inputMessage, MethodParameter parameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
 		return body;
+	}
+
+	private void log(HttpServletRequest request, Object body) {
+		SysResource curResource = ShiroContextUtils.getCurResource();
+		sysLogService.log(request, curResource, body);
 	}
 }

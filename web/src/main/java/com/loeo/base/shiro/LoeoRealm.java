@@ -13,6 +13,7 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.SimpleByteSource;
+import org.springframework.util.StringUtils;
 
 import com.loeo.admin.domain.entity.SysUser;
 import com.loeo.admin.service.ShiroService;
@@ -27,13 +28,21 @@ public class LoeoRealm extends AuthorizingRealm {
 	 * 此处没有用注入的方式，因为Realm初始化比事务初始化靠前，这里使用注入，会使提前使用的类的事务失效
 	 */
 	private ShiroService shiroService;
+	private String adminId;
+
+	public LoeoRealm() {
+	}
+
+	public LoeoRealm(String adminId) {
+		this.adminId = adminId;
+	}
 
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
 		//获取权限信息
 		Set<String> roleSet = getShiroService().findRolesByUserId(ShiroContextUtils.getCurUser().getId());
 		SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo(roleSet);
-		if ("1".equals(ShiroContextUtils.getCurUserId())) {
+		if (!StringUtils.isEmpty(adminId) && adminId.equals(ShiroContextUtils.getCurUserId())) {
 			Set<String> permissions = new HashSet<>();
 			permissions.add("*");
 			simpleAuthorizationInfo.setStringPermissions(permissions);
