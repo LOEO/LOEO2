@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
 import com.loeo.admin.domain.dto.LoginDto;
@@ -30,6 +31,7 @@ public class SysLogServiceImpl extends BaseServiceImpl<SysLogMapper, SysLog> imp
 	private AppProperties appProperties;
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void log(HttpServletRequest request, SysResource currentResource, Object param) {
 		if (currentResource != null) {
 			SysLog sysLog = new SysLog();

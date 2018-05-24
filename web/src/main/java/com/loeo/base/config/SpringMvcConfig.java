@@ -1,8 +1,12 @@
 package com.loeo.base.config;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import javax.annotation.Resource;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import com.loeo.admin.web.SysLogAdvice;
 
 /**
  * 功能：
@@ -12,10 +16,12 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
  * @version ：2018 Version：1.0
 
  */
-//@Configuration
-public class SpringMvcConfig {
-	@Bean
-	public ViewResolver viewResolver() {
-		return new InternalResourceViewResolver("/", ".jsp");
+@Configuration
+public class SpringMvcConfig implements WebMvcConfigurer {
+	@Resource
+	private SysLogAdvice sysLogAdvice;
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(sysLogAdvice).addPathPatterns("/api/**");
 	}
 }

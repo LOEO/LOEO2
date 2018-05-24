@@ -13,8 +13,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.StringUtils;
 import org.apache.shiro.util.ThreadContext;
 import org.slf4j.Logger;
@@ -64,7 +62,7 @@ public class SysPermFilter extends AbstractSysFilter {
 
 	@Override
 	public boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) throws IOException {
-		return isLogined() && super.isAccessAllowed(request, response, mappedValue);
+		return super.isAccessAllowed(request, response, mappedValue);
 	}
 
 	@Override
@@ -84,11 +82,6 @@ public class SysPermFilter extends AbstractSysFilter {
 			return doRegexMatch(loginApi, request);
 		}
 		return false;
-	}
-
-	private boolean isLogined() {
-		Subject subject = SecurityUtils.getSubject();
-		return subject.getPrincipal() != null;
 	}
 
 	@Override
