@@ -11,9 +11,10 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.loeo.admin.domain.dto.SysResourceTreeNode;
 import com.loeo.admin.domain.entity.SysRole;
 import com.loeo.admin.mapper.SysRoleMapper;
-import com.loeo.base.service.BaseServiceImpl;
 import com.loeo.admin.service.SysPrivilegeService;
 import com.loeo.admin.service.SysRoleService;
+import com.loeo.base.exception.NotAllowedOperationException;
+import com.loeo.base.service.BaseServiceImpl;
 
 
 /**
@@ -51,4 +52,11 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleMapper, SysRole> 
 		return sysRoleMapper.getUserNotHasRoles(userId);
 	}
 
+	@Override
+	public boolean deleteById(Serializable id) {
+		if (privilegeService.isExistByMasterAndMasterValue("role", id)) {
+			throw new NotAllowedOperationException("资源已经被使用，不能删除");
+		}
+		return super.deleteById(id);
+	}
 }

@@ -17,10 +17,12 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.loeo.admin.domain.dto.SysResourceTreeNode;
 import com.loeo.admin.domain.entity.SysResource;
 import com.loeo.admin.mapper.SysResourceMapper;
+import com.loeo.admin.service.SysPrivilegeService;
 import com.loeo.admin.service.SysResourceService;
 import com.loeo.base.event.ResourceUpdateEvent;
 import com.loeo.base.event.ResourceUpdateEvent.Action;
 import com.loeo.base.exception.IsNotLeafNodeCanNotDelete;
+import com.loeo.base.exception.NotAllowedOperationException;
 import com.loeo.base.service.BaseServiceImpl;
 
 
@@ -36,6 +38,9 @@ import com.loeo.base.service.BaseServiceImpl;
 public class SysResourceServiceImpl extends BaseServiceImpl<SysResourceMapper, SysResource> implements SysResourceService, ApplicationEventPublisherAware {
 	@Resource
 	private SysResourceMapper resourceMapper;
+	@Resource
+	private SysPrivilegeService sysPrivilegeService;
+
 	private ApplicationEventPublisher applicationEventPublisher;
 
 	@Override
@@ -67,6 +72,9 @@ public class SysResourceServiceImpl extends BaseServiceImpl<SysResourceMapper, S
 		SysResource sysResource = selectById(id);
 		if (sysResource == null) {
 			return true;
+		}
+		if (sysPrivilegeService.isExistByAccessValue(sysResource.getId())) {
+			throw new NotAllowedOperationException("资源已经被使用，不能删除");
 		}
 		if (!sysResource.isLeaf()) {
 			throw new IsNotLeafNodeCanNotDelete();

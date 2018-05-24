@@ -50,6 +50,16 @@ public class SysPrivilegeServiceImpl extends BaseServiceImpl<SysPrivilegeMapper,
 		return resourceService.convertResourceTree(resources, SysResourceService.ROOT_ID);
 	}
 
+	@Override
+	public boolean isExistByAccessValue(String accessValue) {
+		return privilegeMapper.isExistByAccessValue(accessValue);
+	}
+
+	@Override
+	public boolean isExistByMasterAndMasterValue(String master, Serializable masterValue) {
+		return privilegeMapper.isExistByMasterAndMasterValue(master, masterValue);
+	}
+
 	private List<SysPrivilege> convert2Privileges(List<MenuAndButton> menuAndButtons, String master, String masterValue) {
 		List<SysPrivilege> sysPrivileges = new ArrayList<SysPrivilege>();
 		for (MenuAndButton menuAndButton : menuAndButtons) {

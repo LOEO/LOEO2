@@ -30,4 +30,13 @@
 										 AND p.master_value = #{masterValue} order by r.orde
 	</select>
 
+	<select id="isExistByAccessValue" resultType="java.lang.Boolean">
+		select count(*) from sys_privilege where access_value=#{accessValue}
+	</select>
+	<select id="isExistByMasterAndMasterValue" resultType="java.lang.Boolean">
+		select count(*)
+		from sys_privilege
+		where master = #{master} and masterValue#{masterValue}
+	</select>
+
 </mapper>

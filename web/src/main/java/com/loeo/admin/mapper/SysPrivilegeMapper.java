@@ -24,4 +24,8 @@ public interface SysPrivilegeMapper extends BaseMapper<SysPrivilege> {
 	void deleteByMasterAndValue(@Param("master") String master, @Param("masterValue") Serializable masterValue);
 
 	List<SysResource> getResources(@Param("master") String master, @Param("masterValue") Serializable masterValue);
+
+	boolean isExistByAccessValue(@Param("accessValue") String accessValue);
+
+	boolean isExistByMasterAndMasterValue(@Param("master") String master, @Param("masterValue") Serializable masterValue);
 }

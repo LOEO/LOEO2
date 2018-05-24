@@ -20,4 +20,8 @@ public interface SysPrivilegeService extends IService<SysPrivilege> {
 	void save(List<MenuAndButton> menuAndButtons, String master, String masterValue);
 
 	List<SysResourceTreeNode> getResources(String master, Serializable masterId);
+
+	boolean isExistByAccessValue(String accessValue);
+
+	boolean isExistByMasterAndMasterValue(String master, Serializable masterValue);
 }
