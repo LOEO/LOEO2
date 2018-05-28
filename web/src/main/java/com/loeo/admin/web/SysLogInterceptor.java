@@ -32,8 +32,8 @@ import com.loeo.base.shiro.ShiroContextUtils;
  * @create ：2018-05-23 17:12:32
  */
 @ControllerAdvice("com.hydt.hm.cd.controller")
-public class SysLogAdvice extends HandlerInterceptorAdapter implements RequestBodyAdvice {
-	private static final String REQUEST_PARAM_KEY = SysLogAdvice.class.getName() + ".REQUEST_PARAM_KEY";
+public class SysLogInterceptor extends HandlerInterceptorAdapter implements RequestBodyAdvice {
+	private static final String REQUEST_PARAM_KEY = SysLogInterceptor.class.getName() + ".REQUEST_PARAM_KEY";
 	@Resource
 	private SysLogService sysLogService;
 
