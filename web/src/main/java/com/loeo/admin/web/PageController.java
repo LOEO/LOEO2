@@ -26,7 +26,7 @@ public class PageController {
 		return "login";
 	}
 
-	@GetMapping(produces = "text/html")
+	@GetMapping(value = "/",produces = "text/html")
 	public String main() {
 		return "redirect:index";
 	}
