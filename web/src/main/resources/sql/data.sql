@@ -2,16 +2,18 @@
 Navicat MySQL Data Transfer
 
 Source Server         : local
-Source Server Version : 50716
-Source Host           : localhost:3306
+Source Server Version : 50717
+Source Host           : 59.110.217.105:3306
 Source Database       : loeo
 
 Target Server Type    : MYSQL
-Target Server Version : 50716
+Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2018-03-14 17:38:23
+Date: 2018-05-29 15:52:28
 */
+create database loeo;
+use loeo;
 
 SET FOREIGN_KEY_CHECKS=0;
 
@@ -82,12 +84,13 @@ CREATE TABLE `schedule_job` (
 -- ----------------------------
 DROP TABLE IF EXISTS `schedule_job_depend`;
 CREATE TABLE `schedule_job_depend` (
-  `id` char(12) PRIMARY KEY ,
   `job_id` char(12) COLLATE utf8mb4_unicode_ci NOT NULL,
   `depend_job_id` char(12) COLLATE utf8mb4_unicode_ci NOT NULL,
   `expect_result` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '期望依赖job的返回结果',
   `actual_result` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '实际依赖job的返回结果',
   `depend_order` int(11) DEFAULT NULL,
+  PRIMARY KEY (`job_id`),
+  KEY `depend_job_id` (`depend_job_id`),
   CONSTRAINT `schedule_job_depend_ibfk_1` FOREIGN KEY (`job_id`) REFERENCES `schedule_job` (`id`),
   CONSTRAINT `schedule_job_depend_ibfk_2` FOREIGN KEY (`depend_job_id`) REFERENCES `schedule_job` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -101,9 +104,9 @@ CREATE TABLE `schedule_job_depend` (
 -- ----------------------------
 DROP TABLE IF EXISTS `schedule_job_inner`;
 CREATE TABLE `schedule_job_inner` (
-  `id` CHAR(12) PRIMARY KEY ,
   `job_id` char(12) COLLATE utf8mb4_unicode_ci NOT NULL,
   `class_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`job_id`),
   CONSTRAINT `schedule_job_inner_ibfk_1` FOREIGN KEY (`job_id`) REFERENCES `schedule_job` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -155,12 +158,13 @@ CREATE TABLE `schedule_trigger` (
 -- ----------------------------
 DROP TABLE IF EXISTS `schedule_trigger_job`;
 CREATE TABLE `schedule_trigger_job` (
-  `id` CHAR(12) PRIMARY KEY ,
   `trigger_id` char(12) COLLATE utf8mb4_unicode_ci NOT NULL,
   `job_id` char(12) COLLATE utf8mb4_unicode_ci NOT NULL,
   `pre_fire_time` datetime DEFAULT NULL,
   `next_fire_time` datetime DEFAULT NULL,
   `status` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`trigger_id`,`job_id`),
+  KEY `job_id` (`job_id`),
   CONSTRAINT `schedule_trigger_job_ibfk_1` FOREIGN KEY (`trigger_id`) REFERENCES `schedule_trigger` (`id`),
   CONSTRAINT `schedule_trigger_job_ibfk_2` FOREIGN KEY (`job_id`) REFERENCES `schedule_job` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -183,6 +187,90 @@ CREATE TABLE `sys_log` (
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of sys_log
+-- ----------------------------
+INSERT INTO `sys_log` VALUES ('3pswq5acsidc', 'http://localhost:9999/api/users/1/menus', 'POST', 'com.loeo.entity.SysResource@5f2b8604', '{}', '1', '2018-03-08 14:21:14');
+INSERT INTO `sys_log` VALUES ('3psxfbe6tc00', 'http://localhost:9999/api/users/1/menus', 'POST', '获取主菜单', '{}', '1', '2018-03-08 14:29:04');
+INSERT INTO `sys_log` VALUES ('3psxfwxfavb4', 'http://localhost:9999/users', 'GET', '用户管理', '{}', '1', '2018-03-08 14:29:15');
+INSERT INTO `sys_log` VALUES ('3psxg7z3mx34', 'http://localhost:9999/roles', 'GET', '角色管理', '{}', '1', '2018-03-08 14:29:21');
+INSERT INTO `sys_log` VALUES ('3psxmhim2zuo', 'http://localhost:9999/users', 'GET', '用户管理', '{}', '1', '2018-03-08 14:31:18');
+INSERT INTO `sys_log` VALUES ('3psxtmomr08w', 'http://localhost:9999/api/users/35', 'POST', '修改', '{\"id\":[\"35\"],\"username\":[\"admin2\"],\"password\":[\"123321\"],\"password1\":[\"123321\"],\"nickname\":[\"11233311111\"],\"birthday\":[\"2018-03-08 16:00:00\"],\"sex\":[\"男\"],\"email\":[\"11@qq.com\"],\"phone\":[\"123321\"],\"enable\":[\"1\"]}', '1', '2018-03-08 14:33:32');
+INSERT INTO `sys_log` VALUES ('3pt23z80fg8w', 'http://localhost:9999/api/users/1/menus', 'POST', '获取主菜单', '{}', '1', '2018-03-08 15:21:35');
+INSERT INTO `sys_log` VALUES ('3pt243nmfvnk', 'http://localhost:9999/users', 'GET', '用户管理', '{}', '1', '2018-03-08 15:21:38');
+INSERT INTO `sys_log` VALUES ('3pt24n2hj6dc', 'http://localhost:9999/orgs', 'GET', '组织架构', '{}', '1', '2018-03-08 15:21:48');
+INSERT INTO `sys_log` VALUES ('3pt24pu3herk', 'http://localhost:9999/roles', 'GET', '角色管理', '{}', '1', '2018-03-08 15:21:49');
+INSERT INTO `sys_log` VALUES ('3pt25t9ja8e8', 'http://localhost:9999/api/users/1/menus', 'POST', '获取主菜单', '{}', '1', '2018-03-08 15:22:10');
+INSERT INTO `sys_log` VALUES ('3pt27lax2l1c', 'http://localhost:9999/api/users/1/menus', 'POST', '获取主菜单', '{}', '1', '2018-03-08 15:22:43');
+INSERT INTO `sys_log` VALUES ('3pt63ejzim80', 'http://localhost:9999/api/users/1/menus', 'POST', '获取主菜单', '{}', '1', '2018-03-08 16:06:15');
+INSERT INTO `sys_log` VALUES ('3pt6gozxvg1s', 'http://localhost:9999/api/users/1/menus', 'POST', '获取主菜单', '{}', '1', '2018-03-08 16:10:23');
+INSERT INTO `sys_log` VALUES ('3pt6gsnlis5c', 'http://localhost:9999/users', 'GET', '用户管理', '{}', '1', '2018-03-08 16:10:25');
+INSERT INTO `sys_log` VALUES ('3pt6j67xt2ps', 'http://localhost:9999/api/users/1/menus', 'POST', '获取主菜单', '{}', '1', '2018-03-08 16:11:10');
+INSERT INTO `sys_log` VALUES ('3pt6l167by0w', 'http://localhost:9999/orgs', 'GET', '组织架构', '{}', '1', '2018-03-08 16:11:44');
+INSERT INTO `sys_log` VALUES ('3pt71zk53qww', 'http://localhost:9999/api/users/1/menus', 'POST', '获取主菜单', '{}', '1', '2018-03-08 16:17:01');
+INSERT INTO `sys_log` VALUES ('3ptbhca5lse8', 'http://localhost:9999/api/users/1/menus', 'POST', '获取主菜单', '{}', '1', '2018-03-08 17:06:38');
+INSERT INTO `sys_log` VALUES ('3ptbhfn26uww', 'http://localhost:9999/api/users/1/menus', 'POST', '获取主菜单', '{}', '1', '2018-03-08 17:06:40');
+INSERT INTO `sys_log` VALUES ('3ptbhl8mzvgg', 'http://localhost:9999/users', 'GET', '用户管理', '{}', '1', '2018-03-08 17:06:43');
+INSERT INTO `sys_log` VALUES ('3ptbvwzxqvpc', 'http://localhost:9999/users', 'GET', '用户管理', '{}', '1', '2018-03-08 17:11:11');
+INSERT INTO `sys_log` VALUES ('3ptd6e0901ds', 'http://localhost:9999/api/users/35', 'DELETE', '删除', '{}', '1', '2018-03-08 17:25:39');
+INSERT INTO `sys_log` VALUES ('3ptd6e0izmrk', 'http://localhost:9999/users', 'GET', '用户管理', '{}', '1', '2018-03-08 17:25:39');
+INSERT INTO `sys_log` VALUES ('3ptd6sg5d88w', 'http://localhost:9999/privileges', 'GET', '权限管理', '{}', '1', '2018-03-08 17:25:46');
+INSERT INTO `sys_log` VALUES ('3ptd79p94bgg', 'http://localhost:9999/orgs', 'GET', '组织架构', '{}', '1', '2018-03-08 17:25:55');
+INSERT INTO `sys_log` VALUES ('3ptd7dqfpuyo', 'http://localhost:9999/users', 'GET', '用户管理', '{}', '1', '2018-03-08 17:25:58');
+INSERT INTO `sys_log` VALUES ('3ptdulq8uadc', 'http://localhost:9999/privileges', 'GET', '权限管理', '{}', '1', '2018-03-08 17:33:11');
+INSERT INTO `sys_log` VALUES ('3pwhjynb25mo', 'http://localhost:9999/api/users/1/menus', 'POST', '获取主菜单', '{}', '1', '2018-03-09 14:25:24');
+INSERT INTO `sys_log` VALUES ('3pwhq6lxtgxs', 'http://localhost:9999/api/users/1/menus', 'POST', '获取主菜单', '{}', '1', '2018-03-09 14:27:21');
+INSERT INTO `sys_log` VALUES ('3pwhqs9r4b28', 'http://localhost:9999/users', 'GET', '用户管理', '{}', '1', '2018-03-09 14:27:32');
+INSERT INTO `sys_log` VALUES ('3pwvifym1eyo', 'http://localhost:9999/orgs', 'GET', '组织架构', '{}', '1', '2018-03-09 17:01:52');
+INSERT INTO `sys_log` VALUES ('3pwvj2amutq8', 'http://localhost:9999/privileges', 'GET', '权限管理', '{}', '1', '2018-03-09 17:02:04');
+INSERT INTO `sys_log` VALUES ('3pwvjlw5odmo', 'http://localhost:9999/orgs', 'GET', '组织架构', '{}', '1', '2018-03-09 17:02:14');
+INSERT INTO `sys_log` VALUES ('3pwvlh12xi4g', 'http://localhost:9999/orgs', 'GET', '组织架构', '{}', '1', '2018-03-09 17:02:49');
+INSERT INTO `sys_log` VALUES ('3qa90qnstmo0', 'http://localhost:9999/users', 'GET', '用户管理', '{}', '1', '2018-03-13 10:59:37');
+INSERT INTO `sys_log` VALUES ('3qa90vdjf8jk', 'http://localhost:9999/privileges', 'GET', '权限管理', '{}', '1', '2018-03-13 10:59:40');
+INSERT INTO `sys_log` VALUES ('3qa9isfzxzb4', 'http://localhost:9999/users', 'GET', '用户管理', '{}', '1', '2018-03-13 11:05:15');
+INSERT INTO `sys_log` VALUES ('3qabq9c6dedc', 'http://localhost:9999/users', 'GET', '用户管理', '{}', '1', '2018-03-13 11:29:59');
+INSERT INTO `sys_log` VALUES ('3qabu9wktdz4', 'http://localhost:9999/users', 'GET', '用户管理', '{}', '1', '2018-03-13 11:31:14');
+INSERT INTO `sys_log` VALUES ('3qabud9tvy80', 'http://localhost:9999/privileges', 'GET', '权限管理', '{}', '1', '2018-03-13 11:31:16');
+INSERT INTO `sys_log` VALUES ('3qabuhii6j28', 'http://localhost:9999/orgs', 'GET', '组织架构', '{}', '1', '2018-03-13 11:31:18');
+INSERT INTO `sys_log` VALUES ('3qesq7kbofls', 'http://localhost:9999/users', 'GET', '用户管理', '{}', '1', '2018-03-14 17:34:48');
+INSERT INTO `sys_log` VALUES ('3qesqbj0dmo0', 'http://localhost:9999/orgs', 'GET', '组织架构', '{}', '1', '2018-03-14 17:34:50');
+INSERT INTO `sys_log` VALUES ('3qesqepy7fgg', 'http://localhost:9999/orgs', 'GET', '组织架构', '{}', '1', '2018-03-14 17:34:51');
+INSERT INTO `sys_log` VALUES ('3qesqh23aark', 'http://localhost:9999/roles', 'GET', '角色管理', '{}', '1', '2018-03-14 17:34:53');
+INSERT INTO `sys_log` VALUES ('3qesqo5fen7k', 'http://localhost:9999/orgs', 'GET', '组织架构', '{}', '1', '2018-03-14 17:34:56');
+INSERT INTO `sys_log` VALUES ('3qesqpjavnr4', 'http://localhost:9999/roles', 'GET', '角色管理', '{}', '1', '2018-03-14 17:34:57');
+INSERT INTO `sys_log` VALUES ('3qesqqwtv6kg', 'http://localhost:9999/privileges', 'GET', '权限管理', '{}', '1', '2018-03-14 17:34:58');
+INSERT INTO `sys_log` VALUES ('3wqz0cudrz7k', 'http://www.loeo.xin:9999/users', 'GET', '用户管理', '{}', '1', '2018-05-17 16:17:35');
+INSERT INTO `sys_log` VALUES ('3wqz0gu3xngg', 'http://www.loeo.xin:9999/orgs', 'GET', '组织架构', '{}', '1', '2018-05-17 16:17:37');
+INSERT INTO `sys_log` VALUES ('3wqz0o0pf85c', 'http://www.loeo.xin:9999/users', 'GET', '用户管理', '{}', '1', '2018-05-17 16:17:41');
+INSERT INTO `sys_log` VALUES ('3wqz0rqxgt1c', 'http://www.loeo.xin:9999/roles', 'GET', '角色管理', '{}', '1', '2018-05-17 16:17:43');
+INSERT INTO `sys_log` VALUES ('3wqz0u23l3i8', 'http://www.loeo.xin:9999/privileges', 'GET', '权限管理', '{}', '1', '2018-05-17 16:17:44');
+INSERT INTO `sys_log` VALUES ('3wqz2gdj8tts', 'http://www.loeo.xin:9999/users', 'GET', '用户管理', '{}', '1', '2018-05-17 16:18:14');
+INSERT INTO `sys_log` VALUES ('3x630mp83pj4', 'http://www.loeo.xin:9999/users', 'GET', '用户管理', '{}', '1', '2018-05-21 21:55:57');
+INSERT INTO `sys_log` VALUES ('3x634c5sssn4', 'http://www.loeo.xin:9999/orgs', 'GET', '组织架构', '{}', '1', '2018-05-21 21:57:06');
+INSERT INTO `sys_log` VALUES ('3x634gn08w00', 'http://www.loeo.xin:9999/roles', 'GET', '角色管理', '{}', '1', '2018-05-21 21:57:09');
+INSERT INTO `sys_log` VALUES ('3x634kqw8gzk', 'http://www.loeo.xin:9999/privileges', 'GET', '权限管理', '{}', '1', '2018-05-21 21:57:11');
+INSERT INTO `sys_log` VALUES ('3x634uzpqqyo', 'http://www.loeo.xin:9999/users', 'GET', '用户管理', '{}', '1', '2018-05-21 21:57:16');
+INSERT INTO `sys_log` VALUES ('3x63kswtvpj4', 'http://www.loeo.xin:9999/users', 'GET', '用户管理', '{}', '1', '2018-05-21 22:02:14');
+INSERT INTO `sys_log` VALUES ('3x63tkvwho1s', 'http://www.loeo.xin:9999/roles', 'GET', '角色管理', '{}', '1', '2018-05-21 22:04:58');
+INSERT INTO `sys_log` VALUES ('3x63u39xkv7k', 'http://www.loeo.xin:9999/privileges', 'GET', '权限管理', '{}', '1', '2018-05-21 22:05:08');
+INSERT INTO `sys_log` VALUES ('3x641qdeic5c', 'http://www.loeo.xin:9999/users', 'GET', '用户管理', '{}', '1', '2018-05-21 22:07:30');
+INSERT INTO `sys_log` VALUES ('3x642jlr8cg0', 'http://www.loeo.xin:9999/privileges', 'GET', '权限管理', '{}', '1', '2018-05-21 22:07:46');
+INSERT INTO `sys_log` VALUES ('3x649z1adm9s', 'http://www.loeo.xin:9999/users', 'GET', '用户管理', '{}', '1', '2018-05-21 22:10:04');
+INSERT INTO `sys_log` VALUES ('3x64a54wg8ow', 'http://www.loeo.xin:9999/privileges', 'GET', '权限管理', '{}', '1', '2018-05-21 22:10:07');
+INSERT INTO `sys_log` VALUES ('3x64a9qtpfk0', 'http://www.loeo.xin:9999/roles', 'GET', '角色管理', '{}', '1', '2018-05-21 22:10:10');
+INSERT INTO `sys_log` VALUES ('3x64adxu2g3k', 'http://www.loeo.xin:9999/users', 'GET', '用户管理', '{}', '1', '2018-05-21 22:10:12');
+INSERT INTO `sys_log` VALUES ('3x8sjt4nydj4', 'http://www.loeo.xin:9999/users', 'GET', '用户管理', '{}', '1', '2018-05-22 16:09:18');
+INSERT INTO `sys_log` VALUES ('3x8sk28cmuio', 'http://www.loeo.xin:9999/roles', 'GET', '角色管理', '{}', '1', '2018-05-22 16:09:23');
+INSERT INTO `sys_log` VALUES ('3x8sk4tuu0hs', 'http://www.loeo.xin:9999/privileges', 'GET', '权限管理', '{}', '1', '2018-05-22 16:09:24');
+INSERT INTO `sys_log` VALUES ('3x8sk7sthhj4', 'http://www.loeo.xin:9999/users', 'GET', '用户管理', '{}', '1', '2018-05-22 16:09:26');
+INSERT INTO `sys_log` VALUES ('3xg9d09j9yww', 'http://www.loeo.xin:9999/users', 'GET', '用户管理', '{}', '1', '2018-05-24 18:22:42');
+INSERT INTO `sys_log` VALUES ('3xxobucp4934', 'http://www.loeo.xin:9999/users', 'GET', '用户管理', '{}', '1', '2018-05-29 15:31:03');
+INSERT INTO `sys_log` VALUES ('3xxoc6fjxw5c', 'http://www.loeo.xin:9999/orgs', 'GET', '组织架构', '{}', '1', '2018-05-29 15:31:10');
+INSERT INTO `sys_log` VALUES ('3xxoca5hzvnk', 'http://www.loeo.xin:9999/roles', 'GET', '角色管理', '{}', '1', '2018-05-29 15:31:12');
+INSERT INTO `sys_log` VALUES ('3xxocce8pq0w', 'http://www.loeo.xin:9999/privileges', 'GET', '权限管理', '{}', '1', '2018-05-29 15:31:13');
+INSERT INTO `sys_log` VALUES ('3xxocfvimebk', 'http://www.loeo.xin:9999/users', 'GET', '用户管理', '{}', '1', '2018-05-29 15:31:15');
+INSERT INTO `sys_log` VALUES ('3xxps0ser4zk', 'http://www.loeo.xin:9999/users', 'GET', '用户管理', '{}', '1', '2018-05-29 15:47:18');
 
 -- ----------------------------
 -- Table structure for sys_org
@@ -356,7 +444,7 @@ CREATE TABLE `sys_user` (
   `age` char(12) DEFAULT NULL,
   `birthday` date NOT NULL,
   `sex` varchar(4) DEFAULT NULL,
-  `avatar` varchar(50) DEFAULT NULL,
+  `avatar` varchar(2000) DEFAULT NULL,
   `email` varchar(30) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   `org_id` char(12) DEFAULT NULL,
@@ -374,7 +462,7 @@ CREATE TABLE `sys_user` (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1', '1', '2cfd4560539f887a5e420412b370b361', '管理员', '4', '2016-06-29', '男', null, '123@1.com', '123123', null, '2016-09-16 01:28:52', '11', '2016-09-20 01:28:56', '33', '1');
+INSERT INTO `sys_user` VALUES ('1', '1', '2cfd4560539f887a5e420412b370b361', '管理员', '4', '2016-06-29', '男', 'https://gw.alipayobjects.com/zos/rmsportal/ubnKSIfAJTxIgXOKlciN.png', '123@1.com', '123123', null, '2016-09-16 01:28:52', '11', '2016-09-20 01:28:56', '33', '1');
 INSERT INTO `sys_user` VALUES ('11', 'liutao', '4af56b53ccce830e6566022fab445b8c', '刘涛', '0', '1988-04-22', '男', null, '11@qq.com', '1111111', null, null, null, '2016-09-18 02:28:51', '1', '1');
 INSERT INTO `sys_user` VALUES ('2', '2', 'de94903812cefa17dc6b0a5955680ac1', '啊啦雷', '8', '2014-12-01', '女', null, 'wer@qqq.com', '(123) 123-1231', null, null, null, null, null, '1');
 INSERT INTO `sys_user` VALUES ('31', 'qinzeyu', '76068304ad13dbd7526d837e2a74735d', '秦133', '0', '1989-11-19', '保密', null, '22@wq.com', '110111', null, null, null, null, null, '1');
