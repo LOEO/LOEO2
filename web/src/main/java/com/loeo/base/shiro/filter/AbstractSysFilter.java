@@ -5,12 +5,15 @@ import java.io.PrintWriter;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.web.filter.authz.PermissionsAuthorizationFilter;
 
 import com.alibaba.fastjson.JSON;
 import com.loeo.base.Result;
 import com.loeo.base.event.ResourceUpdateEvent;
+import com.loeo.utils.WebUtils;
 
 /**
  * 功能：
@@ -29,10 +32,15 @@ public abstract class AbstractSysFilter extends PermissionsAuthorizationFilter {
 
 	@Override
 	protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws IOException {
-		response.setCharacterEncoding("utf8");
-		PrintWriter printWriter = response.getWriter();
-		printWriter.write(JSON.toJSONString(Result.failed("没有权限")));
-		printWriter.flush();
+		if (WebUtils.isAjax((HttpServletRequest) request)) {
+			response.setCharacterEncoding("utf8");
+			response.setContentType("application/json; charset=UTF-8");
+			PrintWriter printWriter = response.getWriter();
+			printWriter.write(JSON.toJSONString(Result.failed("没有权限")));
+			printWriter.flush();
+		} else {
+			((HttpServletResponse) response).sendRedirect(getUnauthorizedUrl());
+		}
 		return false;
 	}
 

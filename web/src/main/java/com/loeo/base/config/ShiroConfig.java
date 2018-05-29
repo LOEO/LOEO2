@@ -67,7 +67,7 @@ public class ShiroConfig implements ApplicationRunner, ApplicationListener<Resou
 		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 		shiroFilterFactoryBean.setSecurityManager(securityManager);
 		shiroFilterFactoryBean.setLoginUrl("/login");
-		shiroFilterFactoryBean.setUnauthorizedUrl("/login");
+		shiroFilterFactoryBean.setUnauthorizedUrl("/accessDenied");
 		//配置访问权限
 		LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
 		filterChainDefinitionMap.put("/login", "anon");
