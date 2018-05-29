@@ -77,7 +77,7 @@ public class ShiroConfig implements ApplicationRunner, ApplicationListener<Resou
 		filterChainDefinitionMap.put("/webSocket", "anon");
 		filterChainDefinitionMap.put("/resources/**", "anon");
 		filterChainDefinitionMap.put("/actuator/**", "anon");
-		filterChainDefinitionMap.put("/**", "sysPerm");
+		filterChainDefinitionMap.put("/**", "user,sysPerm");
 		Map<String, Filter> filters = new LinkedHashMap<>();
 		sysPermFilter.setLoginApi(loginApi);
 		filters.put("sysPerm", sysPermFilter);
