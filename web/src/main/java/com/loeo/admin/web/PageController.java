@@ -26,6 +26,19 @@ public class PageController {
 		return "login";
 	}
 
+	@GetMapping(produces = "text/html")
+	public String main() {
+		return "redirect:index";
+	}
+
+	@GetMapping("index")
+	public String index(HttpSession session) {
+		if (session.getAttribute("user") == null) {
+			session.setAttribute("user", ShiroContextUtils.getCurUser());
+		}
+		return "index";
+	}
+
 	@PostMapping("/login")
 	public String login(String username, String password, boolean rememberMe, ModelMap modelMap, HttpSession session) {
 		try {
