@@ -24,3 +24,4 @@ nbdist/
 .nb-gradle/
 
 info.log
+application-prod.properties
