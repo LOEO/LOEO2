@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.loeo.base.shiro.ShiroContextUtils;
 
@@ -21,7 +20,6 @@ import com.loeo.base.shiro.ShiroContextUtils;
 
  */
 @Controller
-@SessionAttributes("user")
 public class PageController {
 	@GetMapping("login")
 	public String login() {
@@ -40,6 +38,11 @@ public class PageController {
 			modelMap.put("msg", "用户名或密码错误");
 			return "redirect:login";
 		}
+	}
+
+	@GetMapping("/accessDenied")
+	public String accessDenied() {
+		return "accessDenied";
 	}
 
 	@GetMapping("/users")
