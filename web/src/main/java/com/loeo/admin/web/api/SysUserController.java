@@ -4,14 +4,20 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import com.loeo.base.shiro.ShiroContextUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
-import com.loeo.base.Result;
 import com.loeo.admin.domain.entity.SysRole;
 import com.loeo.admin.domain.entity.SysUser;
 import com.loeo.admin.service.SysUserService;
+import com.loeo.base.Result;
+import com.loeo.base.shiro.ShiroContextUtils;
 import com.loeo.utils.validate.ValidateUtils;
 import com.loeo.utils.validate.group.Add;
 import com.loeo.utils.validate.group.Update;
@@ -57,6 +63,11 @@ public class SysUserController {
 	@PostMapping("/list")
 	public Result users(@RequestParam int page, @RequestParam int rows) {
 		return Result.success(sysUserService.findUsersByPage(page, rows));
+	}
+
+	@GetMapping
+	public Result list(@RequestParam(defaultValue = "1") int currentPage, @RequestParam(defaultValue = "2") int pageSize) {
+		return Result.success(sysUserService.findUsersByPage(currentPage, pageSize));
 	}
 
 	@PostMapping("/{userId}/menus")

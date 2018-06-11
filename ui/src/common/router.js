@@ -115,6 +115,9 @@ export const getRouterData = (app) => {
     '/list/card-list': {
       component: dynamicWrapper(app, ['list'], () => import('../routes/List/CardList')),
     },
+    '/list/user-manage': {
+      component: dynamicWrapper(app, ['user'], () => import('../routes/List/UserList')),
+    },
     '/list/search': {
       component: dynamicWrapper(app, ['list'], () => import('../routes/List/List')),
     },

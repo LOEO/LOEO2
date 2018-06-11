@@ -56,6 +56,11 @@ const menuData = [{
       name: '搜索列表（应用）',
       path: 'applications',
     }],
+  }, {
+    name: '用户管理',
+    authority: 'admin',
+    icon: 'user',
+    path: 'user-manage',
   }],
 }, {
   name: '详情页',
