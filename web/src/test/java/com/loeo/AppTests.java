@@ -42,7 +42,7 @@ public class AppTests {
 		sysRole.setUpdated(new Date());
 		sysRole.setCreator("1");
 		sysRole.setUpdater("1");
-		sysRole.setDescp("ssss");
+		sysRole.setDescription("ssss");
 		sysRole.setEnable(0);
 		sysRole.setCode("ss");
 		Assert.isTrue(sysRole.insert(),"true");
@@ -62,7 +62,7 @@ public class AppTests {
 		sysRole.setUpdated(new Date());
 		sysRole.setCreator("1");
 		sysRole.setUpdater("1");
-		sysRole.setDescp("ssss");
+		sysRole.setDescription("ssss");
 		sysRole.setEnable(0);
 		sysRole.setCode("ss");
 		Assert.isTrue(sysRole.insert(),"true");

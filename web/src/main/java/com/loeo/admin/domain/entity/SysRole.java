@@ -35,7 +35,7 @@ public class SysRole extends Model<SysRole> {
 	private String name;
 	@NotEmpty(groups = {Add.class, Update.class})
 	private String code;
-	private String descp;
+	private String description;
 	@TableField(fill = FieldFill.INSERT)
 	private String creator;
 	@TableField(fill = FieldFill.INSERT)
@@ -71,12 +71,12 @@ public class SysRole extends Model<SysRole> {
 		this.code = code;
 	}
 
-	public String getDescp() {
-		return descp;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDescp(String descp) {
-		this.descp = descp;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getCreator() {

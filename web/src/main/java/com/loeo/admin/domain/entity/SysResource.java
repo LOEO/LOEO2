@@ -39,7 +39,7 @@ public class SysResource extends Model<SysResource> {
 	@NotEmpty(groups = {Add.class, Update.class})
 	private String type;
 	private String pid;
-	private String descp;
+	private String description;
 	private String iconCls;
 	private String script;
 	@TableField(fill = FieldFill.INSERT)
@@ -52,7 +52,7 @@ public class SysResource extends Model<SysResource> {
 	private String updater;
 	private Integer enable;
 	private Boolean leaf;
-	private Integer orde;
+	private Integer sortNo;
 	@TableField(exist = false)
 	private Boolean checked;
 
@@ -113,12 +113,12 @@ public class SysResource extends Model<SysResource> {
 		this.pid = pid;
 	}
 
-	public String getDescp() {
-		return descp;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDescp(String descp) {
-		this.descp = descp;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getIconCls() {
@@ -185,12 +185,12 @@ public class SysResource extends Model<SysResource> {
 		this.leaf = leaf;
 	}
 
-	public Integer getOrde() {
-		return orde;
+	public Integer getSortNo() {
+		return sortNo;
 	}
 
-	public void setOrde(Integer orde) {
-		this.orde = orde;
+	public void setSortNo(Integer sortNo) {
+		this.sortNo = sortNo;
 	}
 
 	public Boolean isChecked() {

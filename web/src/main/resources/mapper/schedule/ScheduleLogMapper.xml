@@ -6,12 +6,12 @@
 		<result column="job_id" property="jobId" jdbcType="CHAR"/>
 		<result column="trigger_id" property="triggerId" jdbcType="CHAR"/>
 		<result column="is_success" property="success" jdbcType="BIT"/>
-		<result column="descr" property="descr" jdbcType="VARCHAR"/>
+		<result column="description" property="description" jdbcType="VARCHAR"/>
 		<result column="started" property="started" jdbcType="TIMESTAMP"/>
 		<result column="ended" property="ended" jdbcType="TIMESTAMP"/>
 	</resultMap>
 	<sql id="columns">
-		id, job_id, trigger_id, is_success, descr, started, ended
+		id, job_id, trigger_id, is_success, description, started, ended
 	</sql>
 
 

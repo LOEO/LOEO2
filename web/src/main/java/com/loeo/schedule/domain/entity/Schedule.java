@@ -21,7 +21,7 @@ public class Schedule extends Model<Schedule> {
 	private String name;
 	@TableField("is_enabled")
 	private Boolean enabled;
-	private String descr;
+	private String description;
 	private String creator;
 	private Date created;
 	private String updater;
@@ -59,12 +59,12 @@ public class Schedule extends Model<Schedule> {
 		return enabled;
 	}
 
-	public void setDescr(String descr){
-		this.descr=descr;
+	public void setDescription(String description){
+		this.description = description;
 	}
 
-	public String getDescr(){
-		return descr;
+	public String getDescription(){
+		return description;
 	}
 
 	public void setCreator(String creator){

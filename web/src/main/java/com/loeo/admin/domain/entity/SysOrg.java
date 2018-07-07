@@ -27,7 +27,7 @@ public class SysOrg extends Model<SysOrg> {
 	private String id;
 	private String name;
 	private Integer pid;
-	private String descp;
+	private String description;
 	private String leaf;
 	@TableField(fill = FieldFill.INSERT)
 	private Date created;
@@ -63,12 +63,12 @@ public class SysOrg extends Model<SysOrg> {
 		this.pid = pid;
 	}
 
-	public String getDescp() {
-		return descp;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDescp(String descp) {
-		this.descp = descp;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getLeaf() {

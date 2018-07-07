@@ -13,7 +13,7 @@ import java.util.Date;
 public interface JobLogger {
 	String getId();
 
-	String getDescr();
+	String getDescription();
 
 	Date getStarted();
 

@@ -41,7 +41,7 @@ public class ScheduleLogServiceImpl extends BaseServiceImpl<ScheduleLogMapper,Sc
 		}
 		scheduleLog.setStarted(new Date());
 		scheduleLog.setSuccess(Boolean.FALSE);
-		scheduleLog.setDescr("");
+		scheduleLog.setDescription("");
 		System.err.println(scheduleLog.toString());
 		insert(scheduleLog);
 		return scheduleLog;
@@ -52,9 +52,9 @@ public class ScheduleLogServiceImpl extends BaseServiceImpl<ScheduleLogMapper,Sc
 	public void logEnd(JobLogger jobLogger, JobWrapper jobWrapper, String errMsg) {
 		ScheduleLog scheduleLog = new ScheduleLog();
 		scheduleLog.setId(jobLogger.getId());
-		scheduleLog.setDescr(errMsg);
+		scheduleLog.setDescription(errMsg);
 		if (errMsg != null && !"".equals(errMsg)) {
-			scheduleLog.setDescr(errMsg);
+			scheduleLog.setDescription(errMsg);
 		}else{
 			scheduleLog.setSuccess(Boolean.TRUE);
 		}

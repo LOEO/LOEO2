@@ -23,7 +23,7 @@ public class ScheduleLog extends Model<ScheduleLog> implements JobLogger {
 	private String triggerId;
 	@TableField("is_success")
 	private Boolean success;
-	private String descr;
+	private String description;
 	private Date started;
 	private Date ended;
 
@@ -68,13 +68,13 @@ public class ScheduleLog extends Model<ScheduleLog> implements JobLogger {
 		return success;
 	}
 
-	public void setDescr(String descr){
-		this.descr=descr;
+	public void setDescription(String description){
+		this.description = description;
 	}
 
 	@Override
-	public String getDescr(){
-		return descr;
+	public String getDescription(){
+		return description;
 	}
 
 	public void setStarted(Date started){
@@ -106,7 +106,7 @@ public class ScheduleLog extends Model<ScheduleLog> implements JobLogger {
 				"jobId='" + jobId + '\'' +
 				", triggerId='" + triggerId + '\'' +
 				", success=" + success +
-				", descr='" + descr + '\'' +
+				", description='" + description + '\'' +
 				", started=" + started +
 				", ended=" + ended +
 				'}';

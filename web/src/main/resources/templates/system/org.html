@@ -28,7 +28,7 @@
 					   style="width:94%">
 			</div>
 			<div style="margin-bottom:10px">
-				<input name="descp" class="easyui-textbox" label="描述:" style="width:94%">
+				<input name="description" class="easyui-textbox" label="描述:" style="width:94%">
 			</div>
 		</form>
 		<div id="dlg-buttons">
@@ -44,7 +44,7 @@
 		var columns = [
 			{field: 'id', title: 'id', width: 80, align: 'center'},
 			{field: 'name', title: '名称', width: 80, align: 'center'},
-			{field: 'descp', title: '描述', align: 'center', width: 60},
+			{field: 'description', title: '描述', align: 'center', width: 60},
 			{field: 'created', title: '创建时间', align: 'center', width: 60,formatter:function (value,row,index) {
 					return value ? new Date(value).format(LOEO.DATE_PATTERN) : "";
 				}},

@@ -41,7 +41,7 @@ CREATE TABLE `schedule` (
   `id` char(12) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_enabled` bit(1) NOT NULL,
-  `descr` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `creator` char(12) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created` datetime NOT NULL,
   `updater` char(12) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -123,7 +123,7 @@ CREATE TABLE `schedule_log` (
   `job_id` char(12) NOT NULL,
   `trigger_id` char(12) DEFAULT NULL,
   `is_success` bit(1) DEFAULT NULL,
-  `descr` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
   `started` datetime DEFAULT NULL,
   `ended` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -280,7 +280,7 @@ CREATE TABLE `sys_org` (
   `id` char(12) NOT NULL,
   `name` varchar(20) DEFAULT NULL,
   `pid` char(12) DEFAULT NULL,
-  `descp` varchar(200) DEFAULT NULL,
+  `description` varchar(200) DEFAULT NULL,
   `leaf` varchar(10) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `creator` char(12) DEFAULT NULL,
@@ -374,7 +374,7 @@ CREATE TABLE `sys_resource` (
   `data_permission` varchar(255) CHARACTER SET utf8mb4 DEFAULT NULL,
   `type` varchar(255) DEFAULT NULL,
   `pid` char(12) DEFAULT NULL,
-  `descp` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
   `icon_cls` varchar(255) DEFAULT NULL,
   `script` varchar(255) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
@@ -383,7 +383,7 @@ CREATE TABLE `sys_resource` (
   `updater` char(12) DEFAULT NULL,
   `enable` tinyint(255) DEFAULT NULL,
   `leaf` tinyint(255) DEFAULT NULL,
-  `orde` int(255) DEFAULT NULL,
+  `sort_no` int(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -412,7 +412,7 @@ CREATE TABLE `sys_role` (
   `id` char(12) NOT NULL,
   `name` varchar(20) NOT NULL,
   `code` varchar(100) NOT NULL,
-  `descp` varchar(200) DEFAULT NULL,
+  `description` varchar(200) DEFAULT NULL,
   `creator` char(12) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `updater` char(12) DEFAULT NULL,

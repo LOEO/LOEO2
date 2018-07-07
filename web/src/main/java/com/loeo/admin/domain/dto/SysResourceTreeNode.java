@@ -20,7 +20,7 @@ public class SysResourceTreeNode extends SysResource {
 		this.setMethod(resource.getMethod());
 		this.setType(resource.getType());
 		this.setPid(resource.getPid());
-		this.setDescp(resource.getDescp());
+		this.setDescription(resource.getDescription());
 		this.setIconCls(resource.getIconCls());
 		this.setScript(resource.getScript());
 		this.setCreated(resource.getCreated());
@@ -29,7 +29,7 @@ public class SysResourceTreeNode extends SysResource {
 		this.setUpdater(resource.getUpdater());
 		this.setEnable(resource.getEnable());
 		this.setLeaf(resource.isLeaf());
-		this.setOrde(resource.getOrde());
+		this.setSortNo(resource.getSortNo());
 		this.setDataPermission(resource.getDataPermission());
 		this.setChecked(resource.isChecked() == null ? Boolean.FALSE : resource.isChecked());
 		if (this.isChecked()) {

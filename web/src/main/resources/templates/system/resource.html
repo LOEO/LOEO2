@@ -63,7 +63,7 @@
 					   style="width:94%">
 			</div>
 			<div style="margin-bottom:10px">
-				<input name="orde" class="easyui-textbox" label="排序:"
+				<input name="sortNo" class="easyui-textbox" label="排序:"
 					   style="width:94%">
 			</div>
 			<div style="margin-bottom:10px">
@@ -73,7 +73,7 @@
 				>
 			</div>
 			<div style="margin-bottom:10px">
-				<input name="descp" class="easyui-textbox" data-options="multiline:true" label="描述:"
+				<input name="description" class="easyui-textbox" data-options="multiline:true" label="描述:"
 					   style="width:94%">
 			</div>
 		</form>
@@ -114,14 +114,14 @@
 			},
 			{field: 'script', title: '代码', align: 'center', width: 60},
 			{field: 'dataPermission', title: '数据权限', align: 'center', width: 60},
-			{field: 'orde', title: '排序', align: 'center', width: 60},
+			{field: 'sortNo', title: '排序', align: 'center', width: 60},
 			{field: 'isLeaf', title: '叶子节点', align: 'center', width: 60},
 			{
 				field: 'enable', title: '状态', width: 80, align: 'center', formatter: function (value) {
 					return LOEO.ENABLE[value];
 				}
 			},
-			{field: 'descp', title: '描述', align: 'center', width: 60},
+			{field: 'description', title: '描述', align: 'center', width: 60},
 			{field: 'creator', title: '创建人', align: 'center'},
 			{field: 'created', title: '创建时间', align: 'center',formatter:function (value,row,index) {
 					return value ? new Date(value).format(LOEO.DATE_PATTERN) : "";

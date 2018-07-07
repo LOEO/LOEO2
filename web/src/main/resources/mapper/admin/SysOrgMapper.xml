@@ -7,7 +7,7 @@
 		<id column="id" property="id"/>
 		<result column="name" property="name"/>
 		<result column="pid" property="pid"/>
-		<result column="descp" property="descp"/>
+		<result column="description" property="description"/>
 		<result column="leaf" property="leaf"/>
 		<result column="created" property="created"/>
 		<result column="creator" property="creator"/>

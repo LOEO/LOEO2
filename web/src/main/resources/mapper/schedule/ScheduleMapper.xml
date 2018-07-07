@@ -5,7 +5,7 @@
 		<id column="id" property="id" jdbcType="CHAR"/>
 		<result column="name" property="name" jdbcType="VARCHAR"/>
 		<result column="is_enabled" property="enabled" jdbcType="BIT"/>
-		<result column="descr" property="descr" jdbcType="VARCHAR"/>
+		<result column="description" property="description" jdbcType="VARCHAR"/>
 		<result column="creator" property="creator" jdbcType="CHAR"/>
 		<result column="created" property="created" jdbcType="TIMESTAMP"/>
 		<result column="updater" property="updater" jdbcType="CHAR"/>

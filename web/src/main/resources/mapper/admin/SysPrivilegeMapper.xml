@@ -27,7 +27,7 @@
 			sys_resource r
 			LEFT JOIN sys_privilege p ON p.access_value = r.id
 										 AND p.`master` = #{master}
-										 AND p.master_value = #{masterValue} order by r.orde
+										 AND p.master_value = #{masterValue} order by r.sortNo
 	</select>
 
 	<select id="isExistByAccessValue" resultType="java.lang.Boolean">
