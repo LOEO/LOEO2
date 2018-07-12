@@ -8,5 +8,6 @@ package com.loeo.base;
  * @version ：2018 Version：1.0
  */
 public class Const {
+	public static final String COMMON_DATE_PATTERNS = "yyyy-MM-dd HH:mm:ss";
 	public static final String TREE_ROOT_ID = "0";
 }
