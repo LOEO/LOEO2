@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.FieldFill;
+import com.loeo.base.IdEntity;
 
 /**
  * <p>
@@ -18,7 +19,7 @@ import com.baomidou.mybatisplus.enums.FieldFill;
  * @since 2018-03-08
  */
 @TableName("sys_log")
-public class SysLog extends Model<SysLog> {
+public class SysLog extends Model<SysLog> implements IdEntity {
 
     private static final long serialVersionUID = 1L;
 	@TableId(value = "id")

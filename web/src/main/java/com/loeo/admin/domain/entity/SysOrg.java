@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.FieldFill;
+import com.loeo.base.IdEntity;
 
 /**
  * <p>
@@ -18,7 +19,7 @@ import com.baomidou.mybatisplus.enums.FieldFill;
  * @since 2017-05-25
  */
 @TableName("sys_org")
-public class SysOrg extends Model<SysOrg> {
+public class SysOrg extends Model<SysOrg> implements IdEntity {
 
 	private static final long serialVersionUID = 1L;
 

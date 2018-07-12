@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.FieldFill;
+import com.loeo.base.IdEntity;
 import com.loeo.utils.validate.group.Add;
 import com.loeo.utils.validate.group.Update;
 
@@ -23,7 +24,7 @@ import com.loeo.utils.validate.group.Update;
  * @since 2017-05-25
  */
 @TableName("sys_privilege")
-public class SysPrivilege extends Model<SysPrivilege> {
+public class SysPrivilege extends Model<SysPrivilege> implements IdEntity {
 
 	private static final long serialVersionUID = 1L;
 
