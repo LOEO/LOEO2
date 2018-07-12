@@ -1,3 +1,6 @@
 target/
 !.mvn/wrapper/maven-wrap
 src/main/resources/log/*
+src/main/resources/application-dev.properties
+src/main/resources/application-prod.properties
+
