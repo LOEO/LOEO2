@@ -16,14 +16,13 @@ public class AppProperties {
 	private String adminId;
 	private String defaultScheduleId;
 	private String loginApi;
+	private String permCachePrefix;
+	private long permCacheExpire;
 	/**
 	 * 用户默认密码
 	 */
 	private String userDefaultPassword;
-	/**
-	 * 洗消流程中：上一步没有达到最小时长要求，是否允许下一步
-	 */
-	private boolean allowTheNextStep;
+
 
 	public String getDefaultScheduleId() {
 		return defaultScheduleId;
@@ -40,13 +39,6 @@ public class AppProperties {
 	public void setUserDefaultPassword(String userDefaultPassword) {
 		this.userDefaultPassword = userDefaultPassword;
 	}
-	public boolean isAllowTheNextStep() {
-		return allowTheNextStep;
-	}
-
-	public void setAllowTheNextStep(boolean allowTheNextStep) {
-		this.allowTheNextStep = allowTheNextStep;
-	}
 
 	public String getAdminId() {
 		return adminId;
@@ -62,5 +54,21 @@ public class AppProperties {
 
 	public void setLoginApi(String loginApi) {
 		this.loginApi = loginApi;
+	}
+
+	public String getPermCachePrefix() {
+		return permCachePrefix;
+	}
+
+	public void setPermCachePrefix(String permCachePrefix) {
+		this.permCachePrefix = permCachePrefix;
+	}
+
+	public long getPermCacheExpire() {
+		return permCacheExpire;
+	}
+
+	public void setPermCacheExpire(long permCacheExpire) {
+		this.permCacheExpire = permCacheExpire;
 	}
 }

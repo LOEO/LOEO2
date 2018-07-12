@@ -6,6 +6,10 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.loeo.admin.domain.enums.PrivilegeMasterEnum;
+import com.loeo.admin.service.SysUserRoleService;
+import com.loeo.base.config.properties.AppProperties;
+import org.apache.shiro.cache.CacheManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +36,12 @@ public class SysPrivilegeServiceImpl extends BaseServiceImpl<SysPrivilegeMapper,
 	private SysPrivilegeMapper privilegeMapper;
 	@Resource
 	private SysResourceService resourceService;
+	@Resource
+	private CacheManager cacheManager;
+	@Resource
+	private AppProperties appProperties;
+	@Resource
+	private SysUserRoleService sysUserRoleService;
 
 
 	@Override
@@ -42,6 +52,7 @@ public class SysPrivilegeServiceImpl extends BaseServiceImpl<SysPrivilegeMapper,
 			boolean result = insertBatch(convert2Privileges(menuAndButtons, master, masterValue));
 			System.out.println(result);
 		}
+		clearPermCache(master, masterValue);
 	}
 
 	@Override
@@ -58,6 +69,22 @@ public class SysPrivilegeServiceImpl extends BaseServiceImpl<SysPrivilegeMapper,
 	@Override
 	public boolean isExistByMasterAndMasterValue(String master, Serializable masterValue) {
 		return privilegeMapper.isExistByMasterAndMasterValue(master, masterValue);
+	}
+
+	private void clearPermCache(String master, String masterValue) {
+		org.apache.shiro.cache.Cache<String, Object> cache = cacheManager.getCache(appProperties.getPermCachePrefix());
+		switch (PrivilegeMasterEnum.valueOf(master.toUpperCase())) {
+			case USER:
+				cache.remove(masterValue);
+				break;
+			case ROLE:
+				List<String> userIds = sysUserRoleService.findUserIdByRoleId(masterValue);
+				userIds.forEach(userId -> cache.remove(masterValue));
+				break;
+			case ORG:
+				break;
+			default:
+		}
 	}
 
 	private List<SysPrivilege> convert2Privileges(List<MenuAndButton> menuAndButtons, String master, String masterValue) {

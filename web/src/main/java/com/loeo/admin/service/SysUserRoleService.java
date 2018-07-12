@@ -18,5 +18,7 @@ import com.loeo.admin.domain.entity.SysUserRole;
 public interface SysUserRoleService extends IService<SysUserRole> {
 	List<SysUserRole> findRolesByUserId(Serializable userId);
 
+	List<String> findUserIdByRoleId(Serializable roleId);
+
 	void saveUserRoles(List<SysRole> roleList, Serializable userId);
 }

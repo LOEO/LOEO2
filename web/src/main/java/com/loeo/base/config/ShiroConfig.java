@@ -5,8 +5,12 @@ import java.util.Map;
 
 import javax.servlet.Filter;
 
+import com.loeo.base.cache.RedisUtils;
+import com.loeo.base.config.properties.AppProperties;
+import com.loeo.base.shiro.cache.RedisCacheManager;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.realm.Realm;
@@ -16,7 +20,6 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.ApplicationListener;
@@ -41,9 +44,11 @@ public class ShiroConfig implements ApplicationRunner, ApplicationListener<Resou
 	private final SysPermFilter sysPermFilter = new SysDataFilter();
 
 	@Bean
-	public Realm realm(CredentialsMatcher credentialsMatcher, @Value("${app.admin-id}") String adminId) {
-		AuthorizingRealm realm = new LoeoRealm(adminId);
+	public Realm realm(CredentialsMatcher credentialsMatcher, CacheManager cacheManager, AppProperties appProperties) {
+		AuthorizingRealm realm = new LoeoRealm(appProperties.getAdminId());
+		realm.setAuthorizationCacheName(appProperties.getPermCachePrefix());
 		realm.setCredentialsMatcher(credentialsMatcher);
+		realm.setCacheManager(cacheManager);
 		return realm;
 	}
 
@@ -55,6 +60,11 @@ public class ShiroConfig implements ApplicationRunner, ApplicationListener<Resou
 		return new HashedCredentialsMatcher(ShiroConfig.HASH_ALGORITHM_NAME);
 	}
 
+	@Bean
+	public CacheManager cacheManager(AppProperties appProperties, RedisUtils redisUtils) {
+		return new RedisCacheManager(appProperties.getPermCacheExpire(), redisUtils);
+	}
+
 	/**
 	 * 通过ShiroFilterFactoryBean 初始化shiro
 	 *
@@ -63,7 +73,7 @@ public class ShiroConfig implements ApplicationRunner, ApplicationListener<Resou
 	 */
 	@Bean
 	@Lazy
-	public ShiroFilterFactoryBean shiroFilterFactoryBean(org.apache.shiro.mgt.SecurityManager securityManager, @Value("${app.login-api}") String loginApi) {
+	public ShiroFilterFactoryBean shiroFilterFactoryBean(org.apache.shiro.mgt.SecurityManager securityManager, AppProperties appProperties) {
 		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 		shiroFilterFactoryBean.setSecurityManager(securityManager);
 		shiroFilterFactoryBean.setLoginUrl("/login");
@@ -79,7 +89,7 @@ public class ShiroConfig implements ApplicationRunner, ApplicationListener<Resou
 		filterChainDefinitionMap.put("/actuator/**", "anon");
 		filterChainDefinitionMap.put("/**", "user,sysPerm");
 		Map<String, Filter> filters = new LinkedHashMap<>();
-		sysPermFilter.setLoginApi(loginApi);
+		sysPermFilter.setLoginApi(appProperties.getLoginApi());
 		filters.put("sysPerm", sysPermFilter);
 		shiroFilterFactoryBean.setFilters(filters);
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);

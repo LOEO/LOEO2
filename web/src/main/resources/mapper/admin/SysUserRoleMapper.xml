@@ -13,5 +13,8 @@
 			(#{userId},#{role.id})
 		</foreach>
 	</insert>
+	<select id="findUserIdByRoleId" resultType="java.lang.String">
+		select user_id from sys_user_role where role_id=#{roleId}
+	</select>
 
 </mapper>

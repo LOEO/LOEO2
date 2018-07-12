@@ -35,6 +35,11 @@ public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRoleMapper, S
 		return selectList(new EntityWrapper<SysUserRole>().eq("user_id",userId));
 	}
 
+	@Override
+	public List<String> findUserIdByRoleId(Serializable roleId) {
+		return sysUserRoleMapper.findUserIdByRoleId(roleId);
+	}
+
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void saveUserRoles(List<SysRole> roleList, Serializable userId) {

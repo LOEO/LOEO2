@@ -22,4 +22,6 @@ import com.loeo.admin.domain.entity.SysUserRole;
 public interface SysUserRoleMapper extends BaseMapper<SysUserRole> {
 
 	void saveUserRoles(@Param("roles") List<SysRole> roles, @Param("userId") Serializable userId);
+
+    List<String> findUserIdByRoleId(@Param("roleId") Serializable roleId);
 }

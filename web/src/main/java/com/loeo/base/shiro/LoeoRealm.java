@@ -71,6 +71,11 @@ public class LoeoRealm extends AuthorizingRealm {
 		);
 	}
 
+	@Override
+	protected Object getAuthorizationCacheKey(PrincipalCollection principals) {
+		return ((SysUser)principals.getPrimaryPrincipal()).getId();
+	}
+
 	private ShiroService getShiroService() {
 		if (this.shiroService == null) {
 			synchronized (this) {
