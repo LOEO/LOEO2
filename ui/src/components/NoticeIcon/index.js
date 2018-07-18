@@ -7,6 +7,8 @@ import styles from './index.less';
 const { TabPane } = Tabs;
 
 export default class NoticeIcon extends PureComponent {
+  static Tab = TabPane;
+
   static defaultProps = {
     onItemClick: () => {},
     onPopupVisibleChange: () => {},
@@ -19,7 +21,7 @@ export default class NoticeIcon extends PureComponent {
     },
     emptyImage: 'https://gw.alipayobjects.com/zos/rmsportal/wAhyIChODzsoKIOBHcBk.svg',
   };
-  static Tab = TabPane;
+
   constructor(props) {
     super(props);
     this.state = {};
@@ -27,29 +29,35 @@ export default class NoticeIcon extends PureComponent {
       this.state.tabType = props.children[0].props.title;
     }
   }
+
   onItemClick = (item, tabProps) => {
     const { onItemClick } = this.props;
     onItemClick(item, tabProps);
-  }
-  onTabChange = (tabType) => {
+  };
+
+  onTabChange = tabType => {
     this.setState({ tabType });
-    this.props.onTabChange(tabType);
-  }
+    const { onTabChange } = this.props;
+    onTabChange(tabType);
+  };
+
   getNotificationBox() {
-    const { children, loading, locale } = this.props;
+    const { children, loading, locale, onClear } = this.props;
     if (!children) {
       return null;
     }
-    const panes = React.Children.map(children, (child) => {
-      const title = child.props.list && child.props.list.length > 0
-        ? `${child.props.title} (${child.props.list.length})` : child.props.title;
+    const panes = React.Children.map(children, child => {
+      const title =
+        child.props.list && child.props.list.length > 0
+          ? `${child.props.title} (${child.props.list.length})`
+          : child.props.title;
       return (
         <TabPane tab={title} key={child.props.title}>
           <List
             {...child.props}
             data={child.props.list}
             onClick={item => this.onItemClick(item, child.props)}
-            onClear={() => this.props.onClear(child.props.title)}
+            onClear={() => onClear(child.props.title)}
             title={child.props.title}
             locale={locale}
           />
@@ -64,8 +72,9 @@ export default class NoticeIcon extends PureComponent {
       </Spin>
     );
   }
+
   render() {
-    const { className, count, popupAlign, onPopupVisibleChange } = this.props;
+    const { className, count, popupAlign, onPopupVisibleChange, popupVisible } = this.props;
     const noticeButtonClass = classNames(className, styles.noticeButton);
     const notificationBox = this.getNotificationBox();
     const trigger = (
@@ -80,7 +89,7 @@ export default class NoticeIcon extends PureComponent {
     }
     const popoverProps = {};
     if ('popupVisible' in this.props) {
-      popoverProps.visible = this.props.popupVisible;
+      popoverProps.visible = popupVisible;
     }
     return (
       <Popover

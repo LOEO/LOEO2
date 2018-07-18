@@ -35,14 +35,17 @@ export default class Register extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    const account = this.props.form.getFieldValue('mail');
+    const { form, dispatch } = this.props;
+    const account = form.getFieldValue('mail');
     if (nextProps.register.status === 'ok') {
-      this.props.dispatch(routerRedux.push({
-        pathname: '/user/register-result',
-        state: {
-          account,
-        },
-      }));
+      dispatch(
+        routerRedux.push({
+          pathname: '/user/register-result',
+          state: {
+            account,
+          },
+        })
+      );
     }
   }
 
@@ -74,24 +77,27 @@ export default class Register extends Component {
     return 'poor';
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
-    this.props.form.validateFields({ force: true }, (err, values) => {
+    const { form, dispatch } = this.props;
+    form.validateFields({ force: true }, (err, values) => {
+      const { prefix } = this.state;
       if (!err) {
-        this.props.dispatch({
+        dispatch({
           type: 'register/submit',
           payload: {
             ...values,
-            prefix: this.state.prefix,
+            prefix,
           },
         });
       }
     });
   };
 
-  handleConfirmBlur = (e) => {
+  handleConfirmBlur = e => {
     const { value } = e.target;
-    this.setState({ confirmDirty: this.state.confirmDirty || !!value });
+    const { confirmDirty } = this.state;
+    this.setState({ confirmDirty: confirmDirty || !!value });
   };
 
   checkConfirm = (rule, value, callback) => {
@@ -114,7 +120,8 @@ export default class Register extends Component {
       this.setState({
         help: '',
       });
-      if (!this.state.visible) {
+      const { visible, confirmDirty } = this.state;
+      if (!visible) {
         this.setState({
           visible: !!value,
         });
@@ -123,7 +130,7 @@ export default class Register extends Component {
         callback('error');
       } else {
         const { form } = this.props;
-        if (value && this.state.confirmDirty) {
+        if (value && confirmDirty) {
           form.validateFields(['confirm'], { force: true });
         }
         callback();
@@ -131,7 +138,7 @@ export default class Register extends Component {
     }
   };
 
-  changePrefix = (value) => {
+  changePrefix = value => {
     this.setState({
       prefix: value,
     });
@@ -157,7 +164,7 @@ export default class Register extends Component {
   render() {
     const { form, submitting } = this.props;
     const { getFieldDecorator } = form;
-    const { count, prefix } = this.state;
+    const { count, prefix, help, visible } = this.state;
     return (
       <div className={styles.main}>
         <h3>注册</h3>
@@ -176,7 +183,7 @@ export default class Register extends Component {
               ],
             })(<Input size="large" placeholder="邮箱" />)}
           </FormItem>
-          <FormItem help={this.state.help}>
+          <FormItem help={help}>
             <Popover
               content={
                 <div style={{ padding: '4px 0' }}>
@@ -189,7 +196,7 @@ export default class Register extends Component {
               }
               overlayStyle={{ width: 240 }}
               placement="right"
-              visible={this.state.visible}
+              visible={visible}
             >
               {getFieldDecorator('password', {
                 rules: [
@@ -197,13 +204,7 @@ export default class Register extends Component {
                     validator: this.checkPassword,
                   },
                 ],
-              })(
-                <Input
-                  size="large"
-                  type="password"
-                  placeholder="至少6位密码，区分大小写"
-                />
-              )}
+              })(<Input size="large" type="password" placeholder="至少6位密码，区分大小写" />)}
             </Popover>
           </FormItem>
           <FormItem>
@@ -241,13 +242,7 @@ export default class Register extends Component {
                     message: '手机号格式错误！',
                   },
                 ],
-              })(
-                <Input
-                  size="large"
-                  style={{ width: '80%' }}
-                  placeholder="11位手机号"
-                />
-              )}
+              })(<Input size="large" style={{ width: '80%' }} placeholder="11位手机号" />)}
             </InputGroup>
           </FormItem>
           <FormItem>

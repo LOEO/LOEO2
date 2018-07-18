@@ -25,7 +25,6 @@ export default {
     },
     *list(_,{ call, put }){
       const response = yield call(userList,_.payload);
-      debugger;
       yield put({
         type: 'userList',
         payload: response
@@ -41,9 +40,10 @@ export default {
       };
     },
     saveCurrentUser(state, action) {
+      debugger;
       return {
         ...state,
-        currentUser: action.payload,
+        currentUser: action.payload.data,
       };
     },
     userList(state, action) {

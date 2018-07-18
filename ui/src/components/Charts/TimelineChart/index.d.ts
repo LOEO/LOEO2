@@ -1,5 +1,5 @@
-import * as React from "react";
-export interface TimelineChartProps {
+import * as React from 'react';
+export interface ITimelineChartProps {
   data: Array<{
     x: string;
     y1: string;
@@ -11,7 +11,4 @@ export interface TimelineChartProps {
   style?: React.CSSProperties;
 }
 
-export default class TimelineChart extends React.Component<
-  TimelineChartProps,
-  any
-> {}
+export default class TimelineChart extends React.Component<ITimelineChartProps, any> {}

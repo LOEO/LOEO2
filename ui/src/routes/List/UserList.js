@@ -33,7 +33,7 @@ const columns = [
     title: '生日',
     dataIndex: 'birthday',
     sorter: true,
-    render: val => <span>{moment(val).format('YYYY-MM-DD HH:mm:ss')}</span>,
+    render: val => <span>{moment(val).format('YYYY-MM-DD')}</span>,
   },{
     title: '邮箱',
     dataIndex: 'email',
@@ -332,8 +332,16 @@ export default class TableList extends PureComponent {
   }
 
   render() {
-    const { user: { data }, loading } = this.props;
+    const { user: { data: { records: list, current, total, size }}, loading } = this.props;
     const { selectedRows, modalVisible } = this.state;
+    const data = {
+      list,
+      pagination: {
+        current, total, size, defaultPageSize:2
+      }
+    };
+    debugger;
+
     const menu = (
       <Menu onClick={this.handleMenuClick} selectedKeys={[]}>
         <Menu.Item key="remove">删除</Menu.Item>

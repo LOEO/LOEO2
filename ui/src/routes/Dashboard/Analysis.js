@@ -24,9 +24,9 @@ import {
   Bar,
   Pie,
   TimelineChart,
-} from '../../components/Charts';
-import Trend from '../../components/Trend';
-import NumberInfo from '../../components/NumberInfo';
+} from 'components/Charts';
+import Trend from 'components/Trend';
+import NumberInfo from 'components/NumberInfo';
 import { getTimeDistance } from '../../utils/utils';
 
 import styles from './Analysis.less';
@@ -42,6 +42,12 @@ for (let i = 0; i < 7; i += 1) {
   });
 }
 
+const Yuan = ({ children }) => (
+  <span
+    dangerouslySetInnerHTML={{ __html: yuan(children) }} /* eslint-disable-line react/no-danger */
+  />
+);
+
 @connect(({ chart, loading }) => ({
   chart,
   loading: loading.effects['chart/fetch'],
@@ -54,7 +60,8 @@ export default class Analysis extends Component {
   };
 
   componentDidMount() {
-    this.props.dispatch({
+    const { dispatch } = this.props;
+    dispatch({
       type: 'chart/fetch',
     });
   }
@@ -66,34 +73,36 @@ export default class Analysis extends Component {
     });
   }
 
-  handleChangeSalesType = (e) => {
+  handleChangeSalesType = e => {
     this.setState({
       salesType: e.target.value,
     });
   };
 
-  handleTabChange = (key) => {
+  handleTabChange = key => {
     this.setState({
       currentTabKey: key,
     });
   };
 
-  handleRangePickerChange = (rangePickerValue) => {
+  handleRangePickerChange = rangePickerValue => {
     this.setState({
       rangePickerValue,
     });
 
-    this.props.dispatch({
+    const { dispatch } = this.props;
+    dispatch({
       type: 'chart/fetchSalesData',
     });
   };
 
-  selectDate = (type) => {
+  selectDate = type => {
     this.setState({
       rangePickerValue: getTimeDistance(type),
     });
 
-    this.props.dispatch({
+    const { dispatch } = this.props;
+    dispatch({
       type: 'chart/fetchSalesData',
     });
   };
@@ -130,7 +139,9 @@ export default class Analysis extends Component {
     const salesPieData =
       salesType === 'all'
         ? salesTypeData
-        : salesType === 'online' ? salesTypeDataOnline : salesTypeDataOffline;
+        : salesType === 'online'
+          ? salesTypeDataOnline
+          : salesTypeDataOffline;
 
     const menu = (
       <Menu>
@@ -197,7 +208,10 @@ export default class Analysis extends Component {
         sorter: (a, b) => a.range - b.range,
         render: (text, record) => (
           <Trend flag={record.status === 1 ? 'down' : 'up'}>
-            <span style={{ marginRight: 4 }}>{text}%</span>
+            <span style={{ marginRight: 4 }}>
+              {text}
+              %
+            </span>
           </Trend>
         ),
         align: 'right',
@@ -247,20 +261,23 @@ export default class Analysis extends Component {
             <ChartCard
               bordered={false}
               title="总销售额"
+              loading={loading}
               action={
                 <Tooltip title="指标说明">
                   <Icon type="info-circle-o" />
                 </Tooltip>
               }
-              total={yuan(126560)}
+              total={() => <Yuan>126560</Yuan>}
               footer={<Field label="日均销售额" value={`￥${numeral(12423).format('0,0')}`} />}
               contentHeight={46}
             >
               <Trend flag="up" style={{ marginRight: 16 }}>
-                周同比<span className={styles.trendText}>12%</span>
+                周同比
+                <span className={styles.trendText}>12%</span>
               </Trend>
               <Trend flag="down">
-                日环比<span className={styles.trendText}>11%</span>
+                日环比
+                <span className={styles.trendText}>11%</span>
               </Trend>
             </ChartCard>
           </Col>
@@ -268,6 +285,7 @@ export default class Analysis extends Component {
             <ChartCard
               bordered={false}
               title="访问量"
+              loading={loading}
               action={
                 <Tooltip title="指标说明">
                   <Icon type="info-circle-o" />
@@ -284,6 +302,7 @@ export default class Analysis extends Component {
             <ChartCard
               bordered={false}
               title="支付笔数"
+              loading={loading}
               action={
                 <Tooltip title="指标说明">
                   <Icon type="info-circle-o" />
@@ -300,6 +319,7 @@ export default class Analysis extends Component {
             <ChartCard
               bordered={false}
               title="运营活动效果"
+              loading={loading}
               action={
                 <Tooltip title="指标说明">
                   <Icon type="info-circle-o" />
@@ -309,10 +329,12 @@ export default class Analysis extends Component {
               footer={
                 <div style={{ whiteSpace: 'nowrap', overflow: 'hidden' }}>
                   <Trend flag="up" style={{ marginRight: 16 }}>
-                    周同比<span className={styles.trendText}>12%</span>
+                    周同比
+                    <span className={styles.trendText}>12%</span>
                   </Trend>
                   <Trend flag="down">
-                    日环比<span className={styles.trendText}>11%</span>
+                    日环比
+                    <span className={styles.trendText}>11%</span>
                   </Trend>
                 </div>
               }
@@ -451,9 +473,9 @@ export default class Analysis extends Component {
               <Pie
                 hasLegend
                 subTitle="销售额"
-                total={yuan(salesPieData.reduce((pre, now) => now.y + pre, 0))}
+                total={() => <Yuan>{salesPieData.reduce((pre, now) => now.y + pre, 0)}</Yuan>}
                 data={salesPieData}
-                valueFormat={val => yuan(val)}
+                valueFormat={value => <Yuan>{value}</Yuan>}
                 height={248}
                 lineWidth={4}
               />

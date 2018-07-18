@@ -3,10 +3,10 @@ import moment from 'moment';
 import { connect } from 'dva';
 import { Row, Col, Form, Card, Select, List } from 'antd';
 
-import StandardFormRow from '../../components/StandardFormRow';
-import TagSelect from '../../components/TagSelect';
-import AvatarList from '../../components/AvatarList';
-import Ellipsis from '../../components/Ellipsis';
+import TagSelect from 'components/TagSelect';
+import AvatarList from 'components/AvatarList';
+import Ellipsis from 'components/Ellipsis';
+import StandardFormRow from 'components/StandardFormRow';
 
 import styles from './Projects.less';
 
@@ -21,7 +21,8 @@ const FormItem = Form.Item;
 }))
 export default class CoverCardList extends PureComponent {
   componentDidMount() {
-    this.props.dispatch({
+    const { dispatch } = this.props;
+    dispatch({
       type: 'list/fetch',
       payload: {
         count: 8,
@@ -33,7 +34,7 @@ export default class CoverCardList extends PureComponent {
     const { form, dispatch } = this.props;
     // setTimeout 用于保证获取表单值是在所有表单字段更新完毕的时候
     setTimeout(() => {
-      form.validateFields((err) => {
+      form.validateFields(err => {
         if (!err) {
           // eslint-disable-next-line
           dispatch({
@@ -45,10 +46,14 @@ export default class CoverCardList extends PureComponent {
         }
       });
     }, 0);
-  }
+  };
 
   render() {
-    const { list: { list = [] }, loading, form } = this.props;
+    const {
+      list: { list = [] },
+      loading,
+      form,
+    } = this.props;
     const { getFieldDecorator } = form;
 
     const cardList = list ? (
@@ -72,15 +77,13 @@ export default class CoverCardList extends PureComponent {
                 <span>{moment(item.updatedAt).fromNow()}</span>
                 <div className={styles.avatarList}>
                   <AvatarList size="mini">
-                    {
-                      item.members.map((member, i) => (
-                        <AvatarList.Item
-                          key={`${item.id}-avatar-${i}`}
-                          src={member.avatar}
-                          tips={member.name}
-                        />
-                      ))
-                    }
+                    {item.members.map((member, i) => (
+                      <AvatarList.Item
+                        key={`${item.id}-avatar-${i}`}
+                        src={member.avatar}
+                        tips={member.name}
+                      />
+                    ))}
                   </AvatarList>
                 </div>
               </div>
@@ -121,17 +124,10 @@ export default class CoverCardList extends PureComponent {
                 )}
               </FormItem>
             </StandardFormRow>
-            <StandardFormRow
-              title="其它选项"
-              grid
-              last
-            >
+            <StandardFormRow title="其它选项" grid last>
               <Row gutter={16}>
                 <Col lg={8} md={10} sm={10} xs={24}>
-                  <FormItem
-                    {...formItemLayout}
-                    label="作者"
-                  >
+                  <FormItem {...formItemLayout} label="作者">
                     {getFieldDecorator('author', {})(
                       <Select
                         onChange={this.handleFormSubmit}
@@ -144,10 +140,7 @@ export default class CoverCardList extends PureComponent {
                   </FormItem>
                 </Col>
                 <Col lg={8} md={10} sm={10} xs={24}>
-                  <FormItem
-                    {...formItemLayout}
-                    label="好评度"
-                  >
+                  <FormItem {...formItemLayout} label="好评度">
                     {getFieldDecorator('rate', {})(
                       <Select
                         onChange={this.handleFormSubmit}
@@ -164,9 +157,7 @@ export default class CoverCardList extends PureComponent {
             </StandardFormRow>
           </Form>
         </Card>
-        <div className={styles.cardList}>
-          {cardList}
-        </div>
+        <div className={styles.cardList}>{cardList}</div>
       </div>
     );
   }
