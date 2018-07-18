@@ -3,12 +3,7 @@ package com.loeo.admin.web;
 import javax.annotation.Resource;
 
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import com.loeo.admin.domain.dto.LoginDto;
 import com.loeo.admin.domain.entity.SysUser;
@@ -23,6 +18,7 @@ import com.loeo.base.Result;
 @RestController
 @RequestMapping("/api")
 @SessionAttributes("user")
+@CrossOrigin("*")
 public class LoginController {
 	@Resource
 	private ShiroService shiroService;

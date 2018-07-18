@@ -12,3 +12,10 @@ export async function queryCurrent() {
 export async function list(params) {
   return request(`/api/users?${stringify(params)}`);
 }
+
+export async function add(params) {
+  return request('/api/users', {
+    method: 'POST',
+    body: params,
+  });
+}

@@ -1,4 +1,9 @@
-import { query as queryUsers, queryCurrent, list as userList } from '../services/user';
+import {
+  query as queryUsers,
+  queryCurrent,
+  list as userList,
+  add as addUser,
+} from '../services/user';
 
 export default {
   namespace: 'user',
@@ -23,13 +28,26 @@ export default {
         payload: response,
       });
     },
-    *list(_,{ call, put }){
-      const response = yield call(userList,_.payload);
+    *list(_, { call, put }) {
+      const response = yield call(userList, _.payload);
       yield put({
         type: 'userList',
-        payload: response
+        payload: response,
       });
-    }
+    },
+    *add({ payload, callback }, { call, put }) {
+      debugger;
+      const response = yield call(addUser, payload);
+      if (callback) {
+        if (!callback(response)) {
+          return;
+        }
+      }
+      yield put({
+        type: 'save',
+        payload: response,
+      });
+    },
   },
 
   reducers: {
@@ -49,8 +67,8 @@ export default {
     userList(state, action) {
       return {
         ...state,
-        data: action.payload.data
-      }
+        data: action.payload.data,
+      };
     },
     changeNotifyCount(state, action) {
       return {
