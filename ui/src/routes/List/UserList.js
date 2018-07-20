@@ -32,7 +32,7 @@ const getValue = obj =>
     .join(',');
 const statusMap = ['default', 'processing', 'success', 'error'];
 const status = ['关闭', '运行中', '已上线', '异常'];
-const columns = [
+/*const columns = [
   {
     title: '用户名',
     dataIndex: 'username',
@@ -63,13 +63,13 @@ const columns = [
     title: '操作',
     render: () => (
       <Fragment>
-        <a href="">配置</a>
+        <a href="javascript:void(0)" onClick={()=>alert(1)}>修改</a>
         <Divider type="vertical" />
-        <a href="">订阅警报</a>
+        <a href="javascript:void(0)" onClick={()=>alert(1)} style={{color:'red'}}>删除</a>
       </Fragment>
     ),
   },
-];
+];*/
 
 const CreateForm = Form.create()(props => {
   const { modalVisible, form, handleAdd, handleModalVisible } = props;
@@ -155,6 +155,49 @@ export default class TableList extends PureComponent {
     selectedRows: [],
     formValues: {},
   };
+
+  columns = [
+    {
+      title: '用户名',
+      dataIndex: 'username',
+    },
+    {
+      title: '姓名',
+      dataIndex: 'nickname',
+    },
+    {
+      title: '性别',
+      dataIndex: 'sex',
+    },
+    {
+      title: '年龄',
+      dataIndex: 'age',
+    },
+    {
+      title: '生日',
+      dataIndex: 'birthday',
+      sorter: true,
+      render: val => <span>{moment(val).format('YYYY-MM-DD')}</span>,
+    },
+    {
+      title: '邮箱',
+      dataIndex: 'email',
+    },
+    {
+      title: '操作',
+      render: () => (
+        <Fragment>
+          <a href="javascript:void(0)" onClick={this.handleUpdate.bind(this)}>修改</a>
+          <Divider type="vertical" />
+          <a href="javascript:void(0)" onClick={()=>alert(1)} style={{color:'red'}}>删除</a>
+        </Fragment>
+      ),
+    },
+  ];
+
+  handleUpdate(){
+    console.log(this.state)
+  }
 
   componentDidMount() {
     const { dispatch } = this.props;
@@ -463,7 +506,7 @@ export default class TableList extends PureComponent {
               selectedRows={selectedRows}
               loading={loading}
               data={data}
-              columns={columns}
+              columns={this.columns}
               onSelectRow={this.handleSelectRows}
               onChange={this.handleStandardTableChange}
             />

@@ -17,6 +17,7 @@ const proxy = {
   'GET /api/currentUser': domain,
   // GET POST 可省略
   'GET /api/users': domain,
+  'GET /api/users/1/menus': domain,
   'POST /api/users': domain,
   'GET /api/project/notice': getNotice,
   'GET /api/activities': getActivities,

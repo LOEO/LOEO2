@@ -30,7 +30,7 @@ const getIcon = icon => {
  */
 export const getFlatMenuKeys = menu =>
   menu.reduce((keys, item) => {
-    keys.push(item.path);
+    keys.push(item.router);
     if (item.children) {
       return keys.concat(getFlatMenuKeys(item.children));
     }
@@ -52,7 +52,9 @@ export const getMenuMatchKeys = (flatMenuKeys, paths) =>
 export default class SiderMenu extends PureComponent {
   constructor(props) {
     super(props);
+    debugger;
     this.flatMenuKeys = getFlatMenuKeys(props.menuData);
+    debugger;
     this.state = {
       openKeys: this.getDefaultCollapsedSubMenus(props),
     };
@@ -86,7 +88,7 @@ export default class SiderMenu extends PureComponent {
    * @memberof SiderMenu
    */
   getMenuItemPath = item => {
-    const itemPath = this.conversionPath(item.path);
+    const itemPath = this.conversionPath(item.router);
     const icon = getIcon(item.icon);
     const { target, name } = item;
     // Is it a http link
@@ -124,6 +126,7 @@ export default class SiderMenu extends PureComponent {
   getSubMenuOrItem = item => {
     if (item.children && item.children.some(child => child.name)) {
       const childrenItems = this.getNavMenuItems(item.children);
+      debugger;
       // 当无子菜单时就不展示菜单
       if (childrenItems && childrenItems.length > 0) {
         return (
@@ -138,7 +141,7 @@ export default class SiderMenu extends PureComponent {
                 item.name
               )
             }
-            key={item.path}
+            key={item.router}
           >
             {childrenItems}
           </SubMenu>
@@ -146,7 +149,7 @@ export default class SiderMenu extends PureComponent {
       }
       return null;
     } else {
-      return <Menu.Item key={item.path}>{this.getMenuItemPath(item)}</Menu.Item>;
+      return <Menu.Item key={item.router}>{this.getMenuItemPath(item)}</Menu.Item>;
     }
   };
 
@@ -198,7 +201,7 @@ export default class SiderMenu extends PureComponent {
 
   isMainMenu = key => {
     const { menuData } = this.props;
-    return menuData.some(item => key && (item.key === key || item.path === key));
+    return menuData.some(item => key && (item.key === key || item.router === key));
   };
 
   handleOpenChange = openKeys => {
