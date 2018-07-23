@@ -4,20 +4,20 @@ import {
   list as userList,
   add as addUser,
 } from '../services/user';
-import {query as queryMenus} from "../services/menu";
+import { query as queryMenus } from '../services/menu';
 
-const processMenuData=(menuData,rootId)=>{
+const processMenuData = (menuData, rootId) => {
   let children = [];
-  menuData.forEach(menu=>{
-    if(menu.pid === rootId){
+  menuData.forEach(menu => {
+    if (menu.pid === rootId) {
       children.push(menu);
-      if(!menu.isLeaf){
-        menu.children = processMenuData(menuData,menu.id)
+      if (!menu.isLeaf) {
+        menu.children = processMenuData(menuData, menu.id);
       }
     }
   });
   return children;
-}
+};
 
 export default {
   namespace: 'user',
@@ -25,46 +25,45 @@ export default {
   state: {
     data: [],
     currentUser: {},
-    menus: []
+    menus: [],
   },
 
   effects: {
-    * fetch(_, {call, put}) {
+    *fetch(_, { call, put }) {
       const response = yield call(queryUsers);
       yield put({
         type: 'save',
         payload: response,
       });
     },
-    * fetchCurrent(_, {call, put}) {
+    *fetchCurrent(_, { call, put }) {
       const response = yield call(queryCurrent);
-      let menus=[];
+      let menus = [];
       if (response.success) {
         const resp = yield call(queryMenus, response.data.id);
-        menus = resp.data
+        menus = resp.data;
       }
       yield put({
         type: 'saveCurrentUserAndMenu',
         user: response.data,
-        menus: menus
+        menus: menus,
       });
     },
-    * fetchMenus(_, {call, put}) {
+    *fetchMenus(_, { call, put }) {
       const response = yield call(queryMenus, _.userId);
       yield put({
         type: 'saveMenu',
         payload: response,
       });
     },
-    * list(_, {call, put}) {
+    *list(_, { call, put }) {
       const response = yield call(userList, _.payload);
       yield put({
         type: 'userList',
         payload: response,
       });
     },
-    * add({payload, callback}, {call, put}) {
-      debugger;
+    *add({ payload, callback }, { call, put }) {
       const response = yield call(addUser, payload);
       if (callback) {
         if (!callback(response)) {
@@ -89,14 +88,14 @@ export default {
       return {
         ...state,
         currentUser: action.user,
-        menus: processMenuData(action.menus,'0')
+        menus: processMenuData(action.menus, '0'),
       };
     },
     userList(state, action) {
       return {
         ...state,
-        data: action.payload.data
-      }
+        data: action.payload.data,
+      };
     },
     changeNotifyCount(state, action) {
       return {

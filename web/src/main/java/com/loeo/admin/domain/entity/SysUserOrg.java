@@ -29,7 +29,8 @@ public class SysUserOrg extends Model<SysUserOrg> implements IdEntity {
 	private String userId;
 
 
-	public String getId() {
+	@Override
+    public String getId() {
 		return id;
 	}
 

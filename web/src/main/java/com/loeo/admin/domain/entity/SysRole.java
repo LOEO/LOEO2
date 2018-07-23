@@ -48,7 +48,8 @@ public class SysRole extends Model<SysRole> implements IdEntity {
 	private Integer enable;
 
 
-	public String getId() {
+	@Override
+    public String getId() {
 		return id;
 	}
 

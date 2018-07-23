@@ -36,6 +36,7 @@ public class SysResource extends Model<SysResource> implements IdEntity {
 	private String name;
 	private String api;
 	private String method;
+	private String router;
 	private String dataPermission;
 	@NotEmpty(groups = {Add.class, Update.class})
 	private String type;
@@ -58,6 +59,7 @@ public class SysResource extends Model<SysResource> implements IdEntity {
 	private Boolean checked;
 
 
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -88,6 +90,14 @@ public class SysResource extends Model<SysResource> implements IdEntity {
 
 	public void setMethod(String method) {
 		this.method = method;
+	}
+
+	public String getRouter() {
+		return router;
+	}
+
+	public void setRouter(String router) {
+		this.router = router;
 	}
 
 	public String getDataPermission() {

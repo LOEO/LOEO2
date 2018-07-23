@@ -8,6 +8,7 @@
 		<result column="name" property="name"/>
 		<result column="api" property="api"/>
 		<result column="method" property="method"/>
+		<result column="router" property="router"/>
 		<result column="data_permission" property="dataPermission"/>
 		<result column="type" property="type"/>
 		<result column="pid" property="pid"/>

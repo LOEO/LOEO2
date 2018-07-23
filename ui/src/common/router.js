@@ -14,7 +14,6 @@ const modelNotExisted = (app, model) =>
 
 // wrapper of dynamic
 const dynamicWrapper = (app, models, component) => {
-
   // register models
   models.forEach(model => {
     if (modelNotExisted(app, model)) {
@@ -179,6 +178,7 @@ export const getRouterData = app => {
     // },
   };
   // Get name from ./menu.js or just set it in the router data.
+  debugger;
   const menuData = getFlatMenuData(getMenuData());
 
   // Route configuration data

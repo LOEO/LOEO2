@@ -54,6 +54,7 @@ export default function request(url, options) {
   ) {
     if (!(newOptions.body instanceof FormData)) {
       newOptions.headers = {
+        'X-Requested-With': 'XMLHttpRequest',
         Accept: 'application/json',
         'Content-Type': 'application/json; charset=utf-8',
         ...newOptions.headers,
@@ -79,7 +80,7 @@ export default function request(url, options) {
     .catch(e => {
       const { dispatch } = store;
       const status = e.name;
-      if (status === 401) {
+      if (status === 401 || status === 600) {
         dispatch({
           type: 'login/logout',
         });

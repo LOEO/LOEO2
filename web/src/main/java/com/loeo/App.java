@@ -3,9 +3,13 @@ package com.loeo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.CrossOrigin;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 
 /**
  * @author LT(286269159 @ qq.com)
@@ -14,10 +18,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @SpringBootApplication
 @EnableTransactionManagement
 @EnableConfigurationProperties
-public class App {
+public class App{
 
 	public static void main(String[] args) {
 		SpringApplication.run(App.class, args);
 	}
+
 
 }

@@ -52,7 +52,8 @@ public class SysPrivilege extends Model<SysPrivilege> implements IdEntity {
 	private Date updated;
 
 
-	public String getId() {
+	@Override
+    public String getId() {
 		return id;
 	}
 

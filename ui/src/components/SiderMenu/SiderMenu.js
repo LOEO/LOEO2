@@ -52,9 +52,7 @@ export const getMenuMatchKeys = (flatMenuKeys, paths) =>
 export default class SiderMenu extends PureComponent {
   constructor(props) {
     super(props);
-    debugger;
     this.flatMenuKeys = getFlatMenuKeys(props.menuData);
-    debugger;
     this.state = {
       openKeys: this.getDefaultCollapsedSubMenus(props),
     };
@@ -89,7 +87,7 @@ export default class SiderMenu extends PureComponent {
    */
   getMenuItemPath = item => {
     const itemPath = this.conversionPath(item.router);
-    const icon = getIcon(item.icon);
+    const icon = getIcon(item.iconCls);
     const { target, name } = item;
     // Is it a http link
     if (/^https?:\/\//.test(itemPath)) {
@@ -126,15 +124,15 @@ export default class SiderMenu extends PureComponent {
   getSubMenuOrItem = item => {
     if (item.children && item.children.some(child => child.name)) {
       const childrenItems = this.getNavMenuItems(item.children);
-      debugger;
+
       // 当无子菜单时就不展示菜单
       if (childrenItems && childrenItems.length > 0) {
         return (
           <SubMenu
             title={
-              item.icon ? (
+              item.iconCls ? (
                 <span>
-                  {getIcon(item.icon)}
+                  {getIcon(item.iconCls)}
                   <span>{item.name}</span>
                 </span>
               ) : (
@@ -176,6 +174,7 @@ export default class SiderMenu extends PureComponent {
     const {
       location: { pathname },
     } = this.props;
+    debugger;
     return getMenuMatchKeys(this.flatMenuKeys, urlToList(pathname));
   };
 
@@ -215,6 +214,10 @@ export default class SiderMenu extends PureComponent {
   render() {
     const { logo, menuData, collapsed, onCollapse } = this.props;
     const { openKeys } = this.state;
+    if (this.flatMenuKeys.length === 0) {
+      this.flatMenuKeys = getFlatMenuKeys(menuData);
+    }
+    debugger;
     // Don't show popup menu when it is been collapsed
     const menuProps = collapsed
       ? {}
@@ -249,6 +252,7 @@ export default class SiderMenu extends PureComponent {
           {...menuProps}
           onOpenChange={this.handleOpenChange}
           selectedKeys={selectedKeys}
+          selectable={true}
           style={{ padding: '16px 0', width: '100%' }}
         >
           {this.getNavMenuItems(menuData)}

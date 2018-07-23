@@ -66,7 +66,8 @@ public class SysUser extends Model<SysUser> implements IdEntity {
 	private Integer enable;
 
 
-	public String getId() {
+	@Override
+    public String getId() {
 		return id;
 	}
 

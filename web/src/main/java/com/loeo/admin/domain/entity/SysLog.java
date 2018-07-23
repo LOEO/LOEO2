@@ -35,7 +35,8 @@ public class SysLog extends Model<SysLog> implements IdEntity {
 	private Date created;
 
 
-	public String getId() {
+	@Override
+    public String getId() {
 		return id;
 	}
 

@@ -1,24 +1,24 @@
-import React, {Fragment} from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import {Layout, Icon, message} from 'antd';
+import { Layout, Icon, message } from 'antd';
 import DocumentTitle from 'react-document-title';
-import {connect} from 'dva';
-import {Route, Redirect, Switch, routerRedux} from 'dva/router';
-import {ContainerQuery} from 'react-container-query';
+import { connect } from 'dva';
+import { Route, Redirect, Switch, routerRedux } from 'dva/router';
+import { ContainerQuery } from 'react-container-query';
 import classNames from 'classnames';
 import pathToRegexp from 'path-to-regexp';
-import {enquireScreen, unenquireScreen} from 'enquire-js';
+import { enquireScreen, unenquireScreen } from 'enquire-js';
 import GlobalHeader from '../components/GlobalHeader';
 import GlobalFooter from '../components/GlobalFooter';
 import SiderMenu from '../components/SiderMenu';
 import NotFound from '../routes/Exception/404';
-import {getRoutes} from '../utils/utils';
+import { getRoutes } from '../utils/utils';
 import Authorized from '../utils/Authorized';
-import {getMenuData} from '../common/menu';
+import { getMenuData } from '../common/menu';
 import logo from '../assets/logo.svg';
 
-const {Content, Header, Footer} = Layout;
-const {AuthorizedRoute, check} = Authorized;
+const { Content, Header, Footer } = Layout;
+const { AuthorizedRoute, check } = Authorized;
 
 /**
  * 根据菜单取得重定向地址.
@@ -95,11 +95,11 @@ class BasicLayout extends React.PureComponent {
   };
 
   state = {
-    isMobile
+    isMobile,
   };
 
   getChildContext() {
-    const {location, routerData} = this.props;
+    const { location, routerData } = this.props;
     return {
       location,
       breadcrumbNameMap: getBreadcrumbNameMap(getMenuData(), routerData),
@@ -112,11 +112,10 @@ class BasicLayout extends React.PureComponent {
         isMobile: mobile,
       });
     });
-    const {dispatch} = this.props;
+    const { dispatch } = this.props;
     dispatch({
       type: 'user/fetchCurrent',
     });
-
   }
 
   componentWillUnmount() {
@@ -124,8 +123,8 @@ class BasicLayout extends React.PureComponent {
   }
 
   getPageTitle() {
-    const {routerData, location} = this.props;
-    const {pathname} = location;
+    const { routerData, location } = this.props;
+    const { pathname } = location;
     let title = 'Ant Design Pro';
     let currRouterData = null;
     // match params path
@@ -151,7 +150,7 @@ class BasicLayout extends React.PureComponent {
       urlParams.searchParams.delete('redirect');
       window.history.replaceState(null, 'redirect', urlParams.href);
     } else {
-      const {routerData} = this.props;
+      const { routerData } = this.props;
       // get the first authorized route path in routerData
       const authorizedPath = Object.keys(routerData).find(
         item => check(routerData[item].authority, item) && item !== '/'
@@ -162,7 +161,7 @@ class BasicLayout extends React.PureComponent {
   };
 
   handleMenuCollapse = collapsed => {
-    const {dispatch} = this.props;
+    const { dispatch } = this.props;
     dispatch({
       type: 'global/changeLayoutCollapsed',
       payload: collapsed,
@@ -171,15 +170,15 @@ class BasicLayout extends React.PureComponent {
 
   handleNoticeClear = type => {
     message.success(`清空了${type}`);
-    const {dispatch} = this.props;
+    const { dispatch } = this.props;
     dispatch({
       type: 'global/clearNotices',
       payload: type,
     });
   };
 
-  handleMenuClick = ({key}) => {
-    const {dispatch} = this.props;
+  handleMenuClick = ({ key }) => {
+    const { dispatch } = this.props;
     if (key === 'triggerError') {
       dispatch(routerRedux.push('/exception/trigger'));
       return;
@@ -192,7 +191,7 @@ class BasicLayout extends React.PureComponent {
   };
 
   handleNoticeVisibleChange = visible => {
-    const {dispatch} = this.props;
+    const { dispatch } = this.props;
     if (visible) {
       dispatch({
         type: 'global/fetchNotices',
@@ -211,9 +210,7 @@ class BasicLayout extends React.PureComponent {
       location,
       menus,
     } = this.props;
-
-    debugger;
-    const {isMobile: mb} = this.state;
+    const { isMobile: mb } = this.state;
     const bashRedirect = this.getBaseRedirect();
     const layout = (
       <Layout>
@@ -230,7 +227,7 @@ class BasicLayout extends React.PureComponent {
           onCollapse={this.handleMenuCollapse}
         />
         <Layout>
-          <Header style={{padding: 0}}>
+          <Header style={{ padding: 0 }}>
             <GlobalHeader
               logo={logo}
               currentUser={currentUser}
@@ -244,10 +241,10 @@ class BasicLayout extends React.PureComponent {
               onNoticeVisibleChange={this.handleNoticeVisibleChange}
             />
           </Header>
-          <Content style={{margin: '24px 24px 0', height: '100%'}}>
+          <Content style={{ margin: '24px 24px 0', height: '100%' }}>
             <Switch>
               {redirectData.map(item => (
-                <Redirect key={item.from} exact from={item.from} to={item.to}/>
+                <Redirect key={item.from} exact from={item.from} to={item.to} />
               ))}
               {getRoutes(match.path, routerData).map(item => (
                 <AuthorizedRoute
@@ -259,11 +256,11 @@ class BasicLayout extends React.PureComponent {
                   redirectPath="/exception/403"
                 />
               ))}
-              <Redirect exact from="/" to={bashRedirect}/>
-              <Route render={NotFound}/>
+              <Redirect exact from="/" to={bashRedirect} />
+              <Route render={NotFound} />
             </Switch>
           </Content>
-          <Footer style={{padding: 0}}>
+          <Footer style={{ padding: 0 }}>
             <GlobalFooter
               links={[
                 {
@@ -274,7 +271,7 @@ class BasicLayout extends React.PureComponent {
                 },
                 {
                   key: 'github',
-                  title: <Icon type="github"/>,
+                  title: <Icon type="github" />,
                   href: 'https://github.com/ant-design/ant-design-pro',
                   blankTarget: true,
                 },
@@ -287,7 +284,7 @@ class BasicLayout extends React.PureComponent {
               ]}
               copyright={
                 <Fragment>
-                  Copyright <Icon type="copyright"/> 2018 蚂蚁金服体验技术部出品
+                  Copyright <Icon type="copyright" /> 2018 蚂蚁金服体验技术部出品
                 </Fragment>
               }
             />
@@ -306,15 +303,14 @@ class BasicLayout extends React.PureComponent {
   }
 }
 
-const mapStateToProps = ({user, global = {}, loading}) => {
-  debugger;
+const mapStateToProps = ({ user, global = {}, loading }) => {
   return {
     currentUser: user.currentUser,
     menus: user.menus,
     collapsed: global.collapsed,
     fetchingNotices: loading.effects['global/fetchNotices'],
     notices: global.notices,
-  }
+  };
 };
 
 export default connect(mapStateToProps)(BasicLayout);

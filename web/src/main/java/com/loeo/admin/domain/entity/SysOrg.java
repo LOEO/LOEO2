@@ -40,7 +40,8 @@ public class SysOrg extends Model<SysOrg> implements IdEntity {
 	private String updater;
 
 
-	public String getId() {
+	@Override
+    public String getId() {
 		return id;
 	}
 

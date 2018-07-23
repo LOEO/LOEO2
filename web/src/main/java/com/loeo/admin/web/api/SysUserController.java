@@ -76,8 +76,13 @@ public class SysUserController {
         return Result.success(sysUserService.findUsersByPage(currentPage, pageSize));
     }
 
-    @PostMapping("/{userId}/menus")
+    @GetMapping("/{userId}/menus")
     public Result getUserResources(@PathVariable String userId) {
+        return Result.success(sysUserService.findUserMenus(userId));
+    }
+
+    @PostMapping("/{userId}/menus")
+    public Result getUserResources1(@PathVariable String userId) {
         return Result.success(sysUserService.findUserMenus(userId));
     }
 
